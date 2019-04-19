@@ -19,17 +19,18 @@ public:
     LinkObject *audio;
     LinkObject *video;
     LinkObject *volume;
+    LinkObject *encA;
+    LinkObject *encV;
+
+    LinkObject *overlay;
+    LinkObject *snap;
     bool enable;
 protected:
     static LinkObject *httpServer;
     static LinkObject *rtspServer;
     LinkObject *udp;    
     LinkObject *udp_sub;
-    LinkObject *encA;
-    LinkObject *encV;
     LinkObject *encV2;
-    LinkObject *overlay;
-    LinkObject *snap;
 
 private:
 

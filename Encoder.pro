@@ -1,13 +1,11 @@
-QT += core network testlib   websockets
+QT += core network testlib  websockets
 QT -= gui
 
 TARGET = Encoder
-CONFIG += console  c++11
+CONFIG += console  c++14
 CONFIG -= app_bundle
 chip = HI3531D
 include(../../LinkLib/Link.pri)
-#include(../libmaia-master/maia.pri)
-
 TEMPLATE = app
 
 SOURCES += main.cpp \
@@ -36,7 +34,8 @@ SOURCES += main.cpp \
     jcon/json_rpc_tcp_client.cpp \
     jcon/json_rpc_tcp_server.cpp \
     jcon/json_rpc_tcp_socket.cpp \
-    jcon/json_rpc_websocket_client.cpp
+    jcon/json_rpc_websocket_client.cpp \
+    Record.cpp
 
 HEADERS += \
     RPC.h \
@@ -69,5 +68,6 @@ HEADERS += \
     jcon/json_rpc_tcp_server.h \
     jcon/json_rpc_tcp_socket.h \
     jcon/json_rpc_websocket_client.h \
-    Version.h
+    Version.h \
+    Record.h
 

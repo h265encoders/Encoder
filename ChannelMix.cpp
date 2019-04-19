@@ -8,6 +8,7 @@ ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
+    vgasrc=-1;
 }
 
 void ChannelMix::init()
@@ -15,18 +16,26 @@ void ChannelMix::init()
     audio->linkA(encA);
     overlay->linkV(encV);
     overlay->linkV(encV2);
-    output=Link::create("OutputVo");
+
+    outputV2=Link::create("OutputVo");
     outputA=Link::create("OutputAo");
-    video->linkV(output);
+#ifdef HI3559A
+    outputV=video;
+#else
+    outputV=Link::create("OutputVo");
+    video->linkV(outputV);
+#endif
     QVariantMap aoData;
     aoData["interface"]="HDMI-OUT";
     outputA->start(aoData);
     audio->linkA(outputA);
 
+#ifndef HI3559A
     audioMiniOut=Link::create("OutputAo");
     aoData["interface"]="Mini-Out";
     audioMiniOut->start(aoData);
     audio->linkA(audioMiniOut);
+#endif
     Channel::init();
 }
 
@@ -95,16 +104,39 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         encA->start(cfg["enca"].toMap());
         encV->start(cfg["encv"].toMap());
         encV2->start(cfg["encv2"].toMap());
-        output->start(cfg["output"].toMap());
+#ifndef HI3559A
+        outputV->start(cfg["output"].toMap());
+#endif
+        {
+            QVariantMap out2=cfg["output2"].toMap();
+            if(out2["enable"].toBool())
+            {
+
+                outputV2->start(cfg["output2"].toMap());
+                if(vgasrc!=-1)
+                {
+                    LinkObject *v=Config::findChannelById(vgasrc)->overlay;
+                    if(v!=NULL)
+                        v->unLinkV(outputV2);
+                }
+                LinkObject *v=Config::findChannelById(out2["src"].toInt())->overlay;
+                if(v!=NULL)
+                    v->linkV(outputV2);
+                vgasrc=out2["src"].toInt();
+
+            }
+            else
+                outputV2->stop();
+        }
     }
     else
     {
         audio->stop();
         encA->stop();
         encV->stop();
+        outputV->stop();
+        outputV2->stop();
     }
-
-
 
     Channel::updateConfig(cfg);
 }

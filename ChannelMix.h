@@ -12,9 +12,11 @@ public:
     virtual void updateConfig(QVariantMap cfg);
 private:
     QList<int> curAList;
-    LinkObject *output;
+    LinkObject *outputV;
+    LinkObject *outputV2;
     LinkObject *outputA;
     LinkObject *audioMiniOut;
+    int vgasrc;
 signals:
 
 public slots:

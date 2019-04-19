@@ -5,6 +5,7 @@
 #include <QFile>
 #include <QDateTime>
 #include <ChannelVI.h>
+#include "Record.h"
 
 RPC::RPC(QObject *parent) :
     QObject(parent)
@@ -19,34 +20,9 @@ void RPC::init()
     jcon::JsonRpcServer::ServiceMap map;
     map[this]="enc";
     map[group]="group";
+    map[GRecord]="rec";
     rpcServer->registerServices(map, ".");
     rpcServer->listen(6001);
-//    rpcServer = new MaiaXmlRpcServer(8080);
-//    thread.start();
-//    rpcServer->moveToThread(&thread);
-//    rpcServer->addMethod("enc.update", this, "update");
-//    rpcServer->addMethod("enc.snap", this, "snap");
-//    rpcServer->addMethod("enc.getInputState", this, "getInputState");
-//    rpcServer->addMethod("enc.getSysState", this, "getSysState");
-//    rpcServer->addMethod("enc.getNetState", this, "getNetState");
-//    rpcServer->addMethod("enc.getEPG", this, "getEPG");
-//    rpcServer->addMethod("enc.getPlayList", this, "getPlayList");
-//    rpcServer->addMethod("enc.getPlayPosition", this, "getPlayPosition");
-//    rpcServer->addMethod("enc.play", this, "play");
-//    rpcServer->addMethod("enc.getVolume", this, "getVolume");
-
-//    rpcServer->addMethod("group.update", group, "update");
-//    rpcServer->addMethod("group.getList", group, "getList");
-//    rpcServer->addMethod("group.clear", group, "clearMember");
-//    rpcServer->addMethod("group.getNetwork", group, "callGetNetwork");
-//    rpcServer->addMethod("group.setNetwork", group, "callSetNetwork");
-//    rpcServer->addMethod("group.setEncode", group, "callSetEncode");
-//    rpcServer->addMethod("group.setStream", group, "callSetStream");
-//    rpcServer->addMethod("group.reboot", group, "callReboot");
-//    rpcServer->addMethod("group.getEPG", group, "callGetEPG");
-//    rpcServer->addMethod("group.orderEPG", group, "orderEPG");
-//    rpcServer->addMethod("group.createEPG", group, "createEPG");
-//    rpcServer->addMethod("group.syncEPG", group, "callSyncEPG");
 
 
     device=Link::create("Device");

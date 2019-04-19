@@ -5,9 +5,10 @@
 #include "RPC.h"
 #include "Json.h"
 #include "Version.h"
-
+#include "Record.h"
 
 RPC *GRPC;
+Record *GRecord;
 
 int main(int argc, char *argv[])
 {
@@ -33,8 +34,13 @@ int main(int argc, char *argv[])
 
 
     Config::loadConfig(CFGPATH);
+
+    GRecord=new Record();
+    GRecord->init();
+
     GRPC=new RPC();
     GRPC->init();
+
 
     return a.exec();
 }

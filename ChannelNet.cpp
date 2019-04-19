@@ -52,6 +52,24 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         nd["protocol"]="tcp";
         nd["timeout"]=20;
 
+        int bm=cfg["net"].toMap()["bufferMode"].toInt();
+
+        if(bm==0)
+        {
+            nd["buffer"]=true;
+            nd["sync"]=false;
+        }
+        else if(bm==0)
+        {
+            nd["buffer"]=false;
+            nd["sync"]=false;
+        }
+        else if(bm==0)
+        {
+            nd["buffer"]=true;
+            nd["sync"]=true;
+        }
+
         if(encV!=net)
         {
             if(nd["path"].toString()!=url)

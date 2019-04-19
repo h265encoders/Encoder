@@ -2,7 +2,6 @@
 #define RPC_H
 
 #include <QObject>
-//#include "maiaXmlRpcServer.h"
 #include <jcon/json_rpc_websocket_server.h>
 #include "Link.h"
 #include "Group.h"
@@ -15,11 +14,9 @@ public:
     void init();
 private:
     Group *group;
-//    MaiaXmlRpcServer *rpcServer;
     jcon::JsonRpcWebSocketServer *rpcServer;
     LinkObject *device;
 
-//    QThread thread;
 signals:
 
 public slots:
