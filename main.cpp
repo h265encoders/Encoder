@@ -23,14 +23,11 @@ int main(int argc, char *argv[])
     ver=ver.sprintf("%s build %s_%d",VERSION_VER,VERSION_DATE,VERSION_BUILD);
 
     QVariantMap version=Json::loadFile("/link/config/version.json").toMap();
-    if(version["app"].toString()!=ver)
-    {
         version["app"]=ver;
         version["sdk"]=Link::getVersion()["version"].toString()
                 +" build "+Link::getVersion()["date"].toString()
                 +"_"+Link::getVersion()["build"].toString();
         Json::saveFile(version,"/link/config/version.json");
-    }
 
 
     Config::loadConfig(CFGPATH);

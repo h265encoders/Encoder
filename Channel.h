@@ -32,8 +32,6 @@ protected:
     LinkObject *udp_sub;
     LinkObject *encV2;
 
-private:
-
     QMap<QString,LinkObject*> muxMap;
     QMap<QString,LinkObject*> muxMap_sub;
 signals:
