@@ -36,6 +36,12 @@ void ChannelNet::updateConfig(QVariantMap cfg)
     {
         video->start();
         decA->start();
+        if(encV==net)
+        {
+            ev->invoke("reset");
+            encV2->invoke("reset");
+            snap->invoke("reset");
+        }
         encV=ev;
         encA=ea;
         encA->start(cfg["enca"].toMap());
