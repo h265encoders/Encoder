@@ -1,5 +1,6 @@
 #include "ChannelMix.h"
 #include "Config.h"
+#include <QFile>
 
 ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
 {
@@ -30,12 +31,14 @@ void ChannelMix::init()
     outputA->start(aoData);
     audio->linkA(outputA);
 
-#ifndef HI3559A
-    audioMiniOut=Link::create("OutputAo");
-    aoData["interface"]="Mini-Out";
-    audioMiniOut->start(aoData);
-    audio->linkA(audioMiniOut);
-#endif
+
+    if(QFile::exists("/dev/tlv320aic31"))
+    {
+        audioMiniOut=Link::create("OutputAo");
+        aoData["interface"]="Mini-Out";
+        audioMiniOut->start(aoData);
+        audio->linkA(audioMiniOut);
+    }
     Channel::init();
 }
 
@@ -101,7 +104,12 @@ void ChannelMix::updateConfig(QVariantMap cfg)
 
         audio->setData(dataMixA);
         video->setData(dataMixV);
-        encA->start(cfg["enca"].toMap());
+
+        if(cfg["enca"].toMap()["codec"].toString()!="close")
+            encA->start(cfg["enca"].toMap());
+        else
+            encA->stop();
+
         encV->start(cfg["encv"].toMap());
         encV2->start(cfg["encv2"].toMap());
 #ifndef HI3559A
@@ -112,7 +120,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             if(out2["enable"].toBool())
             {
 
-                outputV2->start(cfg["output2"].toMap());
+
                 if(vgasrc!=-1)
                 {
                     LinkObject *v=Config::findChannelById(vgasrc)->overlay;
@@ -123,7 +131,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
                 if(v!=NULL)
                     v->linkV(outputV2);
                 vgasrc=out2["src"].toInt();
-
+                outputV2->start(cfg["output2"].toMap());
             }
             else
                 outputV2->stop();

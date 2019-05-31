@@ -1,6 +1,7 @@
 #include "ChannelVI.h"
 #include <math.h>
 #include <QFile>
+//#define ALSASRC 1
 LinkObject *ChannelVI::audioMini=NULL;
 
 ChannelVI::ChannelVI(QObject *parent) :
@@ -9,7 +10,11 @@ ChannelVI::ChannelVI(QObject *parent) :
 
     vi=Link::create("InputVi");
 #ifdef HI3559A
+#ifdef ALSASRC
     audio=Link::create("InputAlsa");
+#else
+    audio=Link::create("InputAi");
+#endif
     viR=Link::create("InputVi");
     AVS=Link::create("SAVS");
     video=AVS;
@@ -61,17 +66,38 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 {
     if(cfg["enable"].toBool())
     {
-#ifdef HI3559A
+#ifdef ALSASRC
+
         QVariantMap ad;
         ad["path"]=cfg["alsa"].toString();
         audio->start(ad);
 #else
-
         QVariantMap ad;
         ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
 //        ad["num"]=ad["resamplerate"].toInt()/50;
         ad["interface"]=cfg["interface"].toString();
         audio->start(ad);
+#endif
+
+
+
+
+
+
+        QVariantMap gd;
+        gd["gain"]=cfg["enca"].toMap()["gain"];
+        gain->start(gd);
+
+
+#ifdef HI3559A
+
+        QVariantMap vd;
+        vd["interface"]=cfg["interface"].toString()+"-L";
+        vi->start(vd);
+
+        vd["interface"]=cfg["interface"].toString()+"-R";
+        viR->start(vd);
+#else
 
 
         if(cfg["cap"].toMap()["deinterlace"].toBool())
@@ -88,29 +114,17 @@ void ChannelVI::updateConfig(QVariantMap cfg)
             dei->unLinkV(overlay);
             vi->linkV(overlay);
         }
-#endif
 
-
-        QVariantMap gd;
-        gd["gain"]=cfg["enca"].toMap()["gain"];
-        gain->start(gd);
-
-
-#ifdef HI3559A
-        QVariantMap vd;
-        vd["interface"]=cfg["interface"].toString()+"-L";
-        vi->start(vd);
-
-        vd["interface"]=cfg["interface"].toString()+"-R";
-        viR->start(vd);
-#else
         QVariantMap vd;
         vd["interface"]=cfg["interface"].toString();
         vd["crop"]=cfg["cap"].toMap()["crop"].toMap();
         vi->start(vd);
 #endif
 
-        encA->start(cfg["enca"].toMap());
+        if(cfg["enca"].toMap()["codec"].toString()!="close")
+            encA->start(cfg["enca"].toMap());
+        else
+            encA->stop();
         encV->start(cfg["encv"].toMap());
         encV2->start(cfg["encv2"].toMap());
 

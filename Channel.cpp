@@ -145,6 +145,20 @@ void Channel::updateConfig(QVariantMap cfg)
             encV2->stop();
     }
 
+
+    {
+        QVariantMap muxData;
+        if(cfg["enca"].toMap()["codec"].toString()=="close")
+            muxData["mute"]=true;
+        else
+            muxData["mute"]=false;
+        foreach(QString key,muxMap.keys())
+        {
+            muxMap[key]->setData(muxData);
+            muxMap_sub[key]->setData(muxData);
+        }
+    }
+
     QVariantMap stream;
     stream=cfg["stream"].toMap();
     QVariantMap stream2;

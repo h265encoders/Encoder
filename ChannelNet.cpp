@@ -44,7 +44,10 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         }
         encV=ev;
         encA=ea;
-        encA->start(cfg["enca"].toMap());
+        if(cfg["enca"].toMap()["codec"].toString()!="close")
+            encA->start(cfg["enca"].toMap());
+        else
+            encA->stop();
         foreach(QString key,muxMap.keys())
         {
             net->unLinkV(muxMap[key]);
@@ -99,12 +102,12 @@ void ChannelNet::updateConfig(QVariantMap cfg)
             nd["buffer"]=true;
             nd["sync"]=false;
         }
-        else if(bm==0)
+        else if(bm==1)
         {
             nd["buffer"]=false;
             nd["sync"]=false;
         }
-        else if(bm==0)
+        else if(bm==2)
         {
             nd["buffer"]=true;
             nd["sync"]=true;
@@ -119,6 +122,11 @@ void ChannelNet::updateConfig(QVariantMap cfg)
                 video->stop();
             }
             url=nd["path"].toString();
+
+            QVariantMap frm;
+            frm["srcFramerate"]=cfg["net"].toMap()["framerate"].toInt();
+            encV->setData(frm);
+            encV2->setData(frm);
 
             if(cfg["enable"].toBool())
                 encV->start(cfg["encv"].toMap());
