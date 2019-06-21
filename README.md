@@ -1,0 +1,49 @@
+## 项目简介
+该工程展示了如何使用[LinkSDK](https://gitee.com/LinkPi/LinkLib/wikis/pages)制作一个完整的产品，除了基本的编码串流功能以外，相比于普通的编码器设备，该工程还支持网络输入解码、转码，支持画面混合，支持文件录制、USB摄像头运动分析、文件轮播等功能。
+
+系统提供了丰富的设置接口，用户可以根据需要裁减、定制属于自己的产品。
+
+软件界面如下(点击看大图)：
+
+
+<img src="https://images.gitee.com/uploads/images/2019/0621/162431_c0328a96_1759637.png" width="auto" height="300"  />
+<img src="https://images.gitee.com/uploads/images/2019/0621/162655_d979511f_1759637.png" width="auto" height="300"  />
+<br />
+<img src="https://images.gitee.com/uploads/images/2019/0621/162710_6798f982_1759637.png" width="auto" height="300"  />
+<img src="https://images.gitee.com/uploads/images/2019/0621/162720_70d16199_1759637.png" width="auto" height="300"  />
+<br />
+<img src="https://images.gitee.com/uploads/images/2019/0621/162731_3469b9ae_1759637.png" width="auto" height="300"  />
+
+
+## 适用于以下板卡：
+
+---
+
+## ENC5
+<img src="https://gitee.com/uploads/images/2019/0423/213514_24d3f8ff_1759637.jpeg" width="auto" height="300"  />
+
+[ :fa-cart-plus: 购买链接：https://item.taobao.com/item.htm?id=579544624529](https://item.taobao.com/item.htm?id=579544624529)
+
+
+
+---
+
+## Lite
+<img src="https://images.gitee.com/uploads/images/2019/0621/163435_da120715_1759637.jpeg" width="auto" height="300"  />
+
+[ :fa-cart-plus: 购买链接：https://item.taobao.com/item.htm?id=586299206651](https://item.taobao.com/item.htm?id=586299206651)
+
+---
+
+## C3531D
+<img src="https://gitee.com/uploads/images/2019/0423/210508_c03e138a_1759637.jpeg" width="auto" height="300"  />
+
+[ :fa-cart-plus: 购买链接：https://item.taobao.com/item.htm?id=575474051968](https://item.taobao.com/item.htm?id=575474051968)
+
+---
+
+## ENC2P
+<img src="https://gitee.com/uploads/images/2019/0423/215155_dcbc8b13_1759637.jpeg" width="auto" height="300"  />
+
+[ :fa-cart-plus: 购买链接：https://item.taobao.com/item.htm?id=586957188598](https://item.taobao.com/item.htm?id=586957188598)
+
