@@ -1,5 +1,6 @@
 #include "ChannelMix.h"
 #include "Config.h"
+#include <QFile>
 
 ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
 {
@@ -33,12 +34,14 @@ void ChannelMix::init()
 #endif
 
 
-#ifdef MINIAB
-    audioMiniOut=Link::create("OutputAo");
-    aoData["interface"]="Mini-Out";
-    audioMiniOut->start(aoData);
-    audio->linkA(audioMiniOut);
-#endif
+    if(QFile::exists("/dev/tlv320aic31"))
+    {
+        audioMiniOut=Link::create("OutputAo");
+        aoData["interface"]="Mini-Out";
+        audioMiniOut->start(aoData);
+        audio->linkA(audioMiniOut);
+    }
+
     Channel::init();
 }
 
@@ -116,7 +119,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             if(out2["enable"].toBool())
             {
 
-                outputV2->start(cfg["output2"].toMap());
+
                 if(vgasrc!=-1)
                 {
                     LinkObject *v=Config::findChannelById(vgasrc)->overlay;
@@ -127,7 +130,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
                 if(v!=NULL)
                     v->linkV(outputV2);
                 vgasrc=out2["src"].toInt();
-
+                outputV2->start(cfg["output2"].toMap());
             }
             else
                 outputV2->stop();

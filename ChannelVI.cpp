@@ -4,7 +4,6 @@
 #include "Config.h"
 
 
-
 LinkObject *ChannelVI::audioMini=NULL;
 
 ChannelVI::ChannelVI(QObject *parent) :
@@ -12,11 +11,15 @@ ChannelVI::ChannelVI(QObject *parent) :
 {
 
     vi=Link::create("InputVi");
+
+
+
 #ifdef ALSASRC
     audio=Link::create("InputAlsa");
 #else
     audio=Link::create("InputAi");
 #endif
+
 
 #ifdef HI3559A
     viR=Link::create("InputVi");
@@ -33,15 +36,13 @@ ChannelVI::ChannelVI(QObject *parent) :
     gain=Link::create("Gain");
     isSrcLine=false;
 
-#ifdef  MINIAB
-    if(audioMini==NULL)
+    if(QFile::exists("/dev/tlv320aic31"))
     {
         audioMini=Link::create("InputAi");
         QVariantMap data;
         data["interface"]="Mini-In";
         audioMini->start(data);
     }
-#endif
 }
 
 void ChannelVI::init()
@@ -66,19 +67,19 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 {
     if(cfg["enable"].toBool())
     {
+
+
         QVariantMap ad;
 #ifdef ALSASRC
         ad["path"]=cfg["alsa"].toString();
 #else
+        ad["interface"]=cfg["interface"].toString();
+#endif
+
 #ifndef HI3521D
         ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
 #endif        
-        ad["interface"]=cfg["interface"].toString();        
-#endif
         audio->start(ad);
-
-
-
 
 
 
