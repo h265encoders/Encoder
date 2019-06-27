@@ -1,6 +1,10 @@
 #include "ChannelVI.h"
 #include <math.h>
 #include <QFile>
+#include "Config.h"
+
+
+
 LinkObject *ChannelVI::audioMini=NULL;
 
 ChannelVI::ChannelVI(QObject *parent) :
@@ -8,18 +12,20 @@ ChannelVI::ChannelVI(QObject *parent) :
 {
 
     vi=Link::create("InputVi");
-#ifdef HI3559A
+#ifdef ALSASRC
     audio=Link::create("InputAlsa");
+#else
+    audio=Link::create("InputAi");
+#endif
+
+#ifdef HI3559A
     viR=Link::create("InputVi");
     AVS=Link::create("SAVS");
     video=AVS;
 #else
-    audio=Link::create("InputAi");
     video=vi;
     dei=Link::create("Deinterlace");
 #endif
-
-
 
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
@@ -27,7 +33,7 @@ ChannelVI::ChannelVI(QObject *parent) :
     gain=Link::create("Gain");
     isSrcLine=false;
 
-#ifndef HI3559A
+#ifdef  MINIAB
     if(audioMini==NULL)
     {
         audioMini=Link::create("InputAi");
@@ -45,7 +51,6 @@ void ChannelVI::init()
     overlay->linkV(encV2);
 
 #ifdef HI3559A
-
     vi->linkV(AVS);
     viR->linkV(AVS);
     AVS->start();
@@ -61,34 +66,20 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 {
     if(cfg["enable"].toBool())
     {
-#ifdef HI3559A
         QVariantMap ad;
+#ifdef ALSASRC
         ad["path"]=cfg["alsa"].toString();
-        audio->start(ad);
 #else
-
-        QVariantMap ad;
+#ifndef HI3521D
         ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
-//        ad["num"]=ad["resamplerate"].toInt()/50;
-        ad["interface"]=cfg["interface"].toString();
+#endif        
+        ad["interface"]=cfg["interface"].toString();        
+#endif
         audio->start(ad);
 
 
-        if(cfg["cap"].toMap()["deinterlace"].toBool())
-        {
-            video=dei;
-            dei->start();
-            vi->unLinkV(overlay);
-            dei->linkV(overlay);
-        }
-        else
-        {
-            video=vi;
-            dei->stop();
-            dei->unLinkV(overlay);
-            vi->linkV(overlay);
-        }
-#endif
+
+
 
 
         QVariantMap gd;
@@ -104,32 +95,52 @@ void ChannelVI::updateConfig(QVariantMap cfg)
         vd["interface"]=cfg["interface"].toString()+"-R";
         viR->start(vd);
 #else
+        if(cfg["cap"].toMap()["deinterlace"].toBool())
+        {
+            video=dei;
+            dei->start();
+            vi->unLinkV(overlay);
+            dei->linkV(overlay);
+        }
+        else
+        {
+            video=vi;
+            dei->stop();
+            dei->unLinkV(overlay);
+            vi->linkV(overlay);
+        }
+
         QVariantMap vd;
         vd["interface"]=cfg["interface"].toString();
         vd["crop"]=cfg["cap"].toMap()["crop"].toMap();
         vi->start(vd);
 #endif
 
-        encA->start(cfg["enca"].toMap());
+        if(cfg["enca"].toMap()["codec"].toString()!="close")
+            encA->start(cfg["enca"].toMap());
+        else
+            encA->stop();
         encV->start(cfg["encv"].toMap());
-        encV2->start(cfg["encv2"].toMap());
+        if(data["enable2"].toBool())
+            encV2->start(cfg["encv2"].toMap());
 
 
-#ifndef HI3559A
-        QVariantMap cfga=cfg["enca"].toMap();
-        if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()=="line" && !isSrcLine)
+        if(audioMini!=NULL)
         {
-            audio->unLinkA(gain);
-            audioMini->linkA(gain);
-            isSrcLine=true;
+            QVariantMap cfga=cfg["enca"].toMap();
+            if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()=="line" && !isSrcLine)
+            {
+                audio->unLinkA(gain);
+                audioMini->linkA(gain);
+                isSrcLine=true;
+            }
+            else if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()!="line" && isSrcLine)
+            {
+                isSrcLine=false;
+                audioMini->unLinkA(gain);
+                audio->linkA(gain);
+            }
         }
-        else if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()!="line" && isSrcLine)
-        {
-            isSrcLine=false;
-            audioMini->unLinkA(gain);
-            audio->linkA(gain);
-        }
-#endif
     }
     else
     {

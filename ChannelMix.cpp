@@ -17,20 +17,23 @@ void ChannelMix::init()
     overlay->linkV(encV);
     overlay->linkV(encV2);
 
-    outputV2=Link::create("OutputVo");
-    outputA=Link::create("OutputAo");
+
+
 #ifdef HI3559A
     outputV=video;
 #else
+    outputV2=Link::create("OutputVo");
     outputV=Link::create("OutputVo");
     video->linkV(outputV);
-#endif
+    outputA=Link::create("OutputAo");
     QVariantMap aoData;
     aoData["interface"]="HDMI-OUT";
     outputA->start(aoData);
     audio->linkA(outputA);
+#endif
 
-#ifndef HI3559A
+
+#ifdef MINIAB
     audioMiniOut=Link::create("OutputAo");
     aoData["interface"]="Mini-Out";
     audioMiniOut->start(aoData);
@@ -41,10 +44,6 @@ void ChannelMix::init()
 
 void ChannelMix::updateConfig(QVariantMap cfg)
 {
-//    qDebug()<<cfg;
-
-
-
     if(cfg["enable"].toBool())
     {
         video->start();
@@ -90,8 +89,8 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             if(srcA[i]==-1)
                 continue;
             Channel *chn=Config::findChannelById(srcA[i].toInt());
-    //        if(chn->type!="vi" )
-    //            continue;
+            if(chn->audio==NULL )
+                continue;
             LinkObject *a=chn->audio;
             if(!dataMixA.contains("main"))
                 dataMixA["main"]=a->name();
@@ -101,12 +100,17 @@ void ChannelMix::updateConfig(QVariantMap cfg)
 
         audio->setData(dataMixA);
         video->setData(dataMixV);
-        encA->start(cfg["enca"].toMap());
+
+        if(cfg["enca"].toMap()["codec"].toString()!="close")
+            encA->start(cfg["enca"].toMap());
+        else
+            encA->stop();
+
         encV->start(cfg["encv"].toMap());
         encV2->start(cfg["encv2"].toMap());
 #ifndef HI3559A
         outputV->start(cfg["output"].toMap());
-#endif
+
         {
             QVariantMap out2=cfg["output2"].toMap();
             if(out2["enable"].toBool())
@@ -128,6 +132,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             else
                 outputV2->stop();
         }
+#endif
     }
     else
     {

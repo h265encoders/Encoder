@@ -73,7 +73,8 @@ bool JsonRpcWebSocket::waitForConnected(int msecs)
 
 void JsonRpcWebSocket::disconnectFromHost()
 {
-    m_socket->close();
+//    m_socket->close();
+    m_socket->abort();
 }
 
 bool JsonRpcWebSocket::isConnected() const
@@ -83,7 +84,21 @@ bool JsonRpcWebSocket::isConnected() const
 
 size_t JsonRpcWebSocket::send(const QByteArray& data)
 {
-    return m_socket->sendTextMessage(data);
+//    if(!isConnected())
+//    {
+//        disconnectFromHost();
+//        return 0;
+//    }
+//    qDebug()<<"send"<<data.length();
+    auto sz= m_socket->sendTextMessage(data);
+//    m_socket->flush();
+//    qDebug()<<sz;
+//    if(sz<=0)
+//    {
+//        disconnectFromHost();
+//        return 0;
+//    }
+    return sz;
 }
 
 QString JsonRpcWebSocket::errorString() const
@@ -113,7 +128,13 @@ int JsonRpcWebSocket::peerPort() const
 
 void JsonRpcWebSocket::dataReady(const QString& data)
 {
-    emit dataReceived(data.toUtf8(), m_socket);
+    if(data.isEmpty())
+    {
+        qDebug("close");
+        disconnectFromHost();
+    }
+    else
+        emit dataReceived(data.toUtf8(), m_socket);
 }
 
 }

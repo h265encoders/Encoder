@@ -57,9 +57,15 @@ bool Record::start()
             QString fmt=formats[i].toString();
             QVariantMap data;
             data["path"]=fullName+"."+fmt;
-            muxMap[chnId][i]->start(data);
+            if(chn->encA==NULL || chn->encA->getState()!="started")
+            {
+                data["mute"]=true;
+            }
+            else
+                chn->encA->linkA(muxMap[chnId][i]);
+
             chn->encV->linkV(muxMap[chnId][i]);
-            chn->encA->linkA(muxMap[chnId][i]);
+            muxMap[chnId][i]->start(data);
         }
     }
 

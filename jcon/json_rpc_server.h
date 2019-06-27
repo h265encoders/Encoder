@@ -70,8 +70,7 @@ private:
     static const QString InvalidRequestId;
 
     bool dispatch(const QString& method_name,
-                  const QVariant& params,
-                  const QString& request_id,
+                  const QVariant& params, const QString&,
                   QVariant& return_value);
 
     std::pair<QString, QString>

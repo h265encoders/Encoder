@@ -111,7 +111,7 @@ void JsonRpcServer::jsonRequestReceived(const QJsonObject& request,
 
 bool JsonRpcServer::dispatch(const QString& method_name,
                              const QVariant& params,
-                             const QString& request_id,
+                             const QString& ,
                              QVariant& return_value)
 {
     QString method_ns;
@@ -445,8 +445,8 @@ QString logInvoke(const QMetaMethod& meta_method,
     QStringList args_sl;
     std::transform(ns.begin(), ns.end(), ps.begin(),
                    std::back_inserter(args_sl),
-                   [](auto x, auto y) -> QString {
-                       return static_cast<QString>(x) + ": " + y;
+                   [](QString x, QString y) -> QString {
+                       return x + ": " + y;
                    }
         );
 

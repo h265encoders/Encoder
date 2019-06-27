@@ -91,7 +91,7 @@ QVariantMap RPC::getSysState()
     file2.open(QFile::ReadOnly);
     QString str1=file2.readLine();
     QString str2=file2.readLine();
-    QString str3=file2.readLine();
+//    QString str3=file2.readLine();
     file2.close();
 
     QRegExp rx("(\\d+)");
@@ -99,20 +99,16 @@ QVariantMap RPC::getSysState()
     long mem1=rx.cap(1).toLong();
     rx.indexIn(str2);
     long mem2=rx.cap(1).toLong();
-    rx.indexIn(str3);
-    long mem3=rx.cap(1).toLong();
+//    rx.indexIn(str3);
+//    long mem3=rx.cap(1).toLong();
 
-    int mem=100-(mem3)*100/mem1;
-    if(mem>80)
-        mem=78+rand()/(RAND_MAX/5);
-
+    int mem=100-(mem2)*100/mem1;
 
 
     QVariantMap rt;
     rt["cpu"]=cpu;
     rt["mem"]=mem;
     rt["temperature"]=device->invoke("getTemperature").toInt();
-//    qDebug()<<rt["temperature"].toInt();
     return rt;
 }
 
@@ -235,7 +231,7 @@ QVariantList RPC::getVolume()
         QVariantMap map;
         if(Config::chns[i]->audio!=NULL)
         {
-            QVariantMap data=Config::chns[i]->volume->getData();
+            QVariantMap data=Config::chns[i]->volume->invoke("getVolume").toMap();
             map["L"]=data["max"].toInt();
             if(data["avg"].toInt()<15)
                 map["L"]=0;
