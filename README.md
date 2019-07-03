@@ -3,7 +3,9 @@
 
 系统提供了丰富的设置接口，用户可以根据需要裁减、定制属于自己的产品。
 
-软件界面如下(点击看大图)：
+## 点击访问->[产品操作手册](https://gitee.com/LinkPi/Encoder/wikis/pages)
+
+## 软件界面如下(点击看大图)：
 
 
 <img src="https://images.gitee.com/uploads/images/2019/0621/162431_c0328a96_1759637.png" width="auto" height="300"  />
