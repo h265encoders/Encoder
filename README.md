@@ -38,7 +38,7 @@
 ---
 
 ## C3521D_Lite
-<img src="https://images.gitee.com/uploads/images/2019/0703/204243_0d7b5f6a_1759637.jpeg" width="auto" height="300"  />
+<img src="https://images.gitee.com/uploads/images/2019/0703/204243_0d7b5f6a_1759637.png" width="auto" height="300"  />
 
 [ :fa-cart-plus: 购买链接：https://item.taobao.com/item.htm?id=597975330833](https://item.taobao.com/item.htm?id=597975330833)
 
