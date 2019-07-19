@@ -2,7 +2,7 @@
 #include "Json.h"
 #include "Config.h"
 #include <QFile>
-//#include <QDomDocument>
+#include <QDomDocument>
 
 Group::Group(QObject *parent) :
     QObject(parent),timer(this)
@@ -323,7 +323,7 @@ QVariant Group::getEPG()
 QVariant Group::syncEPG(QVariant epg)
 {
     Json::saveFile(epg,"/link/config/epg.json");
-//    createEPGXML(epg.toList());
+    createEPGXML(epg.toList());
 
     return true;
 }
@@ -347,40 +347,40 @@ bool Group::createEPG()
         epgList.append(epgMap[id]);
     }
 
-//    createEPGXML(epgList);
+    createEPGXML(epgList);
     Json::saveFile(epgList,"/link/config/epg.json");
     return true;
 }
 
-//bool Group::createEPGXML(QVariantList epgList)
-//{
-//    Json::saveFile(epgList,"/link/config/epg.json");
-////    QDomDocument docXML;
-////    QDomElement root=docXML.createElement("root");
-////    for(int i=0;i<epgList.count();i++)
-////    {
-////        QDomElement channel = docXML.createElement("channel");
-////        QDomElement name = docXML.createElement("name");
-////        name.appendChild(docXML.createTextNode(epgList[i].toMap()["name"].toString()));
-////        channel.appendChild(name);
-////        QStringList urls=epgList[i].toMap()["url"].toString().split("|");
-////        for(int k=0;k<urls.count();k++)
-////        {
-////            QDomElement url = docXML.createElement("url");
-////            url.appendChild(docXML.createTextNode(urls[k]));
-////            channel.appendChild(url);
-////        }
-////        root.appendChild(channel);
-////    }
-////    docXML.appendChild(root);
-////    QFile fileXML("/link/config/epg.xml");
-////    fileXML.open(QFile::ReadWrite);
-////    fileXML.resize(0);
-////    QTextStream out(&fileXML);
-////    docXML.save(out,4,QDomNode::EncodingFromTextStream);
-////    fileXML.close();
-//    return true;
-//}
+bool Group::createEPGXML(QVariantList epgList)
+{
+    Json::saveFile(epgList,"/link/config/epg.json");
+    QDomDocument docXML;
+    QDomElement root=docXML.createElement("root");
+    for(int i=0;i<epgList.count();i++)
+    {
+        QDomElement channel = docXML.createElement("channel");
+        QDomElement name = docXML.createElement("name");
+        name.appendChild(docXML.createTextNode(epgList[i].toMap()["name"].toString()));
+        channel.appendChild(name);
+        QStringList urls=epgList[i].toMap()["url"].toString().split("|");
+        for(int k=0;k<urls.count();k++)
+        {
+            QDomElement url = docXML.createElement("url");
+            url.appendChild(docXML.createTextNode(urls[k]));
+            channel.appendChild(url);
+        }
+        root.appendChild(channel);
+    }
+    docXML.appendChild(root);
+    QFile fileXML("/link/config/epg.xml");
+    fileXML.open(QFile::ReadWrite);
+    fileXML.resize(0);
+    QTextStream out(&fileXML);
+    docXML.save(out,4,QDomNode::EncodingFromTextStream);
+    fileXML.close();
+    return true;
+}
 
 void Group::reboot()
 {

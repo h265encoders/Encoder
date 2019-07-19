@@ -1,4 +1,4 @@
-QT += core network testlib  websockets
+QT += core network testlib  websockets xml
 QT -= gui
 
 TARGET = Encoder

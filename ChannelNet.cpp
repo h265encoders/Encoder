@@ -19,11 +19,11 @@ ChannelNet::ChannelNet(QObject *parent) :
 void ChannelNet::init()
 {
 
-        video->linkV(ev);
-        video->linkV(encV2);
-        audio->linkA(ea);
-        decA->start();
-        audio->start();
+    video->linkV(ev);
+    video->linkV(encV2);
+    audio->linkA(ea);
+    decA->start();
+    audio->start();
 
     net->linkV(video);
     net->linkA(decA)->linkA(audio);
@@ -32,10 +32,10 @@ void ChannelNet::init()
 
 void ChannelNet::updateConfig(QVariantMap cfg)
 {
-    if(cfg["net"].toMap()["decode"].toBool())
+    if(cfg["net"].toMap()["decodeV"].toBool())
     {
         video->start();
-        decA->start();
+
         if(encV==net)
         {
             ev->invoke("reset");
@@ -43,52 +43,70 @@ void ChannelNet::updateConfig(QVariantMap cfg)
             snap->invoke("reset");
         }
         encV=ev;
-        encA=ea;
-        if(cfg["enca"].toMap()["codec"].toString()!="close")
-            encA->start(cfg["enca"].toMap());
-        else
-            encA->stop();
+
         foreach(QString key,muxMap.keys())
         {
             net->unLinkV(muxMap[key]);
-            net->unLinkA(muxMap[key]);
             net->unLinkV(muxMap_sub[key]);
-            net->unLinkA(muxMap_sub[key]);
+            muxMap[key]->stop();
+            muxMap_sub[key]->stop();
+            encV->linkV(muxMap[key]);
+            encV2->linkV(muxMap_sub[key]);
+        }
+    }
+    else
+    {
+        video->stop();
+        encV=net;
+
+        foreach(QString key,muxMap.keys())
+        {
+            ev->unLinkV(muxMap[key]);
+            encV2->unLinkV(muxMap_sub[key]);
             muxMap[key]->stop();
             muxMap_sub[key]->stop();
 
-            ev->linkV(muxMap[key]);
-            ea->linkA(muxMap[key]);
-            encV2->linkV(muxMap_sub[key]);
-            ea->linkA(muxMap_sub[key]);
+            encV->linkV(muxMap[key]);
+            encV->linkV(muxMap_sub[key]);
+        }
+    }
 
+    if(cfg["net"].toMap()["decodeA"].toBool())
+    {
+        decA->start();
+        encA=ea;
+        if(cfg["enca"].toMap()["codec"].toString()=="close")
+            encA->stop();
+        else
+            encA->start(cfg["enca"].toMap());
+
+        foreach(QString key,muxMap.keys())
+        {
+            net->unLinkA(muxMap[key]);
+            net->unLinkA(muxMap_sub[key]);
+            muxMap[key]->stop();
+            muxMap_sub[key]->stop();
+            encA->linkA(muxMap[key]);
+            encA->linkA(muxMap_sub[key]);
         }
     }
     else
     {
         decA->stop();
-        video->stop();
-        encV=net;
         encA=net;
 
         foreach(QString key,muxMap.keys())
         {
-            ev->unLinkV(muxMap[key]);
             ea->unLinkA(muxMap[key]);
-            encV2->unLinkV(muxMap_sub[key]);
             ea->unLinkA(muxMap_sub[key]);
             muxMap[key]->stop();
             muxMap_sub[key]->stop();
-
-            net->linkV(muxMap[key]);
-            net->linkA(muxMap[key]);
-            net->linkV(muxMap_sub[key]);
-            net->linkA(muxMap_sub[key]);
-
+            encA->linkA(muxMap[key]);
+            encA->linkA(muxMap_sub[key]);
         }
     }
 
-    if(cfg["enable"].toBool() || cfg["enable2"].toBool())
+    if(cfg["enable"].toBool() )
     {
         QVariantMap nd;
         nd["path"]=cfg["net"].toMap()["path"].toString();
@@ -120,6 +138,10 @@ void ChannelNet::updateConfig(QVariantMap cfg)
                 encV->stop();
                 net->stop();
                 video->stop();
+
+                ev->invoke("reset");
+                encV2->invoke("reset");
+                snap->invoke("reset");
             }
             url=nd["path"].toString();
 

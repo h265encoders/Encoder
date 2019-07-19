@@ -14,6 +14,7 @@ public:
     virtual void updateConfig(QVariantMap cfg);
     void doSnap();
     QString type;
+    bool enableAVS;
     int id;
     QVariantMap data;
     LinkObject *audio;

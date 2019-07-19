@@ -16,6 +16,7 @@ Channel::Channel(QObject *parent) :
     sd["codec"]="jpeg";
     snap->start(sd);
     enable=false;
+    enableAVS=false;
     audio=NULL;
     video=NULL;
     encA=NULL;

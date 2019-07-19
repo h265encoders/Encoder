@@ -41,7 +41,7 @@ public slots:
     QVariant getEPG();
     QVariant syncEPG(QVariant epg);
     bool createEPG();
-//    bool createEPGXML(QVariantList epgList);
+    bool createEPGXML(QVariantList epgList);
     void reboot();
     bool callSetNetwork(QString mac, QVariantMap json);
     QVariantMap callGetNetwork(QString mac);

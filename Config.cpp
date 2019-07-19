@@ -34,7 +34,13 @@ void Config::loadConfig(QString path)
         if(chn==NULL)
         {
             if(type=="vi")
+            {
                 chn=new ChannelVI();
+                if(cfg.contains("avs"))
+                {
+                    chn->enableAVS=cfg["avs"].toBool();
+                }
+            }
             else if(type=="net")
                 chn=new ChannelNet();
             else if(type=="mix")

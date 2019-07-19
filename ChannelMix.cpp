@@ -22,17 +22,20 @@ void ChannelMix::init()
 
 #ifdef HI3559A
     outputV=video;
+
 #else
-    outputV2=Link::create("OutputVo");
+
     outputV=Link::create("OutputVo");
     video->linkV(outputV);
+
+
+#endif
+    outputV2=Link::create("OutputVo");
     outputA=Link::create("OutputAo");
     QVariantMap aoData;
     aoData["interface"]="HDMI-OUT";
     outputA->start(aoData);
     audio->linkA(outputA);
-#endif
-
 
     if(QFile::exists("/dev/tlv320aic31"))
     {
@@ -113,7 +116,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         encV2->start(cfg["encv2"].toMap());
 #ifndef HI3559A
         outputV->start(cfg["output"].toMap());
-
+#endif
         {
             QVariantMap out2=cfg["output2"].toMap();
             if(out2["enable"].toBool())
@@ -135,14 +138,15 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             else
                 outputV2->stop();
         }
-#endif
     }
     else
     {
         audio->stop();
         encA->stop();
         encV->stop();
+#ifndef HI3559A
         outputV->stop();
+#endif
         outputV2->stop();
     }
 

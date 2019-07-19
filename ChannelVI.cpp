@@ -21,14 +21,7 @@ ChannelVI::ChannelVI(QObject *parent) :
 #endif
 
 
-#ifdef HI3559A
-    viR=Link::create("InputVi");
-    AVS=Link::create("SAVS");
-    video=AVS;
-#else
-    video=vi;
-    dei=Link::create("Deinterlace");
-#endif
+
 
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
@@ -36,13 +29,29 @@ ChannelVI::ChannelVI(QObject *parent) :
     gain=Link::create("Gain");
     isSrcLine=false;
 
-    if(QFile::exists("/dev/tlv320aic31"))
+#ifdef HI3559A
+    viR=Link::create("InputVi");
+    AVS=Link::create("SAVS");
+    video=AVS;
+//    if(audioMini==NULL)
+//    {
+//        audioMini=Link::create("InputAi");
+//        QVariantMap data;
+//        data["interface"]="Line";
+//        audioMini->start(data);
+//    }
+#else
+    video=vi;
+    dei=Link::create("Deinterlace");
+    if(QFile::exists("/dev/tlv320aic31") && audioMini==NULL)
     {
         audioMini=Link::create("InputAi");
         QVariantMap data;
         data["interface"]="Mini-In";
         audioMini->start(data);
     }
+#endif
+
 }
 
 void ChannelVI::init()
@@ -52,9 +61,16 @@ void ChannelVI::init()
     overlay->linkV(encV2);
 
 #ifdef HI3559A
-    vi->linkV(AVS);
-    viR->linkV(AVS);
-    AVS->start();
+    if(enableAVS)
+    {
+        vi->linkV(AVS);
+        viR->linkV(AVS);
+        AVS->start();
+    }
+    else
+    {
+        video=vi;
+    }
 #else
     vi->linkV(dei);
 #endif
@@ -89,12 +105,22 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 
 
 #ifdef HI3559A
-        QVariantMap vd;
-        vd["interface"]=cfg["interface"].toString()+"-L";
-        vi->start(vd);
+        if(enableAVS)
+        {
+            QVariantMap vd;
+            vd["interface"]=cfg["interface"].toString()+"-L";
+            vi->start(vd);
 
-        vd["interface"]=cfg["interface"].toString()+"-R";
-        viR->start(vd);
+            vd["interface"]=cfg["interface"].toString()+"-R";
+            viR->start(vd);
+
+        }
+        else
+        {
+            QVariantMap vd;
+            vd["interface"]=cfg["interface"].toString();
+            vi->start(vd);
+        }
 #else
         if(cfg["cap"].toMap()["deinterlace"].toBool())
         {

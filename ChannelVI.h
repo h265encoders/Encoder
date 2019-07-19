@@ -16,10 +16,9 @@ public:
     LinkObject *dei;
     LinkObject *gain;
     bool isSrcLine;
-#ifdef HI3559A
     LinkObject *viR;
     LinkObject *AVS;
-#endif
+
 signals:
 
 public slots:
