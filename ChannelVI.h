@@ -9,7 +9,7 @@ class ChannelVI : public Channel
     Q_OBJECT
 public:
     explicit ChannelVI(QObject *parent = 0);
-    virtual void init();
+    virtual void init(QVariantMap cfg);
     virtual void updateConfig(QVariantMap cfg);
     static LinkObject *audioMini;
     LinkObject *vi;

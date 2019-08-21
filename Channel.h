@@ -10,7 +10,7 @@ class Channel : public QObject
     Q_OBJECT
 public:
     explicit Channel(QObject *parent = 0);
-    virtual void init();
+    virtual void init(QVariantMap cfg=QVariantMap());
     virtual void updateConfig(QVariantMap cfg);
     void doSnap();
     QString type;

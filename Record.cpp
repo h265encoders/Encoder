@@ -48,11 +48,13 @@ bool Record::start()
         system(mkdir.toLatin1().data());
 
         QString fullName=chnPath+"/"+fileName+"-"+QString::number(chnId);
+
+        Channel *chn=Config::findChannelById(chnId);
+        QString jpg=fullName+".jpg";;
+        chn->snap->invoke("snapSync",jpg);
+
         for(int i=0;i<formats.count();i++)
         {
-            Channel *chn=Config::findChannelById(chnId);
-            QString jpg=fullName+".jpg";;
-            chn->snap->invoke("snapSync",jpg);
 
             QString fmt=formats[i].toString();
             QVariantMap data;

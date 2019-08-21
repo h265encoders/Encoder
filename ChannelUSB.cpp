@@ -16,7 +16,7 @@ ChannelUSB::ChannelUSB(QObject *parent) : Channel(parent)
     cache=20;
 }
 
-void ChannelUSB::init()
+void ChannelUSB::init(QVariantMap)
 {
     video->start();
     usb->linkV(video);

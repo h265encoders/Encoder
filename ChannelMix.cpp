@@ -1,5 +1,6 @@
 #include "ChannelMix.h"
 #include "Config.h"
+#include "ChannelVI.h"
 #include <QFile>
 
 ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
@@ -12,7 +13,7 @@ ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
     vgasrc=-1;
 }
 
-void ChannelMix::init()
+void ChannelMix::init(QVariantMap)
 {
     audio->linkA(encA);
     overlay->linkV(encV);
@@ -90,6 +91,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         }
 
         QVariantMap dataMixA;
+        dataMixA["bufLen"]=20;
         for(int i=0;i<srcA.count();i++)
         {
             if(srcA[i]==-1)
@@ -104,6 +106,14 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             curAList.append(srcA[i].toInt());
         }
 
+        if(ChannelVI::audioMini!=NULL)
+        {
+            ChannelVI::audioMini->linkA(audio);
+            dataMixA["main"]=ChannelVI::audioMini->name();
+        }
+
+        outputV->start(cfg["output"].toMap());
+
         audio->setData(dataMixA);
         video->setData(dataMixV);
 
@@ -114,9 +124,6 @@ void ChannelMix::updateConfig(QVariantMap cfg)
 
         encV->start(cfg["encv"].toMap());
         encV2->start(cfg["encv2"].toMap());
-#ifndef HI3559A
-        outputV->start(cfg["output"].toMap());
-#endif
         {
             QVariantMap out2=cfg["output2"].toMap();
             if(out2["enable"].toBool())

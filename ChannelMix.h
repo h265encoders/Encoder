@@ -8,7 +8,7 @@ class ChannelMix : public Channel
     Q_OBJECT
 public:
     explicit ChannelMix(QObject *parent = 0);
-    virtual void init();
+    virtual void init(QVariantMap);
     virtual void updateConfig(QVariantMap cfg);
 private:
     QList<int> curAList;

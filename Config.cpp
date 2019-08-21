@@ -51,7 +51,7 @@ void Config::loadConfig(QString path)
                 chn=new ChannelFile();
             chn->type=type;
             chn->id=id;
-            chn->init();
+            chn->init(cfg);
             chns.append(chn);
         }
         chn->updateConfig(cfg);

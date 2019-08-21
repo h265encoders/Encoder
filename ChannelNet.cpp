@@ -16,7 +16,7 @@ ChannelNet::ChannelNet(QObject *parent) :
     encA=net;
 }
 
-void ChannelNet::init()
+void ChannelNet::init(QVariantMap)
 {
 
     video->linkV(ev);

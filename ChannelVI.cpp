@@ -11,18 +11,6 @@ ChannelVI::ChannelVI(QObject *parent) :
 {
 
     vi=Link::create("InputVi");
-
-
-
-#ifdef ALSASRC
-    audio=Link::create("InputAlsa");
-#else
-    audio=Link::create("InputAi");
-#endif
-
-
-
-
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
@@ -33,13 +21,6 @@ ChannelVI::ChannelVI(QObject *parent) :
     viR=Link::create("InputVi");
     AVS=Link::create("SAVS");
     video=AVS;
-//    if(audioMini==NULL)
-//    {
-//        audioMini=Link::create("InputAi");
-//        QVariantMap data;
-//        data["interface"]="Line";
-//        audioMini->start(data);
-//    }
 #else
     video=vi;
     dei=Link::create("Deinterlace");
@@ -54,8 +35,13 @@ ChannelVI::ChannelVI(QObject *parent) :
 
 }
 
-void ChannelVI::init()
+void ChannelVI::init(QVariantMap cfg)
 {
+    if(cfg.contains("alsa"))
+        audio=Link::create("InputAlsa");
+    else
+        audio=Link::create("InputAi");
+
     audio->linkA(gain)->linkA(encA);
     overlay->linkV(encV);
     overlay->linkV(encV2);
@@ -83,14 +69,14 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 {
     if(cfg["enable"].toBool())
     {
-
-
         QVariantMap ad;
-#ifdef ALSASRC
-        ad["path"]=cfg["alsa"].toString();
-#else
-        ad["interface"]=cfg["interface"].toString();
-#endif
+        if(cfg.contains("alsa"))
+        {
+            ad["path"]=cfg["alsa"].toString();
+            ad["channels"]=2;
+        }
+        else
+            ad["interface"]=cfg["interface"].toString();
 
 #ifndef HI3521D
         ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
@@ -113,7 +99,6 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 
             vd["interface"]=cfg["interface"].toString()+"-R";
             viR->start(vd);
-
         }
         else
         {
@@ -140,6 +125,8 @@ void ChannelVI::updateConfig(QVariantMap cfg)
         QVariantMap vd;
         vd["interface"]=cfg["interface"].toString();
         vd["crop"]=cfg["cap"].toMap()["crop"].toMap();
+        if(cfg["cap"].toMap().contains("rotate"))
+            vd["rotate"]=cfg["cap"].toMap()["rotate"].toInt();
         vi->start(vd);
 #endif
 

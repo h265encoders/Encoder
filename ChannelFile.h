@@ -10,7 +10,7 @@ class ChannelFile : public Channel
     Q_OBJECT
 public:
     explicit ChannelFile(QObject *parent = 0);
-    virtual void init();
+    virtual void init(QVariantMap);
     virtual void updateConfig(QVariantMap cfg);
     QVariantList getPlayList();
     bool seek(int index,qint64 time);

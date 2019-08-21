@@ -8,7 +8,7 @@ class ChannelNet : public Channel
     Q_OBJECT
 public:
     explicit ChannelNet(QObject *parent = 0);
-    virtual void init();
+    virtual void init(QVariantMap);
     virtual void updateConfig(QVariantMap cfg);
 private:
     LinkObject *net;

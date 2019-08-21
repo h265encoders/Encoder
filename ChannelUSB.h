@@ -8,7 +8,7 @@ class ChannelUSB : public Channel
     Q_OBJECT
 public:
     explicit ChannelUSB(QObject *parent = 0);
-    virtual void init();
+    virtual void init(QVariantMap);
     virtual void updateConfig(QVariantMap cfg);
 private:
     LinkObject *usb;

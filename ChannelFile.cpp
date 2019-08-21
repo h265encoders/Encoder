@@ -11,7 +11,7 @@ ChannelFile::ChannelFile(QObject *parent) : Channel(parent)
     connect(encV,SIGNAL(newEvent(QString,QVariant)),this,SLOT(onNewEvent(QString,QVariant)));
 }
 
-void ChannelFile::init()
+void ChannelFile::init(QVariantMap)
 {
     Channel::init();
 }

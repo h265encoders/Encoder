@@ -8,9 +8,6 @@
 #define CFGPATH "/link/config/config.json"
 #define GRPPATH "/link/config/group.json"
 #define NETPATH "/link/config/net.json"
-#ifdef HI3559A
-//#define ALSASRC
-#endif
 
 class Config : public QObject
 {

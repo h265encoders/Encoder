@@ -38,7 +38,7 @@ Channel::Channel(QObject *parent) :
     }
 }
 
-void Channel::init()
+void Channel::init(QVariantMap)
 {
     if(video!=NULL)
     {
@@ -141,7 +141,7 @@ void Channel::updateConfig(QVariantMap cfg)
     if(encV2!=NULL)
     {
         if(data["enable2"].toBool())
-            encV2->start();
+            encV2->start(cfg["encv2"].toMap());
         else
             encV2->stop();
     }
