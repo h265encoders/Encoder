@@ -26,7 +26,6 @@ public:
     LinkObject *overlay;
     LinkObject *snap;
     bool enable;
-protected:
     static LinkObject *httpServer;
     static LinkObject *rtspServer;
     LinkObject *udp;    

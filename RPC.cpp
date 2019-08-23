@@ -277,3 +277,17 @@ bool RPC::play(int index, int time)
     }
     return false;
 }
+
+QVariantList RPC::getPushSpeed()
+{
+    QVariantList ret;
+    for(int i=0;i<Config::chns.count();i++)
+    {
+        if(!Config::chns[i]->enable)
+            continue;
+        ret<<Config::chns[i]->muxMap["push"]->invoke("getSpeed").toMap()["speed"].toInt()*8/1024;
+        ret<<Config::chns[i]->muxMap_sub["push"]->invoke("getSpeed").toMap()["speed"].toInt()*8/1024;
+    }
+
+    return ret;
+}
