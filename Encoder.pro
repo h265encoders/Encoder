@@ -4,7 +4,7 @@ QT -= gui
 TARGET = Encoder
 CONFIG += console  c++14
 CONFIG -= app_bundle
-chip = HI3531D
+chip = HI3559A
 include(../../LinkLib/Link.pri)
 TEMPLATE = app
 

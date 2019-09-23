@@ -229,7 +229,7 @@ QVariantList RPC::getVolume()
     for(int i=0;i<Config::chns.count();i++)
     {
         QVariantMap map;
-        if(Config::chns[i]->audio!=NULL)
+        if(Config::chns[i]->audio!=NULL && Config::chns[i]->enable)
         {
             QVariantMap data=Config::chns[i]->volume->invoke("getVolume").toMap();
             map["L"]=data["max"].toInt();

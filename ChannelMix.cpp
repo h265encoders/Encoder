@@ -10,7 +10,8 @@ ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
-    vgasrc=-1;
+    lastSrc=NULL;
+    lastSrc2=NULL;
 }
 
 void ChannelMix::init(QVariantMap)
@@ -23,14 +24,10 @@ void ChannelMix::init(QVariantMap)
 
 #ifdef HI3559A
     outputV=video;
-
 #else
-
     outputV=Link::create("OutputVo");
-    video->linkV(outputV);
-
-
 #endif
+
     outputV2=Link::create("OutputVo");
     outputA=Link::create("OutputAo");
     QVariantMap aoData;
@@ -79,7 +76,6 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         dataMixV["src"]=videoList;
         dataMixV["layout"]=cfg["layout"].toList();
 
-
         foreach(int id,curAList)
         {
             if(!srcA.contains(id))
@@ -112,8 +108,6 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             dataMixA["main"]=ChannelVI::audioMini->name();
         }
 
-        outputV->start(cfg["output"].toMap());
-
         audio->setData(dataMixA);
         video->setData(dataMixV);
 
@@ -124,38 +118,49 @@ void ChannelMix::updateConfig(QVariantMap cfg)
 
         encV->start(cfg["encv"].toMap());
         encV2->start(cfg["encv2"].toMap());
-        {
-            QVariantMap out2=cfg["output2"].toMap();
-            if(out2["enable"].toBool())
-            {
 
-
-                if(vgasrc!=-1)
-                {
-                    LinkObject *v=Config::findChannelById(vgasrc)->overlay;
-                    if(v!=NULL)
-                        v->unLinkV(outputV2);
-                }
-                LinkObject *v=Config::findChannelById(out2["src"].toInt())->overlay;
-                if(v!=NULL)
-                    v->linkV(outputV2);
-                vgasrc=out2["src"].toInt();
-                outputV2->start(cfg["output2"].toMap());
-            }
-            else
-                outputV2->stop();
-        }
     }
     else
     {
         audio->stop();
+        video->stop();
         encA->stop();
         encV->stop();
-#ifndef HI3559A
-        outputV->stop();
-#endif
-        outputV2->stop();
+        encV2->stop();
     }
+#ifndef HI3559A
+    QVariantMap outCfg=cfg["output"].toMap();
+    if(outCfg["enable"].toBool())
+    {
+        LinkObject *v=Config::findChannelById(outCfg["src"].toInt())->video;
+        if(v!=NULL)
+        {
+            if(v!=lastSrc && lastSrc!=NULL)
+                lastSrc->unLinkV(outputV);
+            lastSrc=v;
+            v->linkV(outputV);
+        }
+        outputV->start(outCfg);
+    }
+    else
+        outputV->stop();
+ #endif
+
+    QVariantMap outCfg2=cfg["output"].toMap();
+    if(outCfg2["enable"].toBool())
+    {
+        LinkObject *v=Config::findChannelById(outCfg2["src"].toInt())->video;
+        if(v!=NULL)
+        {
+            if(v!=lastSrc2 && lastSrc2!=NULL)
+                lastSrc2->unLinkV(outputV2);
+            lastSrc2=v;
+            v->linkV(outputV2);
+        }
+        outputV2->start(outCfg2);
+    }
+    else
+        outputV2->stop();
 
     Channel::updateConfig(cfg);
 }

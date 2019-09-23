@@ -18,7 +18,6 @@ ChannelNet::ChannelNet(QObject *parent) :
 
 void ChannelNet::init(QVariantMap)
 {
-
     video->linkV(ev);
     video->linkV(encV2);
     audio->linkA(ea);
@@ -116,17 +115,20 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         int bm=cfg["net"].toMap()["bufferMode"].toInt();
 
         if(bm==0)
-        {
+        {            
+            nd["lowLatency"]=false;
             nd["buffer"]=true;
             nd["sync"]=false;
         }
         else if(bm==1)
         {
+            nd["lowLatency"]=true;
             nd["buffer"]=false;
             nd["sync"]=false;
         }
         else if(bm==2)
         {
+            nd["lowLatency"]=false;
             nd["buffer"]=true;
             nd["sync"]=true;
         }

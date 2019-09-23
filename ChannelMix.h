@@ -16,6 +16,9 @@ private:
     LinkObject *outputV2;
     LinkObject *outputA;
     LinkObject *audioMiniOut;
+
+    LinkObject *lastSrc;
+    LinkObject *lastSrc2;
     int vgasrc;
 signals:
 
