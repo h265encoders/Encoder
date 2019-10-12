@@ -14,8 +14,11 @@ public:
     virtual void updateConfig(QVariantMap cfg);
     void doSnap();
     QString type;
-    bool enableAVS;
+    bool enableAVS;    
+    bool isSrcLine;
     int id;
+
+    static LinkObject *audioMini;
     QVariantMap data;
     LinkObject *audio;
     LinkObject *video;

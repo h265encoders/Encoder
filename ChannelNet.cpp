@@ -93,6 +93,8 @@ void ChannelNet::updateConfig(QVariantMap cfg)
     {
         decA->stop();
         encA=net;
+        if(cfg["enca"].toMap()["codec"].toString()=="close")
+            encA=NULL;
 
         foreach(QString key,muxMap.keys())
         {
@@ -100,8 +102,11 @@ void ChannelNet::updateConfig(QVariantMap cfg)
             ea->unLinkA(muxMap_sub[key]);
             muxMap[key]->stop();
             muxMap_sub[key]->stop();
-            encA->linkA(muxMap[key]);
-            encA->linkA(muxMap_sub[key]);
+            if(encA!=NULL)
+            {
+                encA->linkA(muxMap[key]);
+                encA->linkA(muxMap_sub[key]);
+            }
         }
     }
 

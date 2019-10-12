@@ -1,9 +1,11 @@
 #include "Channel.h"
 #include "unistd.h"
+#include <QFile>
 
 
 LinkObject* Channel::httpServer=NULL;
 LinkObject* Channel::rtspServer=NULL;
+LinkObject *Channel::audioMini=NULL;
 Channel::Channel(QObject *parent) :
     QObject(parent)
 {
@@ -17,6 +19,7 @@ Channel::Channel(QObject *parent) :
     snap->start(sd);
     enable=false;
     enableAVS=false;
+    isSrcLine=false;
     audio=NULL;
     video=NULL;
     encA=NULL;
@@ -40,6 +43,14 @@ Channel::Channel(QObject *parent) :
 
 void Channel::init(QVariantMap)
 {
+    if(QFile::exists("/dev/tlv320aic31") && audioMini==NULL)
+    {
+        audioMini=Link::create("InputAi");
+        QVariantMap data;
+        data["interface"]="Mini-In";
+        audioMini->start(data);
+    }
+
     if(video!=NULL)
     {
         video->linkV(overlay)->linkV(snap);

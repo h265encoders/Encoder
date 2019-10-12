@@ -4,7 +4,7 @@
 #include "Config.h"
 
 
-LinkObject *ChannelVI::audioMini=NULL;
+
 
 ChannelVI::ChannelVI(QObject *parent) :
     Channel(parent)
@@ -15,7 +15,6 @@ ChannelVI::ChannelVI(QObject *parent) :
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
     gain=Link::create("Gain");
-    isSrcLine=false;
 
 #ifdef HI3559A
     viR=Link::create("InputVi");
@@ -24,13 +23,7 @@ ChannelVI::ChannelVI(QObject *parent) :
 #else
     video=vi;
     dei=Link::create("Deinterlace");
-    if(QFile::exists("/dev/tlv320aic31") && audioMini==NULL)
-    {
-        audioMini=Link::create("InputAi");
-        QVariantMap data;
-        data["interface"]="Mini-In";
-        audioMini->start(data);
-    }
+
 #endif
 
 }

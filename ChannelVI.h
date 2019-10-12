@@ -11,11 +11,9 @@ public:
     explicit ChannelVI(QObject *parent = 0);
     virtual void init(QVariantMap cfg);
     virtual void updateConfig(QVariantMap cfg);
-    static LinkObject *audioMini;
     LinkObject *vi;
     LinkObject *dei;
     LinkObject *gain;
-    bool isSrcLine;
     LinkObject *viR;
     LinkObject *AVS;
 
