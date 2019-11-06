@@ -35,7 +35,8 @@ SOURCES += main.cpp \
     jcon/json_rpc_tcp_server.cpp \
     jcon/json_rpc_tcp_socket.cpp \
     jcon/json_rpc_websocket_client.cpp \
-    Record.cpp
+    Record.cpp \
+    Push.cpp
 
 HEADERS += \
     RPC.h \
@@ -69,5 +70,6 @@ HEADERS += \
     jcon/json_rpc_tcp_socket.h \
     jcon/json_rpc_websocket_client.h \
     Version.h \
-    Record.h
+    Record.h \
+    Push.h
 

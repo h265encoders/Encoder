@@ -73,7 +73,7 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 
 #ifndef HI3521D
         ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
-#endif        
+#endif
         audio->start(ad);
 
 

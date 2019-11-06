@@ -9,12 +9,14 @@ JsonRpcTcpSocket::JsonRpcTcpSocket()
     : m_socket(new QTcpSocket(this))
 {
     setupSocket();
+    isHttp=false;
 }
 
 JsonRpcTcpSocket::JsonRpcTcpSocket(QTcpSocket* socket)
     : m_socket(socket)
 {
     setupSocket();
+    isHttp=false;
 }
 
 JsonRpcTcpSocket::~JsonRpcTcpSocket()
@@ -64,6 +66,7 @@ bool JsonRpcTcpSocket::waitForConnected(int msecs)
 
 void JsonRpcTcpSocket::disconnectFromHost()
 {
+    qDebug()<<"disconnectFromHost";
     m_socket->disconnectFromHost();
     m_socket->close();
 }
@@ -80,7 +83,20 @@ size_t JsonRpcTcpSocket::send(const QByteArray& data)
         disconnectFromHost();
         return 0;
     }
-    auto sz = m_socket->write(data);
+
+    int sz;
+    if(isHttp)
+    {
+        QString str="HTTP/1.1 200 OK\r\n"
+                "Content-Type: application/json\r\n"
+                "Content-Length: "+QString::number(data.length())+"\r\n\r\n";
+
+        str+=data;
+        sz=m_socket->write(str.toUtf8());
+    }
+    else
+        sz= m_socket->write(data);
+
     if(sz<=0)
     {
         disconnectFromHost();
@@ -118,8 +134,15 @@ int JsonRpcTcpSocket::peerPort() const
 void JsonRpcTcpSocket::dataReady()
 {
     JCON_ASSERT(m_socket->bytesAvailable() > 0);
-    QByteArray bytes = m_socket->read(m_socket->bytesAvailable());
-    emit dataReceived(bytes, m_socket);
+    buf = m_socket->readAll();
+    if(buf.contains("\r\n\r\n{"))
+    {
+        isHttp=true;
+        int a=buf.indexOf("\r\n\r\n");
+        buf=buf.mid(a+4);
+    }
+//    if(buf.startsWith("{"))
+        emit dataReceived(buf.toUtf8(), m_socket);
 }
 
 }

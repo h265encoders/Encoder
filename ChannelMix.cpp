@@ -146,7 +146,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         outputV->stop();
  #endif
 
-    QVariantMap outCfg2=cfg["output"].toMap();
+    QVariantMap outCfg2=cfg["output2"].toMap();
     if(outCfg2["enable"].toBool())
     {
         LinkObject *v=Config::findChannelById(outCfg2["src"].toInt())->video;

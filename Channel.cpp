@@ -1,7 +1,7 @@
 #include "Channel.h"
 #include "unistd.h"
 #include <QFile>
-
+#include "Json.h"
 
 LinkObject* Channel::httpServer=NULL;
 LinkObject* Channel::rtspServer=NULL;
@@ -43,12 +43,26 @@ Channel::Channel(QObject *parent) :
 
 void Channel::init(QVariantMap)
 {
-    if(QFile::exists("/dev/tlv320aic31") && audioMini==NULL)
+    if(audioMini==NULL)
     {
-        audioMini=Link::create("InputAi");
-        QVariantMap data;
-        data["interface"]="Mini-In";
-        audioMini->start(data);
+        if(QFile::exists("/dev/tlv320aic31"))
+        {
+            audioMini=Link::create("InputAi");
+            QVariantMap data;
+            data["interface"]="Mini-In";
+            audioMini->start(data);
+        }
+        else
+        {
+            QVariantMap ifaceA=Json::loadFile("/link/config/board.json").toMap()["interfaceA"].toMap();
+            if(ifaceA.keys().contains("Line-In"))
+            {
+                audioMini=Link::create("InputAi");
+                QVariantMap data;
+                data["interface"]="Line-In";
+                audioMini->start(data);
+            }
+        }
     }
 
     if(video!=NULL)

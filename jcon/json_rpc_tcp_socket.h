@@ -39,7 +39,8 @@ public:
     int localPort() const override;
     QHostAddress peerAddress() const override;
     int peerPort() const override;
-
+    QString buf;
+    bool isHttp;
 private slots:
     void dataReady();
 

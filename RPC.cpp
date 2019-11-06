@@ -6,6 +6,7 @@
 #include <QDateTime>
 #include <ChannelVI.h>
 #include "Record.h"
+#include "Push.h"
 
 RPC::RPC(QObject *parent) :
     QObject(parent)
@@ -16,11 +17,12 @@ void RPC::init()
 {
     group=new Group(this);
     group->init();
-    rpcServer=new jcon::JsonRpcWebSocketServer();
+    rpcServer=new jcon::JsonRpcTcpServer();
     jcon::JsonRpcServer::ServiceMap map;
     map[this]="enc";
     map[group]="group";
     map[GRecord]="rec";
+    map[GPush]="push";
     rpcServer->registerServices(map, ".");
     rpcServer->listen(6001);
 
@@ -175,13 +177,13 @@ QVariantList RPC::getEPG()
         urls.clear();
         QString id=QString::number(chnList[i].toMap()["id"].toInt());
         if(stream["http"].toBool())
-            urls<<"http://"+ip+"/live/stream"+id;
+            urls<<"http:///live/stream"+id;
         if(stream["hls"].toBool())
-            urls<<"http://"+ip+"/hls/stream"+id+".m3u8";
+            urls<<"http:///hls/stream"+id+".m3u8";
         if(stream["rtmp"].toBool())
-            urls<<"rtmp://"+ip+"/live/stream"+id;
+            urls<<"rtmp:///live/stream"+id;
         if(stream["rtsp"].toBool())
-            urls<<"rtsp://"+ip+"/stream"+id;
+            urls<<"rtsp:///stream"+id;
         if(stream["udp"].toMap()["enable"].toBool())
             urls<<"udp://@"+stream["udp"].toMap()["ip"].toString()+":"+QString::number(stream["udp"].toMap()["port"].toInt());
         if(stream["push"].toMap()["enable"].toBool())
@@ -192,13 +194,13 @@ QVariantList RPC::getEPG()
         QStringList urls2;
         urls2.clear();
         if(stream2["http"].toBool())
-            urls2<<"http://"+ip+"/live/sub"+id;
+            urls2<<"http:///live/sub"+id;
         if(stream2["hls"].toBool())
-            urls2<<"http://"+ip+"/hls/sub"+id+".m3u8";
+            urls2<<"http:///hls/sub"+id+".m3u8";
         if(stream2["rtmp"].toBool())
-            urls2<<"rtmp://"+ip+"/live/sub"+id;
+            urls2<<"rtmp:///live/sub"+id;
         if(stream2["rtsp"].toBool())
-            urls2<<"rtsp://"+ip+"/sub"+id;
+            urls2<<"rtsp:///sub"+id;
         if(stream2["udp"].toMap()["enable"].toBool())
             urls2<<"udp://@"+stream2["udp"].toMap()["ip"].toString()+":"+QString::number(stream2["udp"].toMap()["port"].toInt());
         if(stream2["push"].toMap()["enable"].toBool())

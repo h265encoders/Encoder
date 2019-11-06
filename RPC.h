@@ -2,7 +2,7 @@
 #define RPC_H
 
 #include <QObject>
-#include <jcon/json_rpc_websocket_server.h>
+#include <jcon/json_rpc_tcp_server.h>
 #include "Link.h"
 #include "Group.h"
 
@@ -14,7 +14,7 @@ public:
     void init();
 private:
     Group *group;
-    jcon::JsonRpcWebSocketServer *rpcServer;
+    jcon::JsonRpcTcpServer *rpcServer;
     LinkObject *device;
 
 signals:
