@@ -5,6 +5,13 @@
 
 ## 点击访问->[产品操作手册](https://gitee.com/LinkPi/Encoder/wikis/pages)
 
+
+完整文件系统和刷机包，不定期更新
+
+链接：https://pan.baidu.com/s/1z1DV1MilEmNnymKpYCAW7A 
+
+提取码：l9nz 
+
 ## 软件界面如下(点击看大图)：
 
 
