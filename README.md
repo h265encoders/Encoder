@@ -8,9 +8,9 @@
 
 完整文件系统和刷机包，不定期更新
 
-链接：https://pan.baidu.com/s/1z1DV1MilEmNnymKpYCAW7A 
+链接：https://pan.baidu.com/s/1881MkPrxGekOk_9ObGI_Ow 
 
-提取码：l9nz 
+提取码：zl86 
 
 ## 软件界面如下(点击看大图)：
 
