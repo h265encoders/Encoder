@@ -8,9 +8,9 @@
 
 完整文件系统和刷机包，不定期更新
 
-链接：https://pan.baidu.com/s/1881MkPrxGekOk_9ObGI_Ow 
-
-提取码：zl86 
+链接：https://pan.baidu.com/s/1WryWts0fu8jt_LkM4ZuyIw
+ 
+提取码：imhs 
 
 ## 软件界面如下(点击看大图)：
 
