@@ -6,11 +6,6 @@
 ## 点击访问->[产品操作手册](https://gitee.com/LinkPi/Encoder/wikis/pages)
 
 
-完整文件系统和刷机包，不定期更新
-
-链接：https://pan.baidu.com/s/1WryWts0fu8jt_LkM4ZuyIw
- 
-提取码：imhs 
 
 ## 软件界面如下(点击看大图)：
 
