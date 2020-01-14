@@ -22,6 +22,7 @@ JsonRpcTcpSocket::JsonRpcTcpSocket(QTcpSocket* socket)
 JsonRpcTcpSocket::~JsonRpcTcpSocket()
 {
     m_socket->disconnect(this);
+    m_socket->deleteLater();
 }
 
 void JsonRpcTcpSocket::setupSocket()
@@ -66,7 +67,6 @@ bool JsonRpcTcpSocket::waitForConnected(int msecs)
 
 void JsonRpcTcpSocket::disconnectFromHost()
 {
-    qDebug()<<"disconnectFromHost";
     m_socket->disconnectFromHost();
     m_socket->close();
 }

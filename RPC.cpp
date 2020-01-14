@@ -7,6 +7,7 @@
 #include <ChannelVI.h>
 #include "Record.h"
 #include "Push.h"
+#include "UART.h"
 
 RPC::RPC(QObject *parent) :
     QObject(parent)
@@ -23,6 +24,7 @@ void RPC::init()
     map[group]="group";
     map[GRecord]="rec";
     map[GPush]="push";
+    map[GUart]="uart";
     rpcServer->registerServices(map, ".");
     rpcServer->listen(6001);
 
@@ -65,6 +67,7 @@ QVariantMap RPC::getSysState()
 {
     static qlonglong last_total=0;
     static qlonglong last_idel=0;
+    static int last_cpu=0;
 
 
     qlonglong total=0,idel=0;
@@ -86,8 +89,14 @@ QVariantMap RPC::getSysState()
     if(total-last_total!=0 && last_total!=0)
         cpu=100-(idel-last_idel)*100/(total-last_total);
 
-    last_total=total;
-    last_idel=idel;
+    if(total-last_total>300)
+    {
+        last_total=total;
+        last_idel=idel;
+        last_cpu=cpu;
+    }
+    else
+        cpu=last_cpu;
 
     QFile file2("/proc/meminfo");
     file2.open(QFile::ReadOnly);
@@ -185,7 +194,7 @@ QVariantList RPC::getEPG()
         if(stream["rtsp"].toBool())
             urls<<"rtsp:///stream"+id;
         if(stream["udp"].toMap()["enable"].toBool())
-            urls<<"udp://@"+stream["udp"].toMap()["ip"].toString()+":"+QString::number(stream["udp"].toMap()["port"].toInt());
+            urls<<(stream["udp"].toMap()["rtp"].toBool()?"rtp://@":"udp://@")+stream["udp"].toMap()["ip"].toString()+":"+QString::number(stream["udp"].toMap()["port"].toInt());
         if(stream["push"].toMap()["enable"].toBool())
             urls<<stream["push"].toMap()["path"].toString();
         map["url"]=urls.join("|");
@@ -202,7 +211,7 @@ QVariantList RPC::getEPG()
         if(stream2["rtsp"].toBool())
             urls2<<"rtsp:///sub"+id;
         if(stream2["udp"].toMap()["enable"].toBool())
-            urls2<<"udp://@"+stream2["udp"].toMap()["ip"].toString()+":"+QString::number(stream2["udp"].toMap()["port"].toInt());
+            urls2<<(stream2["udp"].toMap()["rtp"].toBool()?"rtp://@":"udp://@")+stream2["udp"].toMap()["ip"].toString()+":"+QString::number(stream2["udp"].toMap()["port"].toInt());
         if(stream2["push"].toMap()["enable"].toBool())
             urls2<<stream2["push"].toMap()["path"].toString();
         map["url2"]=urls2.join("|");

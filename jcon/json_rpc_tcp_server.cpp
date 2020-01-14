@@ -60,7 +60,6 @@ void JsonRpcTcpServer::newConnection()
     if (m_server.hasPendingConnections()) {
         QTcpSocket* tcp_socket = m_server.nextPendingConnection();
         JCON_ASSERT(m_server.nextPendingConnection() == nullptr);
-
         JCON_ASSERT(tcp_socket);
         if (!tcp_socket) {
             logError("pending socket was null");

@@ -13,7 +13,8 @@ Group::Group(QObject *parent) :
 
 void Group::init()
 {
-    rpc->init();
+    if(!rpc->init())
+        qDebug()<<"Init group rpc error";
     rpc->addMethod("hello",this,"hello");
     rpc->addMethod("getNetwork",this,"getNetwork");
     rpc->addMethod("setNetwork",this,"setNetwork");
@@ -24,11 +25,12 @@ void Group::init()
     rpc->addMethod("syncEPG",this,"syncEPG");
 
     loadConfig();
-    timer.start(3000);
-    clearMember();
-    onTimer();
-
-
+    if(rpc->getGroupId()>=0)
+    {
+        timer.start(3000);
+        clearMember();
+        onTimer();
+    }
 }
 
 void Group::loadConfig()

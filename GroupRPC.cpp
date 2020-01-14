@@ -18,7 +18,6 @@ GroupRequest::GroupRequest(QObject *parent) : QObject(parent)
 GroupRPC::GroupRPC(QObject *parent) : QObject(parent),socket(this)
 {
     timeout=200;
-    connect(&socket,SIGNAL(readyRead()),this,SLOT(onRead()));
     groupId=0;
     port=5432;
 }
@@ -31,6 +30,7 @@ bool GroupRPC::init(int p)
         return false;
     socket.setSocketOption(QUdpSocket::SendBufferSizeSocketOption,1024*1024);
     socket.setSocketOption(QUdpSocket::ReceiveBufferSizeSocketOption,1024*1024);
+    connect(&socket,SIGNAL(readyRead()),this,SLOT(onRead()));
 
     return true;
 }
@@ -85,6 +85,8 @@ QVariant GroupRPC::call(QString method, QString to, QVariant data, bool noRespon
     }
     else
     {
+        requestList.removeAll(request);
+        request->deleteLater();
         return callbak(msg);
     }
 
@@ -117,6 +119,11 @@ QString GroupRPC::getLoaclMac()
 void GroupRPC::setGroupId(int gid)
 {
     groupId=gid;
+}
+
+int GroupRPC::getGroupId()
+{
+    return groupId;
 }
 
 QHostAddress GroupRPC::getFromIp()
@@ -182,7 +189,6 @@ void GroupRPC::send(QVariantMap &msg)
     socket.writeDatagram(json,QHostAddress::Broadcast,port);
 }
 
-
 void GroupRPC::onRead()
 {
     while(socket.hasPendingDatagrams())
@@ -191,7 +197,6 @@ void GroupRPC::onRead()
         ba.resize(socket.pendingDatagramSize());
 
         socket.readDatagram(ba.data(),ba.size(),&fromIp);
-
         QVariantMap msg=QJsonDocument::fromJson(ba).toVariant().toMap();
         if(!msg.contains("to"))
             continue;

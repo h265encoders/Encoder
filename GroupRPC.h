@@ -33,6 +33,7 @@ public:
     QVariant call(QString method,QString to,QVariant data=QVariant(),bool noRespond=false);
 
     void setGroupId(int gid);
+    int getGroupId();
     QHostAddress getFromIp();
     QHostAddress getLocalIp();
     QString getFromMac();

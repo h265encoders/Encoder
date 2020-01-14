@@ -7,10 +7,12 @@
 #include "Version.h"
 #include "Record.h"
 #include "Push.h"
+#include "UART.h"
 
 RPC *GRPC;
 Record *GRecord;
 Push *GPush;
+UART *GUart;
 
 int main(int argc, char *argv[])
 {
@@ -42,6 +44,9 @@ int main(int argc, char *argv[])
 
     GRPC=new RPC();
     GRPC->init();
+
+    GUart=new UART();
+    GUart->init();
 
 
 

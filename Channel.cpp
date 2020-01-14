@@ -159,13 +159,14 @@ void Channel::updateConfig(QVariantMap cfg)
 {
     data=cfg;
     enable=data["enable"].toBool();
+    bool enable2=data["enable2"].toBool();
     QVariantMap lays;
     lays["lays"]=cfg["overlay"].toList();
     overlay->start(lays);
 
     if(encV2!=NULL)
     {
-        if(data["enable2"].toBool())
+        if(enable2)
             encV2->start(cfg["encv2"].toMap());
         else
             encV2->stop();
@@ -189,40 +190,46 @@ void Channel::updateConfig(QVariantMap cfg)
     QVariantMap stream2;
     stream2=cfg["stream2"].toMap();
 
-    if(stream["rtmp"].toBool())
+
+
+    if(enable && stream["rtmp"].toBool())
         muxMap["rtmp"]->start();
     else
         muxMap["rtmp"]->stop();
 
-    if(stream["hls"].toBool())
-        muxMap["hls"]->start();
+    if(enable && stream["hls"].toBool())
+        muxMap["hls"]->start(cfg["hls"].toMap());
     else
         muxMap["hls"]->stop();
 
 
 
-    if(stream["http"].toBool()  || stream["udp"].toMap()["enable"].toBool())
+    if(enable &&  (stream["http"].toBool()  || stream["udp"].toMap()["enable"].toBool()))
     {
         if(cfg.contains("ts"))
-            muxMap["ts"]->start(cfg["ts"].toMap());
+        {
+            QVariantMap tscfg=cfg["ts"].toMap();
+            tscfg["service_name"]=cfg["name"].toString();
+            muxMap["ts"]->start(tscfg);
+        }
         else
             muxMap["ts"]->start();
     }
     else
         muxMap["ts"]->stop();
 
-    if(stream["rtsp"].toBool() )
+    if(enable && stream["rtsp"].toBool() )
         muxMap["rtsp"]->start();
     else
         muxMap["rtsp"]->stop();
 
 
-    if(stream["http"].toBool())
+    if(enable && stream["http"].toBool())
         muxMap["ts"]->linkV(httpServer);
     else
         muxMap["ts"]->unLinkV(httpServer);
 
-    if(stream["rtsp"].toBool())
+    if(enable && stream["rtsp"].toBool())
     {
         muxMap["rtsp"]->linkV(rtspServer);
         muxMap["rtsp"]->linkA(rtspServer);
@@ -235,12 +242,12 @@ void Channel::updateConfig(QVariantMap cfg)
 
 
 
-    if(stream["udp"].toMap()["enable"].toBool())
+    if(enable && stream["udp"].toMap()["enable"].toBool())
         udp->start(stream["udp"].toMap());
     else
         udp->stop();
 
-    if(stream["push"].toMap()["enable"].toBool())
+    if(enable && stream["push"].toMap()["enable"].toBool())
         muxMap["push"]->start(stream["push"].toMap());
     else
         muxMap["push"]->stop();
@@ -248,39 +255,43 @@ void Channel::updateConfig(QVariantMap cfg)
 
     if(encV2!=NULL)
     {
-        if(stream2["rtmp"].toBool())
+        if(enable2 && stream2["rtmp"].toBool())
             muxMap_sub["rtmp"]->start();
         else
             muxMap_sub["rtmp"]->stop();
 
-        if(stream2["hls"].toBool())
-            muxMap_sub["hls"]->start();
+        if(enable2 &&stream2["hls"].toBool())
+            muxMap_sub["hls"]->start(cfg["hls"].toMap());
         else
             muxMap_sub["hls"]->stop();
 
 
-        if(stream2["http"].toBool()  || stream2["udp"].toMap()["enable"].toBool())
+        if(enable2 && (stream2["http"].toBool()  || stream2["udp"].toMap()["enable"].toBool()))
         {
             if(cfg.contains("ts"))
-                muxMap_sub["ts"]->start(cfg["ts"].toMap());
+            {
+                QVariantMap tscfg=cfg["ts"].toMap();
+                tscfg["service_name"]=cfg["name"].toString();
+                muxMap_sub["ts"]->start(tscfg);
+            }
             else
                 muxMap_sub["ts"]->start();
         }
         else
             muxMap_sub["ts"]->stop();
 
-        if(stream2["rtsp"].toBool() )
+        if(enable2 && stream2["rtsp"].toBool() )
             muxMap_sub["rtsp"]->start();
         else
             muxMap_sub["rtsp"]->stop();
 
 
-        if(stream2["http"].toBool())
+        if(enable2 && stream2["http"].toBool())
             muxMap_sub["ts"]->linkV(httpServer);
         else
             muxMap_sub["ts"]->unLinkV(httpServer);
 
-        if(stream2["rtsp"].toBool())
+        if(enable2 && stream2["rtsp"].toBool())
         {
             muxMap_sub["rtsp"]->linkV(rtspServer);
             muxMap_sub["rtsp"]->linkA(rtspServer);
@@ -293,12 +304,12 @@ void Channel::updateConfig(QVariantMap cfg)
 
 
 
-        if(stream2["udp"].toMap()["enable"].toBool())
+        if(enable2 && stream2["udp"].toMap()["enable"].toBool())
             udp_sub->start(stream2["udp"].toMap());
         else
             udp_sub->stop();
 
-        if(stream2["push"].toMap()["enable"].toBool())
+        if(enable2 && stream2["push"].toMap()["enable"].toBool())
             muxMap_sub["push"]->start(stream2["push"].toMap());
         else
             muxMap_sub["push"]->stop();

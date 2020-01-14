@@ -51,9 +51,9 @@ JsonRpcClient::waitForSyncCallbacks(const JsonRpcRequest* request)
 {
     connect(request, &JsonRpcRequest::result,
             [this, id = request->id()](const QVariant& result) {
-                m_logger->logDebug(
-                    QString("Received success response to synchronous "
-                            "RPC call (ID: %1)").arg(qPrintable(id)));
+//                m_logger->logDebug(
+//                    QString("Received success response to synchronous "
+//                            "RPC call (ID: %1)").arg(qPrintable(id)));
 
                 m_results[id] = std::make_shared<JsonRpcSuccess>(result);
             });
@@ -63,9 +63,9 @@ JsonRpcClient::waitForSyncCallbacks(const JsonRpcRequest* request)
                                        const QString& message,
                                        const QVariant& data)
             {
-                m_logger->logError(
-                    QString("Received error response to synchronous "
-                            "RPC call (ID: %1)").arg(qPrintable(id)));
+//                m_logger->logError(
+//                    QString("Received error response to synchronous "
+//                            "RPC call (ID: %1)").arg(qPrintable(id)));
 
                 m_results[id] =
                     std::make_shared<JsonRpcError>(code, message, data);
@@ -118,7 +118,7 @@ JsonRpcClient::doCallExpandArgs(const QString& method,
         req_json_obj["params"] = QJsonArray::fromVariantList(args);
     }
 
-    m_logger->logInfo(formatLogMessage(method, args, async, request->id()));
+//    m_logger->logInfo(formatLogMessage(method, args, async, request->id()));
     m_endpoint->send(QJsonDocument(req_json_obj));
 
     return request;
@@ -134,7 +134,7 @@ void JsonRpcClient::verifyConnected(const QString& method)
     if (!isConnected()) {
         auto msg = QString("cannot call RPC method (%1) when not connected")
             .arg(method);
-        m_logger->logError(msg);
+//        m_logger->logError(msg);
         throw std::runtime_error(msg.toStdString());
     }
 }
@@ -319,7 +319,7 @@ QString JsonRpcClient::formatLogMessage(const QString& method,
 
 void JsonRpcClient::logError(const QString& msg)
 {
-    m_logger->logError("JSON RPC client error: " + msg);
+//    m_logger->logError("JSON RPC client error: " + msg);
 }
 
 }

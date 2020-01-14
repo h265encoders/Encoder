@@ -5,6 +5,8 @@ TARGET = Encoder
 CONFIG += console  c++14
 CONFIG -= app_bundle
 chip = HI3531D
+#chip=HI3559A
+#SDKVER=V2.0.3.0
 include(../../LinkLib/Link.pri)
 TEMPLATE = app
 
@@ -36,7 +38,8 @@ SOURCES += main.cpp \
     jcon/json_rpc_tcp_socket.cpp \
     jcon/json_rpc_websocket_client.cpp \
     Record.cpp \
-    Push.cpp
+    Push.cpp \
+    UART.cpp
 
 HEADERS += \
     RPC.h \
@@ -71,5 +74,6 @@ HEADERS += \
     jcon/json_rpc_websocket_client.h \
     Version.h \
     Record.h \
-    Push.h
+    Push.h \
+    UART.h
 

@@ -424,12 +424,12 @@ QJsonDocument JsonRpcServer::createErrorResponse(const QString& request_id,
 
 void JsonRpcServer::logInfo(const QString& msg)
 {
-    m_logger->logInfo("JSON RPC server: " + msg);
+//    m_logger->logInfo("JSON RPC server: " + msg);
 }
 
 void JsonRpcServer::logError(const QString& msg)
 {
-    m_logger->logError("JSON RPC server error: " + msg);
+//    m_logger->logError("JSON RPC server error: " + msg);
 }
 
 }

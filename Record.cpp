@@ -55,7 +55,6 @@ bool Record::start()
 
         for(int i=0;i<formats.count();i++)
         {
-
             QString fmt=formats[i].toString();
             QVariantMap data;
             data["path"]=fullName+"."+fmt;
