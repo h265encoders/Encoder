@@ -5,9 +5,10 @@
 
 ChannelUSB::ChannelUSB(QObject *parent) : Channel(parent)
 {
-    audio=NULL;
+    alsa=Link::create("InputAlsa");
+    audio=Link::create("Resample");
     video=Link::create("DecodeV");
-    encA=NULL;
+    encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
     usb=Link::create("InputV4l2");
@@ -22,9 +23,14 @@ void ChannelUSB::init(QVariantMap)
     usb->linkV(video);
     overlay->linkV(encV);
 
-
     video->linkV(MD);
     QObject::connect(MD,SIGNAL(newEvent(QString,QVariant)),this,SLOT(motion(QString,QVariant)));
+
+
+    audio->start();
+    alsa->linkA(audio)->linkA(encA);
+
+
     Channel::init();
 }
 
@@ -44,12 +50,26 @@ void ChannelUSB::updateConfig(QVariantMap cfg)
 
     if(cfg["enable"].toBool())
     {
+        alsa->start();
         usb->start();
-        encV->start(cfg["encv"].toMap());
-        encV2->start(cfg["encv2"].toMap());
+        if(cfg["encv"].toMap()["codec"].toString()!="close")
+            encV->start(cfg["encv"].toMap());
+        else
+            encV->stop();
+
+        if(cfg["encv2"].toMap()["codec"].toString()!="close")
+            encV2->start(cfg["encv2"].toMap());
+        else
+            encV2->stop();
+
+        if(cfg["enca"].toMap()["codec"].toString()!="close")
+            encA->start(cfg["enca"].toMap());
+        else
+            encA->stop();
     }
     else
     {
+        alsa->stop();
         usb->stop();
         encV->stop();
         encV2->stop();

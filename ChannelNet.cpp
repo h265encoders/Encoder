@@ -157,11 +157,11 @@ void ChannelNet::updateConfig(QVariantMap cfg)
             encV->setData(frm);
             encV2->setData(frm);
 
-            if(cfg["enable"].toBool())
+            if(cfg["enable"].toBool() && cfg["encv"].toMap()["codec"].toString()!="close")
                 encV->start(cfg["encv"].toMap());
             else
                 encV->stop();
-            if(cfg["enable2"].toBool())
+            if(cfg["enable2"].toBool() && cfg["encv2"].toMap()["codec"].toString()!="close")
                 encV2->start(cfg["encv2"].toMap());
             else
                 encV2->stop();

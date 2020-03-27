@@ -13,6 +13,7 @@ public:
 private:
     LinkObject *usb;
     LinkObject *MD;
+    LinkObject *alsa;
     qint64 lastAlarm;
     int cache;
 signals:

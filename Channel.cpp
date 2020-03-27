@@ -96,6 +96,11 @@ void Channel::init(QVariantMap)
     path["path"]="/tmp/hls/stream" + QString::number(id)+".m3u8";
     muxMap["hls"]->setData(path);
 
+    muxMap["srt"]=Link::create("Mux");
+    path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
+    muxMap["srt"]->setData(path);
+
+
     muxMap["ts"]=Link::create("Mux");
     path["format"]="mpegts";
     path["path"]="mem://stream" + QString::number(id);
@@ -126,6 +131,10 @@ void Channel::init(QVariantMap)
         muxMap_sub["hls"]=Link::create("Mux");
         path["path"]="/tmp/hls/sub" + QString::number(id)+".m3u8";
         muxMap_sub["hls"]->setData(path);
+
+        muxMap_sub["srt"]=Link::create("Mux");
+        path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
+        muxMap_sub["srt"]->setData(path);
 
         muxMap_sub["ts"]=Link::create("Mux");
         path["format"]="mpegts";
@@ -203,6 +212,12 @@ void Channel::updateConfig(QVariantMap cfg)
         muxMap["hls"]->stop();
 
 
+    if(enable && stream["srt"].toBool())
+        muxMap["srt"]->start();
+    else
+        muxMap["srt"]->stop();
+
+
 
     if(enable &&  (stream["http"].toBool()  || stream["udp"].toMap()["enable"].toBool()))
     {
@@ -241,7 +256,6 @@ void Channel::updateConfig(QVariantMap cfg)
     }
 
 
-
     if(enable && stream["udp"].toMap()["enable"].toBool())
         udp->start(stream["udp"].toMap());
     else
@@ -264,6 +278,12 @@ void Channel::updateConfig(QVariantMap cfg)
             muxMap_sub["hls"]->start(cfg["hls"].toMap());
         else
             muxMap_sub["hls"]->stop();
+
+
+        if(enable2 && stream2["srt"].toBool())
+            muxMap_sub["srt"]->start();
+        else
+            muxMap_sub["srt"]->stop();
 
 
         if(enable2 && (stream2["http"].toBool()  || stream2["udp"].toMap()["enable"].toBool()))

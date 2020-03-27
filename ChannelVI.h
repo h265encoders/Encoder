@@ -16,6 +16,7 @@ public:
     LinkObject *gain;
     LinkObject *viR;
     LinkObject *AVS;
+    LinkObject *alsa;
 
 signals:
 

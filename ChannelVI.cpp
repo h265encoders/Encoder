@@ -16,7 +16,7 @@ ChannelVI::ChannelVI(QObject *parent) :
     encV2=Link::create("EncodeV");
     gain=Link::create("Gain");
 
-#ifdef HI3559A
+#if (defined HI3519A) || (defined HI3559A)
     viR=Link::create("InputVi");
     AVS=Link::create("SAVS");
     video=AVS;
@@ -31,7 +31,12 @@ ChannelVI::ChannelVI(QObject *parent) :
 void ChannelVI::init(QVariantMap cfg)
 {
     if(cfg.contains("alsa"))
-        audio=Link::create("InputAlsa");
+    {
+        alsa=Link::create("InputAlsa");
+        audio=Link::create("Resample");
+        audio->start();
+        alsa->linkA(audio);
+    }
     else
         audio=Link::create("InputAi");
 
@@ -39,7 +44,7 @@ void ChannelVI::init(QVariantMap cfg)
     overlay->linkV(encV);
     overlay->linkV(encV2);
 
-#ifdef HI3559A
+#if (defined HI3519A) || (defined HI3559A)
     if(enableAVS)
     {
         vi->linkV(AVS);
@@ -67,14 +72,18 @@ void ChannelVI::updateConfig(QVariantMap cfg)
         {
             ad["path"]=cfg["alsa"].toString();
             ad["channels"]=2;
+            alsa->start(ad);
         }
         else
+        {
             ad["interface"]=cfg["interface"].toString();
 
 #ifndef HI3521D
-        ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
+            ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
 #endif
-        audio->start(ad);
+            audio->start(ad);
+        }
+
 
 
 
@@ -83,7 +92,7 @@ void ChannelVI::updateConfig(QVariantMap cfg)
         gain->start(gd);
 
 
-#ifdef HI3559A
+#if (defined HI3519A) || (defined HI3559A)
         if(enableAVS)
         {
             QVariantMap vd;
@@ -127,9 +136,16 @@ void ChannelVI::updateConfig(QVariantMap cfg)
             encA->start(cfg["enca"].toMap());
         else
             encA->stop();
-        encV->start(cfg["encv"].toMap());
-        if(data["enable2"].toBool())
+
+        if(cfg["encv"].toMap()["codec"].toString()!="close")
+            encV->start(cfg["encv"].toMap());
+        else
+            encV->stop();
+
+        if(data["enable2"].toBool()  && cfg["encv2"].toMap()["codec"].toString()!="close")
             encV2->start(cfg["encv2"].toMap());
+        else
+            encV2->stop();
 
 
         if(audioMini!=NULL)
