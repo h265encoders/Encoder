@@ -148,19 +148,19 @@ void ChannelVI::updateConfig(QVariantMap cfg)
             encV2->stop();
 
 
-        if(audioMini!=NULL)
+        if(lineIn!=NULL)
         {
             QVariantMap cfga=cfg["enca"].toMap();
             if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()=="line" && !isSrcLine)
             {
                 audio->unLinkA(gain);
-                audioMini->linkA(gain);
+                lineIn->linkA(gain);
                 isSrcLine=true;
             }
             else if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()!="line" && isSrcLine)
             {
                 isSrcLine=false;
-                audioMini->unLinkA(gain);
+                lineIn->unLinkA(gain);
                 audio->linkA(gain);
             }
         }

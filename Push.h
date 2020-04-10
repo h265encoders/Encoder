@@ -15,6 +15,9 @@ private:
     QVariantMap config;
     LinkObject *srcA;
     LinkObject *srcV;
+
+    LinkObject *lastSrcA;
+    LinkObject *lastSrcV;
     struct PushUrl
     {
         QString path;

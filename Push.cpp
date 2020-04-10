@@ -7,6 +7,8 @@ Push::Push(QObject *parent) : QObject(parent)
 {
     srcA=NULL;
     srcV=NULL;
+    lastSrcA=NULL;
+    lastSrcV=NULL;
     bPushing=false;
 }
 
@@ -105,9 +107,16 @@ bool Push::update(QString json)
         if(srcA==NULL)
             data["mute"]=true;
         else
+        {
+            if(lastSrcA!=NULL && lastSrcA!=srcA)
+                lastSrcA->unLinkA(tmp->mux);
             srcA->linkA(tmp->mux);
+        }
 
+        if(lastSrcV!=NULL && lastSrcV!=srcV)
+            lastSrcV->unLinkV(tmp->mux);
         srcV->linkV(tmp->mux);
+
         tmp->mux->setData(data);
 
         if(bPushing)
@@ -118,6 +127,9 @@ bool Push::update(QString json)
                 tmp->mux->stop();
         }
     }
+
+    lastSrcA=srcA;
+    lastSrcV=srcV;
 
     Json::saveFile(config,"/link/config/push.json");
 

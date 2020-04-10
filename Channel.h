@@ -18,7 +18,8 @@ public:
     bool isSrcLine;
     int id;
 
-    static LinkObject *audioMini;
+    static LinkObject *lineIn;
+    static LinkObject *alsa;
     QVariantMap data;
     LinkObject *audio;
     LinkObject *video;

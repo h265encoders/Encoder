@@ -5,7 +5,8 @@
 
 LinkObject* Channel::httpServer=NULL;
 LinkObject* Channel::rtspServer=NULL;
-LinkObject *Channel::audioMini=NULL;
+LinkObject *Channel::lineIn=NULL;
+LinkObject *Channel::alsa=NULL;
 Channel::Channel(QObject *parent) :
     QObject(parent)
 {
@@ -43,24 +44,30 @@ Channel::Channel(QObject *parent) :
 
 void Channel::init(QVariantMap)
 {
-    if(audioMini==NULL)
+    if(lineIn==NULL)
     {
+        QString name="Line-In";
         if(QFile::exists("/dev/tlv320aic31"))
+            name="Mini-In";
+        QVariantMap ifaceA=Json::loadFile("/link/config/board.json").toMap()["interfaceA"].toMap();
+        if(ifaceA.keys().contains(name))
         {
-            audioMini=Link::create("InputAi");
-            QVariantMap data;
-            data["interface"]="Mini-In";
-            audioMini->start(data);
-        }
-        else
-        {
-            QVariantMap ifaceA=Json::loadFile("/link/config/board.json").toMap()["interfaceA"].toMap();
-            if(ifaceA.keys().contains("Line-In"))
+            if(ifaceA[name].toMap().contains("alsa"))
             {
-                audioMini=Link::create("InputAi");
+                alsa=Link::create("InputAlsa");
+                QVariantMap alsaData=ifaceA[name].toMap();
+                alsaData["path"]=alsaData["alsa"].toString();
+                alsa->start(alsaData);
+                lineIn=Link::create("Resample");
+                lineIn->start();
+                alsa->linkA(lineIn);
+            }
+            else
+            {
+                lineIn=Link::create("InputAi");
                 QVariantMap data;
-                data["interface"]="Line-In";
-                audioMini->start(data);
+                data["interface"]=name;
+                lineIn->start(data);
             }
         }
     }
@@ -114,6 +121,8 @@ void Channel::init(QVariantMap)
     udp=Link::create("TSUdp");
     muxMap["ts"]->linkV(udp);
 
+    muxMap["ndi"]=Link::create("NDI");
+
     {
         path.remove("format");
         muxMap_sub["rtmp"]=Link::create("Mux");
@@ -153,13 +162,15 @@ void Channel::init(QVariantMap)
 
     foreach(QString key,muxMap.keys())
     {
+
         if(encA!=NULL)
         {
             encA->linkA(muxMap[key]);
-            encA->linkA(muxMap_sub[key]);
+            if(muxMap_sub.contains(key))
+                encA->linkA(muxMap_sub[key]);
         }
         encV->linkV(muxMap[key]);
-        if(encV2!=NULL)
+        if(encV2!=NULL && muxMap_sub.contains(key))
             encV2->linkV(muxMap_sub[key]);
     }
 }
@@ -189,6 +200,8 @@ void Channel::updateConfig(QVariantMap cfg)
             muxData["mute"]=false;
         foreach(QString key,muxMap.keys())
         {
+            if(key=="ndi")
+                continue;
             muxMap[key]->setData(muxData);
             muxMap_sub[key]->setData(muxData);
         }
@@ -334,6 +347,13 @@ void Channel::updateConfig(QVariantMap cfg)
         else
             muxMap_sub["push"]->stop();
     }
+
+    QVariantMap ndiCfg;
+    ndiCfg=cfg["ndi"].toMap();
+    if(enable && ndiCfg["enable"].toBool())
+        muxMap["ndi"]->start(ndiCfg);
+    else
+        muxMap["ndi"]->stop();
 }
 
 void Channel::doSnap()

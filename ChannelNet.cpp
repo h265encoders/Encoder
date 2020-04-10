@@ -46,11 +46,15 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         foreach(QString key,muxMap.keys())
         {
             net->unLinkV(muxMap[key]);
-            net->unLinkV(muxMap_sub[key]);
             muxMap[key]->stop();
-            muxMap_sub[key]->stop();
             encV->linkV(muxMap[key]);
-            encV2->linkV(muxMap_sub[key]);
+
+            if(muxMap_sub.contains(key))
+            {
+                net->unLinkV(muxMap_sub[key]);
+                muxMap_sub[key]->stop();
+                encV2->linkV(muxMap_sub[key]);
+            }
         }
     }
     else
@@ -61,12 +65,16 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         foreach(QString key,muxMap.keys())
         {
             ev->unLinkV(muxMap[key]);
-            encV2->unLinkV(muxMap_sub[key]);
             muxMap[key]->stop();
-            muxMap_sub[key]->stop();
 
             encV->linkV(muxMap[key]);
-            encV->linkV(muxMap_sub[key]);
+
+            if(muxMap_sub.contains(key))
+            {
+                encV2->unLinkV(muxMap_sub[key]);
+                muxMap_sub[key]->stop();
+                encV->linkV(muxMap_sub[key]);
+            }
         }
     }
 
@@ -82,11 +90,15 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         foreach(QString key,muxMap.keys())
         {
             net->unLinkA(muxMap[key]);
-            net->unLinkA(muxMap_sub[key]);
             muxMap[key]->stop();
-            muxMap_sub[key]->stop();
             encA->linkA(muxMap[key]);
-            encA->linkA(muxMap_sub[key]);
+
+            if(muxMap_sub.contains(key))
+            {
+                net->unLinkA(muxMap_sub[key]);
+                muxMap_sub[key]->stop();
+                encA->linkA(muxMap_sub[key]);
+            }
         }
     }
     else
@@ -99,13 +111,16 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         foreach(QString key,muxMap.keys())
         {
             ea->unLinkA(muxMap[key]);
-            ea->unLinkA(muxMap_sub[key]);
             muxMap[key]->stop();
-            muxMap_sub[key]->stop();
             if(encA!=NULL)
-            {
                 encA->linkA(muxMap[key]);
-                encA->linkA(muxMap_sub[key]);
+
+            if(muxMap_sub.contains(key))
+            {
+                ea->unLinkA(muxMap_sub[key]);
+                muxMap_sub[key]->stop();
+                if(encA!=NULL)
+                    encA->linkA(muxMap_sub[key]);
             }
         }
     }
@@ -120,7 +135,7 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         int bm=cfg["net"].toMap()["bufferMode"].toInt();
 
         if(bm==0)
-        {            
+        {
             nd["lowLatency"]=false;
             nd["buffer"]=true;
             nd["sync"]=false;

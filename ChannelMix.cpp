@@ -11,12 +11,12 @@ ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
-    lastSrc=NULL;
-    lastSrc2=NULL;
+    lastSrcV=NULL;
+    lastSrcV2=NULL;
     lastSrcA=NULL;
 }
 
-void ChannelMix::init(QVariantMap)
+void ChannelMix::init(QVariantMap cfg)
 {
     audio->linkA(encA);
     overlay->linkV(encV);
@@ -32,23 +32,28 @@ void ChannelMix::init(QVariantMap)
     outputA->start(aoData);
     audio->linkA(outputA);
 
+
+    QString name="Line-Out";
     if(QFile::exists("/dev/tlv320aic31"))
+        name="Mini-Out";
+    QVariantMap ifaceA=Json::loadFile("/link/config/board.json").toMap()["interfaceA"].toMap();
+    if(ifaceA.keys().contains(name))
     {
-        lineOut=Link::create("OutputAo");
-        aoData["interface"]="Mini-Out";
-        lineOut->start(aoData);
-        audio->linkA(lineOut);
-    }
-    else
-    {
-        QVariantMap ifaceA=Json::loadFile("/link/config/board.json").toMap()["interfaceA"].toMap();
-        if(ifaceA.keys().contains("Line-Out"))
+        if(ifaceA[name].toMap().contains("alsa"))
+        {
+
+            lineOut=Link::create("OutputAlsa");
+            QVariantMap alsaData=ifaceA[name].toMap();
+            alsaData["path"]=alsaData["alsa"].toString();
+            lineOut->start(alsaData);
+        }
+        else
         {
             lineOut=Link::create("OutputAo");
-            aoData["interface"]="Line-Out";
+            aoData["interface"]=name;
             lineOut->start(aoData);
-            audio->linkA(lineOut);
         }
+        audio->linkA(lineOut);
     }
 
     lastSrcA=audio;
@@ -119,10 +124,10 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             curAList.append(srcA[i].toInt());
         }
 
-        if(ChannelVI::audioMini!=NULL)
+        if(ChannelVI::lineIn!=NULL)
         {
-            ChannelVI::audioMini->linkA(audio);
-            dataMixA["main"]=ChannelVI::audioMini->name();
+            ChannelVI::lineIn->linkA(audio);
+            dataMixA["main"]=ChannelVI::lineIn->name();
         }
 
         audio->setData(dataMixA);
@@ -154,9 +159,9 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         LinkObject *a=chn->audio;
         if(v!=NULL)
         {
-            if(v!=lastSrc && lastSrc!=NULL)
-                lastSrc->unLinkV(outputV);
-            lastSrc=v;
+            if(v!=lastSrcV && lastSrcV!=NULL)
+                lastSrcV->unLinkV(outputV);
+            lastSrcV=v;
             v->linkV(outputV);
         }
 
@@ -173,7 +178,6 @@ void ChannelMix::updateConfig(QVariantMap cfg)
                 }
             }
             lastSrcA=a;
-
         }
         outputV->start(outCfg);
     }
@@ -184,14 +188,16 @@ void ChannelMix::updateConfig(QVariantMap cfg)
     QVariantMap outCfg2=cfg["output2"].toMap();
     if(outCfg2["enable"].toBool())
     {
-        LinkObject *v=Config::findChannelById(outCfg2["src"].toInt())->video;
+        Channel *chn=Config::findChannelById(outCfg2["src"].toInt());
+        LinkObject *v=chn->video;
         if(v!=NULL)
         {
-            if(v!=lastSrc2 && lastSrc2!=NULL)
-                lastSrc2->unLinkV(outputV2);
-            lastSrc2=v;
+            if(v!=lastSrcV2 && lastSrcV2!=NULL)
+                lastSrcV2->unLinkV(outputV2);
+            lastSrcV2=v;
             v->linkV(outputV2);
         }
+
         outputV2->start(outCfg2);
     }
     else
