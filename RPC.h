@@ -31,6 +31,8 @@ public slots:
     QVariantMap getPlayPosition();
     bool play(int index,int time);
     QVariantList getPushSpeed();
+    QString getSN();
+    QVariantList getNDIList();
 };
 extern RPC *GRPC;
 #endif // RPC_H

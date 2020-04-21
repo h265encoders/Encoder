@@ -10,6 +10,10 @@ Push::Push(QObject *parent) : QObject(parent)
     lastSrcA=NULL;
     lastSrcV=NULL;
     bPushing=false;
+    preview=Link::create("Mux");
+    QVariantMap data;
+    data["path"]="rtmp://127.0.0.1/live/preview";
+    preview->setData(data);
 }
 
 void Push::init()
@@ -21,6 +25,7 @@ void Push::init()
     update(json);
     if(config["autorun"].toBool())
         start();
+
 }
 
 bool Push::start()
@@ -31,6 +36,7 @@ bool Push::start()
             url->mux->start();
     }
     startTime=QDateTime::currentDateTime();
+    preview->start();
     bPushing=true;
     return true;
 }
@@ -41,6 +47,7 @@ bool Push::stop()
     {
         url->mux->stop();
     }
+    preview->stop();
     bPushing=false;
     return true;
 }
@@ -109,13 +116,21 @@ bool Push::update(QString json)
         else
         {
             if(lastSrcA!=NULL && lastSrcA!=srcA)
+            {
                 lastSrcA->unLinkA(tmp->mux);
+                lastSrcA->unLinkA(preview);
+            }
             srcA->linkA(tmp->mux);
+            srcA->linkA(preview);
         }
 
         if(lastSrcV!=NULL && lastSrcV!=srcV)
+        {
             lastSrcV->unLinkV(tmp->mux);
+            lastSrcV->unLinkV(preview);
+        }
         srcV->linkV(tmp->mux);
+        srcV->linkV(preview);
 
         tmp->mux->setData(data);
 

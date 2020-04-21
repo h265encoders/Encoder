@@ -121,7 +121,7 @@ void Channel::init(QVariantMap)
     udp=Link::create("TSUdp");
     muxMap["ts"]->linkV(udp);
 
-    muxMap["ndi"]=Link::create("NDI");
+    muxMap["ndi"]=Link::create("NDISend");
 
     {
         path.remove("format");

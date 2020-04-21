@@ -306,3 +306,22 @@ QVariantList RPC::getPushSpeed()
 
     return ret;
 }
+
+QString RPC::getSN()
+{
+    return Link::sn.toHex();
+}
+
+QVariantList RPC::getNDIList()
+{
+    QVariantList list;
+    for(int i=0;i<Config::chns.count();i++)
+    {
+        if(Config::chns[i]->type=="ndi")
+        {
+            list=Config::chns[i]->encV->invoke("getList").toList();
+            break;
+        }
+    }
+    return list;
+}

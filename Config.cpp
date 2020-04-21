@@ -7,6 +7,7 @@
 #include "ChannelMix.h"
 #include "ChannelUSB.h"
 #include "ChannelFile.h"
+#include "ChannelNDI.h"
 
 QList<Channel*> Config::chns;
 Config::Config(QObject *parent) :
@@ -49,6 +50,8 @@ void Config::loadConfig(QString path)
                 chn=new ChannelUSB();
             else if(type=="file")
                 chn=new ChannelFile();
+            else if(type=="ndi")
+                chn=new ChannelNDI();
             chn->type=type;
             chn->id=id;
             chn->init(cfg);

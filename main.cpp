@@ -49,15 +49,6 @@ int main(int argc, char *argv[])
     GUart=new UART();
     GUart->init();
 
-    if(!QFile::exists("/tmp/snap/sn"))
-    {
-        QFile file("/tmp/snap/sn");
-        file.open(QFile::ReadWrite);
-        file.write(Link::sn.toHex());
-        file.close();
-    }
-
-
 
     return a.exec();
 }

@@ -1,15 +1,17 @@
-QT += core network testlib  websockets xml
+QT += core network testlib  xml
 QT -= gui
 
 TARGET = Encoder
 CONFIG += console  c++14
 CONFIG -= app_bundle
-chip = HI3521D
-#chip=HI3559A
-#SDKVER=V2.0.3.0
-include(../../LinkLib/Link.pri)
-include(../../LinkLib/LinkNDI.pri)
+chip = HI3531D
+include(../LinkLib/Link.pri)
+include(../LinkLib/LinkNDI.pri)
 TEMPLATE = app
+
+
+MOC_DIR = Temp/$$chip
+OBJECTS_DIR  = Temp/$$chip
 
 SOURCES += main.cpp \
     RPC.cpp \
@@ -22,8 +24,6 @@ SOURCES += main.cpp \
     ChannelMix.cpp \
     ChannelUSB.cpp \
     ChannelFile.cpp \
-    jcon/json_rpc_websocket_server.cpp \
-    jcon/json_rpc_websocket.cpp \
     jcon/string_util.cpp \
     jcon/json_rpc_debug_logger.cpp \
     jcon/json_rpc_endpoint.cpp \
@@ -37,10 +37,10 @@ SOURCES += main.cpp \
     jcon/json_rpc_tcp_client.cpp \
     jcon/json_rpc_tcp_server.cpp \
     jcon/json_rpc_tcp_socket.cpp \
-    jcon/json_rpc_websocket_client.cpp \
     Record.cpp \
     Push.cpp \
-    UART.cpp
+    UART.cpp \
+    ChannelNDI.cpp
 
 HEADERS += \
     RPC.h \
@@ -53,8 +53,6 @@ HEADERS += \
     ChannelMix.h \
     ChannelUSB.h \
     ChannelFile.h \
-    jcon/json_rpc_websocket_server.h \
-    jcon/json_rpc_websocket.h \
     jcon/string_util.h \
     jcon/json_rpc_debug_logger.h \
     jcon/json_rpc_endpoint.h \
@@ -72,8 +70,8 @@ HEADERS += \
     jcon/json_rpc_tcp_client.h \
     jcon/json_rpc_tcp_server.h \
     jcon/json_rpc_tcp_socket.h \
-    jcon/json_rpc_websocket_client.h \
     Version.h \
     Record.h \
     Push.h \
-    UART.h
+    UART.h \
+    ChannelNDI.h

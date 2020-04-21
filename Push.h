@@ -27,6 +27,7 @@ private:
     QList<PushUrl*> urlList;
     QDateTime startTime;
     bool bPushing;
+    LinkObject *preview;
 signals:
 
 public slots:

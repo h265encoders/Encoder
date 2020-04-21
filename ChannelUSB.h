@@ -12,14 +12,10 @@ public:
     virtual void updateConfig(QVariantMap cfg);
 private:
     LinkObject *usb;
-    LinkObject *MD;
     LinkObject *alsa;
-    qint64 lastAlarm;
-    int cache;
 signals:
 
 public slots:
-    bool motion(QString type, QVariant data);
 };
 
 #endif // CHANNELUSB_H
