@@ -1,3 +1,13 @@
+**相关目录:**  
+编码器源码： https://gitee.com/LinkPi/Encoder  
+编码器使用说明书: https://gitee.com/LinkPi/Encoder/wikis/pages  
+LinkLib API说明：https://gitee.com/LinkPi/LinkLib/wikis/pages  
+LinkLib例子源码：https://gitee.com/LinkPi/Example  
+LinkLib例子说明：https://gitee.com/LinkPi/Example/wikis/pages/preview?sort_id=1451722&doc_id=287009  
+评估板使用指南: https://gitee.com/LinkPi/Example/wikis/pages/preview  
+LinkPi微信公众号及小程序：https://gitee.com/LinkPi/Encoder/wikis/pages/preview?sort_id=2165970&doc_id=338777  
+LinkPi博客：https://blog.csdn.net/weixin_45326556  
+
 ## 项目简介
 该工程展示了如何使用[LinkSDK](https://gitee.com/LinkPi/LinkLib/wikis/pages)制作一个完整的产品，除了基本的编码串流功能以外，相比于普通的编码器设备，该工程还支持网络输入解码、转码，支持画面混合，支持文件录制、USB摄像头运动分析、文件轮播等功能。
 
