@@ -19,6 +19,7 @@ void ChannelUSB::init(QVariantMap)
     video->start();
     usb->linkV(video);
     overlay->linkV(encV);
+    overlay->linkV(encV2);
 
 
     audio->start();

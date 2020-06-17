@@ -5,6 +5,7 @@ TARGET = Encoder
 CONFIG += console  c++14
 CONFIG -= app_bundle
 chip = HI3531D
+#SDKVER=V2.0.3.0
 include(../LinkLib/Link.pri)
 include(../LinkLib/LinkNDI.pri)
 TEMPLATE = app

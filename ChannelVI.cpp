@@ -41,8 +41,15 @@ void ChannelVI::init(QVariantMap cfg)
         audio=Link::create("InputAi");
 
     audio->linkA(gain)->linkA(encA);
-    overlay->linkV(encV);
-    overlay->linkV(encV2);
+    if(cfg["encv"].toMap()["lowLatency"].toBool())
+        video->linkV(encV);
+    else
+        overlay->linkV(encV);
+
+    if(cfg["encv2"].toMap()["lowLatency"].toBool())
+        video->linkV(encV2);
+    else
+        overlay->linkV(encV2);
 
 #if (defined HI3519A) || (defined HI3559A)
     if(enableAVS)
@@ -138,7 +145,13 @@ void ChannelVI::updateConfig(QVariantMap cfg)
             encA->stop();
 
         if(cfg["encv"].toMap()["codec"].toString()!="close")
-            encV->start(cfg["encv"].toMap());
+        {
+            QVariantMap dataEncv=cfg["encv"].toMap();
+#if (defined HI3519A) ||  (defined HI3559A)
+            dataEncv["scaleUp"]=true;
+#endif
+            encV->start(dataEncv);
+        }
         else
             encV->stop();
 

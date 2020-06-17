@@ -43,12 +43,13 @@ bool Push::start()
 
 bool Push::stop()
 {
+    bPushing=false;
     foreach(PushUrl *url,urlList)
     {
         url->mux->stop();
     }
     preview->stop();
-    bPushing=false;
+
     return true;
 }
 
@@ -111,6 +112,9 @@ bool Push::update(QString json)
         QVariantMap data;
 
         data["path"]=tmp->path;
+        data["bufLenV"]=256;
+        data["bufLenA"]=1024;
+        data["thread"]=true;
         if(srcA==NULL)
             data["mute"]=true;
         else
@@ -150,4 +154,5 @@ bool Push::update(QString json)
 
     return true;
 }
+
 

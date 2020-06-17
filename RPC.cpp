@@ -197,8 +197,6 @@ QVariantList RPC::getEPG()
             urls<<(stream["udp"].toMap()["rtp"].toBool()?"rtp://@":"udp://@")+stream["udp"].toMap()["ip"].toString()+":"+QString::number(stream["udp"].toMap()["port"].toInt());
         if(stream["push"].toMap()["enable"].toBool())
             urls<<stream["push"].toMap()["path"].toString();
-        if(stream["srt"].toBool())
-            urls<<"srt://:8080?streamid=pull/live/stream"+id;
         map["url"]=urls.join("|");
 
 
@@ -216,8 +214,6 @@ QVariantList RPC::getEPG()
             urls2<<(stream2["udp"].toMap()["rtp"].toBool()?"rtp://@":"udp://@")+stream2["udp"].toMap()["ip"].toString()+":"+QString::number(stream2["udp"].toMap()["port"].toInt());
         if(stream2["push"].toMap()["enable"].toBool())
             urls2<<stream2["push"].toMap()["path"].toString();
-        if(stream2["srt"].toBool())
-            urls2<<"srt://:8080?streamid=pull/live/sub"+id;
         map["url2"]=urls2.join("|");
         ret<<map;
     }

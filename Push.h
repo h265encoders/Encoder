@@ -4,6 +4,7 @@
 #include <QObject>
 #include "Link.h"
 #include <QDateTime>
+#include <QTimer>
 
 class Push : public QObject
 {
@@ -28,6 +29,8 @@ private:
     QDateTime startTime;
     bool bPushing;
     LinkObject *preview;
+
+
 signals:
 
 public slots:

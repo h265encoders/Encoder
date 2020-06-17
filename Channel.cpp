@@ -17,6 +17,7 @@ Channel::Channel(QObject *parent) :
     sd["width"]=640;
     sd["height"]=360;
     sd["codec"]="jpeg";
+    sd["share"]=0;
     snap->start(sd);
     enable=false;
     enableAVS=false;
@@ -104,7 +105,7 @@ void Channel::init(QVariantMap)
     muxMap["hls"]->setData(path);
 
     muxMap["srt"]=Link::create("Mux");
-    path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
+    path["path"]="srt://:" + QString::number(9000+id)+"?mode=listener&latency=50";
     muxMap["srt"]->setData(path);
 
 
@@ -142,7 +143,7 @@ void Channel::init(QVariantMap)
         muxMap_sub["hls"]->setData(path);
 
         muxMap_sub["srt"]=Link::create("Mux");
-        path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
+        path["path"]="srt://:" + QString::number(9100+id)+"?mode=listener&latency=50";
         muxMap_sub["srt"]->setData(path);
 
         muxMap_sub["ts"]=Link::create("Mux");
@@ -156,7 +157,7 @@ void Channel::init(QVariantMap)
         muxMap_sub["rtsp"]->setData(path);
 
         udp_sub=Link::create("TSUdp");
-        muxMap_sub["ts"]->linkV(udp);
+        muxMap_sub["ts"]->linkV(udp_sub);
     }
 
 
@@ -225,8 +226,17 @@ void Channel::updateConfig(QVariantMap cfg)
         muxMap["hls"]->stop();
 
 
-    if(enable && stream["srt"].toBool())
-        muxMap["srt"]->start();
+    if(enable && stream["srt"].toMap()["enable"].toBool())
+    {
+        QVariantMap cfg=stream["srt"].toMap();
+        QVariantMap data;
+        QString ip=cfg["ip"].toString();
+        QString mode=cfg["mode"].toString();
+        if(mode=="listener")
+            ip="0.0.0.0";
+        data["path"]="srt://"+ip+":" + QString::number(cfg["port"].toInt())+"?mode="+mode+"&latency="+ QString::number(cfg["latency"].toInt());
+        muxMap["srt"]->start(data);
+    }
     else
         muxMap["srt"]->stop();
 
@@ -293,8 +303,17 @@ void Channel::updateConfig(QVariantMap cfg)
             muxMap_sub["hls"]->stop();
 
 
-        if(enable2 && stream2["srt"].toBool())
-            muxMap_sub["srt"]->start();
+        if(enable2 && stream2["srt"].toMap()["enable"].toBool())
+        {
+            QVariantMap cfg=stream2["srt"].toMap();
+            QVariantMap data;
+            QString ip=cfg["ip"].toString();
+            QString mode=cfg["mode"].toString();
+            if(mode=="listener")
+                ip="0.0.0.0";
+            data["path"]="srt://"+ip+":" + QString::number(cfg["port"].toInt())+"?mode="+mode+"&latency="+ QString::number(cfg["latency"].toInt());
+            muxMap_sub["srt"]->start(data);
+        }
         else
             muxMap_sub["srt"]->stop();
 
