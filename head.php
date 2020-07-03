@@ -16,10 +16,24 @@ include( "headhead.php" );
         <li><a href="/dashboard.php"><i class="fa fa-tachometer menuIcon"></i><cn>运行状态</cn><en>Dashboard</en></a></li>
         <li><a href="/encode.php"><i class="fa fa-image menuIcon"></i><cn>编码设置</cn><en>Encode</en></a></li>
         <li><a href="/stream.php"><i class="fa fa-upload menuIcon"></i><cn>输出设置</cn><en>Stream</en></a></li>
+<?php
+if(!isset($overlay) || $overlay)
+{
+?>
         <li><a href="/overlay.php"><i class="fa fa-magic menuIcon"></i><cn>叠加特效</cn><en>Overlay</en></a></li>
+<?php
+}
+?>
         <li role="presentation" class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"> <i class="fa fa-puzzle-piece menuIcon"></i><cn>扩展功能</cn><en>Extend</en><span class="caret"></span> </a>
           <ul class="dropdown-menu">
+<?php
+if(!isset($MIX) || $MIX)
+{
+?>
             <li><a href="/mix.php"><i class="fa fa-th"></i><cn>视频混合</cn><en>Video mix</en></a></li>
+<?php
+}
+?>
 			  <li><a href="/roi.php"><i class="fa fa-user-circle-o"></i>ROI</a></li>
               <?php
               if((!isset($NDI) || $NDI) && (!isset($HDMI_Out) || $HDMI_Out))
@@ -42,7 +56,14 @@ include( "headhead.php" );
 			  }
 				?>
 			  <li><a href="/push.php"><i class="fa fa-arrow-circle-up"></i><cn>多平台直播</cn><en>Multiple Push</en></a></li>
+<?php
+if(!isset($button) || $button)
+{
+?>
 			  <li><a href="/uart.php"><i class="fa fa-link"></i><cn>串口、按键</cn><en>Serial, Button</en></a></li>
+<?php
+}
+?>
           </ul>
         </li>
         <li role="presentation" class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true"> <i class="fa fa-gears menuIcon"></i><cn>高级设置</cn><en>Options</en><span class="caret"></span> </a>

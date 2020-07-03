@@ -304,7 +304,7 @@ include( "groupList.php" );
 			<li role="presentation" ><a href="#tab5" aria-controls="tab5" role="tab" data-toggle="tab"><i class="fa fa-file-video-o"></i> <cn>高级编码参数</cn><en>Advanced Encode config</en></a>
 			</li>
 			<?php
-			if($chip!="3559A")
+			if($chip!="3559A" && $chip!="3516E")
 			{
 			?>
 			<li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab"><i class="fa fa-image"></i> <cn>视频参数</cn><en>Video config</en></a>

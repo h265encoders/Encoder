@@ -16,7 +16,14 @@ include( "groupList.php" );
 				<div class="row text-center" style="margin-top: 5px;">
 					<div class="col-md-2 col-xs-4"></div>
 					<div class="col-md-1 col-xs-2">HTTP</div>
+<?php
+if(!isset($HLS) || $HLS)
+{
+?>
 					<div class="col-md-1 col-xs-2">HLS</div>
+<?php
+}
+?>
 					<div class="col-md-1 col-xs-2">RTMP</div>
 					<div class="col-md-1 col-xs-2">RTSP</div>
 					<div class="col-md-1 col-xs-4">
@@ -42,9 +49,16 @@ include( "groupList.php" );
 					<div class="col-md-1 col-xs-2">
 						<input type="checkbox" zcfg="http" class="switch form-control">
 					</div>
+<?php
+if(!isset($HLS) || $HLS)
+{
+?>
 					<div class="col-md-1 col-xs-2">
 						<input type="checkbox" zcfg="hls" class="switch form-control">
 					</div>
+<?php
+}
+?>
 					<div class="col-md-1 col-xs-2">
 						<input type="checkbox" zcfg="rtmp" class="switch form-control">
 					</div>
@@ -74,9 +88,16 @@ include( "groupList.php" );
 					<div class="col-md-1 col-xs-2">
 						<input type="checkbox" zcfg="http" class="switch form-control">
 					</div>
+<?php
+if(!isset($HLS) || $HLS)
+{
+?>
 					<div class="col-md-1 col-xs-2">
 						<input type="checkbox" zcfg="hls" class="switch form-control">
 					</div>
+<?php
+}
+?>
 					<div class="col-md-1 col-xs-2">
 						<input type="checkbox" zcfg="rtmp" class="switch form-control">
 					</div>
@@ -117,13 +138,25 @@ include( "groupList.php" );
 			</li>
 			<li role="presentation"><a href="#tab2" aria-controls="tab2" role="tab" data-toggle="tab"><i class="fa fa-gear"></i> <cn>TS设置</cn><en>TS Config</en></a>
 			</li>
+			<?php
+			if(!isset($HLS) || $HLS)
+              		{
+			?>
 			<li role="presentation"><a href="#tab3" aria-controls="tab3" role="tab" data-toggle="tab"><i class="fa fa-gear"></i> <cn>HLS设置</cn><en>HLS Config</en></a>
 			</li>
+			<?php
+			}
+
+			if(!isset($SRT) || $SRT)
+              		{
+			?>
 			<li role="presentation"><a href="#tab7" aria-controls="tab7" role="tab" data-toggle="tab"><i class="fa fa-gear"></i> <cn>SRT设置</cn><en>SRT Config</en></a>
 			</li>
 			<?php
+			}
+
 			if(!isset($NDI) || $NDI)
-              {
+              		{
 			?>
 			<li role="presentation"><a href="#tab6" aria-controls="tab6" role="tab" data-toggle="tab"><i class="fa fa-gear"></i> <cn>NDI设置</cn><en>NDI Config</en></a>
 			</li>
@@ -143,7 +176,14 @@ include( "groupList.php" );
 						<en>channel name</en>
 					</div>
 					<div class="col-md-1 col-xs-2">HTTP</div>
+<?php
+if(!isset($HLS) || $HLS)
+{
+?>
 					<div class="col-md-1 col-xs-2">HLS</div>
+<?php
+}
+?>
 					<div class="col-md-1 col-xs-2">RTMP</div>
 					<div class="col-md-1 col-xs-2">RTSP</div>
 					<div class="col-md-1 col-xs-4">
@@ -172,9 +212,16 @@ include( "groupList.php" );
 						<div class="col-md-1 col-xs-2">
 							<input type="checkbox" zcfg="[#].stream.http" class="switch form-control">
 						</div>
+<?php
+if(!isset($HLS) || $HLS)
+{
+?>
 						<div class="col-md-1 col-xs-2">
 							<input type="checkbox" zcfg="[#].stream.hls" class="switch form-control">
 						</div>
+<?php
+}
+?>
 						<div class="col-md-1 col-xs-2">
 							<input type="checkbox" zcfg="[#].stream.rtmp" class="switch form-control">
 						</div>
@@ -203,9 +250,16 @@ include( "groupList.php" );
 						<div class="col-md-1 col-xs-2">
 							<input type="checkbox" zcfg="[#].stream2.http" class="switch form-control">
 						</div>
+<?php
+if(!isset($HLS) || $HLS)
+{
+?>
 						<div class="col-md-1 col-xs-2">
 							<input type="checkbox" zcfg="[#].stream2.hls" class="switch form-control">
 						</div>
+<?php
+}
+?>
 						<div class="col-md-1 col-xs-2">
 							<input type="checkbox" zcfg="[#].stream2.rtmp" class="switch form-control">
 						</div>
