@@ -1,0 +1,37 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+
+<body>
+	<div id="text1" style="font-size: 100px; font-weight: bolder; font-family:'微软雅黑'; text-align: center;">00:00</div>
+	<div>
+	<div id="text2" style="font-size: 300px; font-weight: bolder; font-family:'微软雅黑'; text-align: center; width: 50%; display: inline-block;">000</div><div id="text3" style="font-size: 300px; font-weight: bolder; font-family:'微软雅黑'; text-align: center; width: 50%; display: inline-block;">000</div>
+	</div>
+	<div id="bar" style="position: absolute; left:50%; width: 200px; height: 80px; margin-left: -100px; background: #000;"></div>
+</body>
+<script>
+	var startTime=new Date().getTime();
+	function PrefixInteger(num, n) {
+            return (Array(n).join(0) + num).slice(-n);
+    }
+	function update()
+	{
+		var curTime=new Date().getTime();
+		var dif=curTime-startTime;
+		var m=Math.floor(dif/60000);
+		dif=dif%60000;
+		var s=Math.floor(dif/1000);
+		var ms=dif%1000;
+		
+		document.getElementById("text1").innerHTML=m+":"+PrefixInteger(s,2);
+		document.getElementById("text2").innerHTML=PrefixInteger(ms,3);
+		document.getElementById("text3").innerHTML=PrefixInteger(ms,3);
+
+		document.getElementById("bar").style.top=(ms)+"px";
+	}
+	setInterval(update,4);
+</script>
+</html>

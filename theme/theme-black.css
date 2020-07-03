@@ -1,0 +1,108 @@
+html,body{
+    background: #888;
+}
+.footer{
+    background: none;
+}
+@keyframes menuHover {
+    from {
+    color: #fff;
+    }
+    to {
+        color: #D1082A;
+    }
+}
+ @-webkit-keyframes menuHover {
+    from {
+    color: #fff;
+    }
+    to {
+    color: #D1082A;
+    }
+}
+.navbar-nav>li>a:hover {
+	animation: menuHover 0.3s;
+	animation-fill-mode: forwards;
+	-webkit-animation: menuHover 0.3s;
+	-webkit-animation-fill-mode: forwards;
+}
+.navbar .dropdown-menu > li > a:hover,.navbar .dropdown-menu > li > a:focus
+{
+	animation: menuHover 0.3s;
+	animation-fill-mode: forwards;
+	-webkit-animation: menuHover 0.3s;
+	-webkit-animation-fill-mode: forwards;
+}
+.navbar,.nav-tabs{
+    background: #000;
+}
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+    transition: all .2s ease;
+    color: #D1082A!important;
+    padding-top:8px!important;
+    border-radius: 0;
+    background: #fff;
+    border-top: 4px solid #D1082A !important;
+}
+.navc > li.active > a,.navc > li > a:hover {
+    color: #D1082A !important;
+    background-color: #000 !important;
+}
+.navc > li > a:hover i{
+    color: #D1082A;
+}
+.nav-tabs a {
+    color: #fff;
+}
+.navbar .dropdown-menu,.navr .dropdown-menu {
+    background-color: #D1082A;
+}
+.navbar-nav > .open > a, .navbar-nav > .open > a:focus {
+    color: #D1082A !important;
+    background-color: #000 !important;
+}
+.navbar .dropdown-menu > li > a{
+    color: #fff;
+}
+.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:focus,.navr .dropdown-menu li a:hover {
+    background: #fff!important;
+    color: #D1082A!important;
+}
+.panel-default .panel-heading,.panel .title {
+    background-color: #000;
+    color: #fff;
+}
+@media (min-width:768px){
+    .modal-dialog{width:600px}
+}
+.slider-handle {
+    background: #1bb8ff!important;
+}
+.slider-disabled .slider-selection {
+    background: #a3e2ff!important;
+}
+.slider-selection {
+    background: #a3e2ff!important;
+}
+.btn-warning,#ctlBtn {
+    background-color: #2288ee;
+    color: #fff;
+}
+.btn-warning:hover,.btn-warning:focus,.btn-warning:active,#ctlBtn:hover,#ctlBtn:focus,#ctlBtn:active {
+    background-color: #59acff !important;
+    border-color: #fff !important;
+}
+.btn-default:hover,.btn-default:focus,.btn-default:active, {
+    background-color: #59acff !important;
+    border-color: #fff !important;
+    color: #fff;
+}
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
+    background-color: #1bb8ff;
+}
+.webuploader-pick{
+    background: #1bb8ff;
+}
+.webuploader-pick-hover{
+    background: #52c9ff;
+}

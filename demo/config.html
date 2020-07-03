@@ -1,0 +1,44 @@
+<html>
+<body>
+
+<script src="/js/jquery-1.11.3.min.js"></script>
+<script src="/js/jquery.jsonrpcclient.js"></script>
+<script src="/js/jquery.cookie.js"></script>
+<script src="/js/global.js" id="globaljs" defLang="cn"></script>
+
+<script>
+    $.getJSON( "/config/config.json", function ( cfg ) {
+        for(var i=0;i<cfg.length;i++){
+            cfg[i].id=i;
+            cfg[i].stream.srt={};
+            cfg[i].stream.srt.enable=false;
+            cfg[i].stream.srt.mode="listener";
+            cfg[i].stream.srt.ip="127.0.0.1";
+            cfg[i].stream.srt.port=9001+i;
+            cfg[i].stream.srt.latency=50;
+            cfg[i].stream.push.path="rtmp://127.0.0.1/live/test_main"+i;
+
+            cfg[i].stream2.srt={};
+            cfg[i].stream2.srt.enable=false;
+            cfg[i].stream2.srt.mode="listener";
+            cfg[i].stream2.srt.ip="127.0.0.1";
+            cfg[i].stream2.srt.port=9101+i;
+            cfg[i].stream2.srt.latency=50;
+            cfg[i].stream2.push.path="rtmp://127.0.0.1/live/test_sub"+i;
+
+            if(cfg[i].type=="net")
+            {
+                cfg[i].enca.codec="close";
+            }
+
+            cfg[i].ndi.name="stream"+i;
+
+        }
+
+        rpc( "enc.update", [ JSON.stringify( cfg, null, 2 ) ], function ( data ) {
+           console.log(data);
+        } );
+    } );
+</script>
+</body>
+</html>

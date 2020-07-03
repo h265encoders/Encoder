@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+</head>
+	<div style="width: 1280px; ">	
+<div id="player" ></div>
+		</div>
+<body>
+<script src="vendor/jwplayer/jwplayer.js"></script>
+<script src="js/jquery-1.11.3.min.js"></script>
+<script>
+	var isIE = !-[ 1, ];
+	var hasFlash = true;
+	var inited = false;
+
+	function initPlayer( url ) {
+		if ( inited )
+			return false;
+		inited = true;
+		if ( isIE ) {
+			try {
+				var swf1 = new ActiveXObject( 'ShockwaveFlash.ShockwaveFlash' );
+				hasFlash = true;
+			} catch ( e ) {
+				hasFlash = false;
+			}
+		} else {
+			try {
+				var swf2 = navigator.plugins[ 'Shockwave Flash' ];
+				if ( swf2 == undefined ) {
+					hasFlash = false;
+				} else {
+					hasFlash = true;
+				}
+			} catch ( e ) {
+				hasFlash = false;
+			}
+		}
+		if ( hasFlash ) {
+
+			jwplayer( "player" ).setup( {
+				width: "100%",
+				height: "auto",
+				autostart: "true",
+				aspectratio: "16:9",
+				stretching: "exactfit",
+				smoothing: true,
+				rtmp: {
+					bufferlength: 5
+				},
+				playlist: [ {
+					file: url
+				} ],
+				mute: "false",
+				androidhls: false
+			} );
+		}
+		return true;
+	}
+
+
+	function play( url ) {
+
+		var host = window.location.host;
+		var path = "http://" + host + url;
+		if ( !initPlayer( path ) ) {
+			jwplayer( "player" ).load( [ {
+				file: path
+			} ] );
+		}
+		jwplayer( "player" ).play( true );
+	}
+	initPlayer( "rtmp://live.linkpi.cn/live/test" );
+	
+</script>
+</body>
+</html>

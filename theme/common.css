@@ -1,0 +1,59 @@
+.thumbnail img{
+    border-radius: 9px;
+}
+.btn,.btn:hover,.btn:focus,.btn:active {
+    border: none;
+}
+.panel{
+    border:none;
+}
+.panel .title,.panel-heading {
+    margin: 0;
+    padding: 9px 15px 8px 15px;
+}
+.nav-tabs>li.active>a,
+.nav-tabs>li.active>a:hover,
+.nav-tabs>li.active>a:focus {
+    color: #2288ee;
+}
+.loginform{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}
+.loginform img {
+    display: inline-block;
+}
+.loginform p {
+    font-size: 34px;
+    font-weight: bold;
+    line-height: 80px;
+    float: right;
+}
+.preview_l, .preview_r {
+    width: 0;
+    background-color: #2288ee;
+    height: 5px;
+}
+.navc>li>a:hover i{
+    transition: all .3s ease;
+    transform: translateY(5px);
+}
+.loginform .logo{
+    margin-top: 20px;
+}
+.modal-dialog{
+    position:absolute;
+    width:auto;
+    margin:10px auto;
+    left:0;
+    right:0;
+    top:50%;
+}
+.modal.in .modal-dialog{
+    transform:translate(0,-50%);
+}
+td .btn{
+    margin-bottom: 5px;
+}
