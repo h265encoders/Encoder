@@ -88,6 +88,9 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 #ifndef HI3521D
             ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
 #endif
+#ifdef HI3516E
+            ad["type"]=(cfg["enca"].toMap()["audioSrc"].toString()=="hdmi")?"i2s":"codec";
+#endif
             audio->start(ad);
         }
 

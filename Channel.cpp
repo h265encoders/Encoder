@@ -121,8 +121,9 @@ void Channel::init(QVariantMap)
 
     udp=Link::create("TSUdp");
     muxMap["ts"]->linkV(udp);
-
+#ifndef  HI3516E
     muxMap["ndi"]=Link::create("NDISend");
+#endif
 
     {
         path.remove("format");
@@ -366,13 +367,14 @@ void Channel::updateConfig(QVariantMap cfg)
         else
             muxMap_sub["push"]->stop();
     }
-
+#ifndef  HI3516E
     QVariantMap ndiCfg;
     ndiCfg=cfg["ndi"].toMap();
     if(enable && ndiCfg["enable"].toBool())
         muxMap["ndi"]->start(ndiCfg);
     else
         muxMap["ndi"]->stop();
+#endif
 }
 
 void Channel::doSnap()

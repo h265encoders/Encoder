@@ -7,7 +7,9 @@ CONFIG -= app_bundle
 chip = HI3531D
 #SDKVER=V2.0.3.0
 include(../LinkLib/Link.pri)
+if(!contains(DEFINES,HI3516E)){
 include(../LinkLib/LinkNDI.pri)
+}
 TEMPLATE = app
 
 

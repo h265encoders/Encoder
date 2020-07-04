@@ -101,6 +101,7 @@ QVariantMap RPC::getSysState()
     QFile file2("/proc/meminfo");
     file2.open(QFile::ReadOnly);
     QString str1=file2.readLine();
+    file2.readLine();
     QString str2=file2.readLine();
 //    QString str3=file2.readLine();
     file2.close();
