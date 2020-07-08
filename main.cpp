@@ -24,8 +24,6 @@ int main(int argc, char *argv[])
     if(!Link::init())
         return 0;
 
-    Link::debug=true;
-
     QString ver;
     ver=ver.sprintf("%s build %s_%d",VERSION_VER,VERSION_DATE,VERSION_BUILD);
 
