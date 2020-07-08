@@ -13,12 +13,7 @@ Channel::Channel(QObject *parent) :
     overlay=Link::create("Overlay");
     volume=Link::create("Volume");
     snap=Link::create("EncodeV");
-    QVariantMap sd;
-    sd["width"]=640;
-    sd["height"]=360;
-    sd["codec"]="jpeg";
-    sd["share"]=0;
-    snap->start(sd);
+
     enable=false;
     enableAVS=false;
     isSrcLine=false;
@@ -45,6 +40,14 @@ Channel::Channel(QObject *parent) :
 
 void Channel::init(QVariantMap)
 {
+    QVariantMap sd;
+    sd["width"]=640;
+    sd["height"]=360;
+    sd["codec"]="jpeg";
+    if(type=="vi" || type=="mix")
+        sd["share"]=0;
+    snap->start(sd);
+
     if(lineIn==NULL)
     {
         QString name="Line-In";
