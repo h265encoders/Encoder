@@ -129,7 +129,8 @@ void ChannelNet::updateConfig(QVariantMap cfg)
     {
         QVariantMap nd;
         nd["path"]=cfg["net"].toMap()["path"].toString();
-        nd["protocol"]="tcp";
+        nd["protocol"]=cfg["net"].toMap()["protocol"].toString();
+        nd["minDelay"]=cfg["net"].toMap()["minDelay"].toInt();
         nd["timeout"]=20;
 
         int bm=cfg["net"].toMap()["bufferMode"].toInt();

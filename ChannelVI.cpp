@@ -85,7 +85,7 @@ void ChannelVI::updateConfig(QVariantMap cfg)
         {
             ad["interface"]=cfg["interface"].toString();
 
-#ifndef HI3521D
+#if !(defined HI3521D)  && !(defined HI3516E)
             ad["resamplerate"]=cfg["enca"].toMap()["samplerate"].toInt();
 #endif
 #ifdef HI3516E
