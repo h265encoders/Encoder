@@ -47,6 +47,12 @@ bool UART::update(QString json)
         socket.bind(cfg["port"].toInt());
     }
 
+    if(cfg.contains("ip"))
+    {
+        rmtIp.setAddress(cfg["ip"].toString());
+        rmtPort=cfg["port"].toInt();
+    }
+
 
     Json::saveFile(cfg,"/link/config/uart.json");
 
