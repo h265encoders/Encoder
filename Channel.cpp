@@ -198,17 +198,20 @@ void Channel::updateConfig(QVariantMap cfg)
     }
 
     {
-        QVariantMap muxData;
-        if(cfg["enca"].toMap()["codec"].toString()=="close")
-            muxData["mute"]=true;
-        else
-            muxData["mute"]=false;
+        QVariantMap muxDataMain;
+        QVariantMap muxDataSub;
+        muxDataMain["mute"]=(cfg["enca"].toMap()["codec"].toString()=="close");
+        muxDataSub["mute"]=(cfg["enca"].toMap()["codec"].toString()=="close");
+
+        muxDataMain["noVideo"]=(cfg["encv"].toMap()["codec"].toString()=="close");
+        muxDataSub["noVideo"]=(cfg["encv2"].toMap()["codec"].toString()=="close");
+
         foreach(QString key,muxMap.keys())
         {
             if(key=="ndi")
                 continue;
-            muxMap[key]->setData(muxData);
-            muxMap_sub[key]->setData(muxData);
+            muxMap[key]->setData(muxDataMain);
+            muxMap_sub[key]->setData(muxDataSub);
         }
     }
 

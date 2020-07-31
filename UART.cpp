@@ -71,6 +71,8 @@ void UART::onReadUDP()
         ba.resize(socket.pendingDatagramSize());
 
         socket.readDatagram(ba.data(),ba.size(),&rmtIp,&rmtPort);
+
+        qDebug()<<ba;
         if(uart.isOpen())
             uart.write(ba);
     }

@@ -138,8 +138,24 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         else
             encA->stop();
 
-        encV->start(cfg["encv"].toMap());
-        encV2->start(cfg["encv2"].toMap());
+        if(cfg["encv"].toMap()["codec"].toString()!="close")
+        {
+            encV->start(cfg["encv"].toMap());
+        }
+        else
+            encV->stop();
+
+        if(cfg["encv"].toMap()["codec"].toString()!="close")
+        {
+            encV->start(cfg["encv"].toMap());
+        }
+        else
+            encV->stop();
+
+        if(data["enable2"].toBool()  && cfg["encv2"].toMap()["codec"].toString()!="close")
+            encV2->start(cfg["encv2"].toMap());
+        else
+            encV2->stop();
 
     }
     else
