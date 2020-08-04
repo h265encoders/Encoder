@@ -13,7 +13,6 @@ public:
     virtual void updateConfig(QVariantMap cfg);
     LinkObject *vi;
     LinkObject *dei;
-    LinkObject *gain;
     LinkObject *viR;
     LinkObject *AVS;
     LinkObject *alsa;

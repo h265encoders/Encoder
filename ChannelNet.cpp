@@ -20,7 +20,7 @@ void ChannelNet::init(QVariantMap)
 {
     video->linkV(ev);
     video->linkV(encV2);
-    audio->linkA(ea);
+    gain->linkA(ea);
     decA->start();
     audio->start();
 

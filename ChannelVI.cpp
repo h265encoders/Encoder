@@ -14,7 +14,6 @@ ChannelVI::ChannelVI(QObject *parent) :
     encA=Link::create("EncodeA");
     encV=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
-    gain=Link::create("Gain");
 
 #if (defined HI3519A) || (defined HI3559A)
     viR=Link::create("InputVi");
@@ -40,7 +39,7 @@ void ChannelVI::init(QVariantMap cfg)
     else
         audio=Link::create("InputAi");
 
-    audio->linkA(gain)->linkA(encA);
+    gain->linkA(encA);
     if(cfg["encv"].toMap()["lowLatency"].toBool())
         video->linkV(encV);
     else
@@ -97,9 +96,7 @@ void ChannelVI::updateConfig(QVariantMap cfg)
 
 
 
-        QVariantMap gd;
-        gd["gain"]=cfg["enca"].toMap()["gain"];
-        gain->start(gd);
+
 
 
 #if (defined HI3519A) || (defined HI3559A)
@@ -164,22 +161,7 @@ void ChannelVI::updateConfig(QVariantMap cfg)
             encV2->stop();
 
 
-        if(lineIn!=NULL)
-        {
-            QVariantMap cfga=cfg["enca"].toMap();
-            if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()=="line" && !isSrcLine)
-            {
-                audio->unLinkA(gain);
-                lineIn->linkA(gain);
-                isSrcLine=true;
-            }
-            else if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()!="line" && isSrcLine)
-            {
-                isSrcLine=false;
-                lineIn->unLinkA(gain);
-                audio->linkA(gain);
-            }
-        }
+
     }
     else
     {

@@ -13,6 +13,7 @@ Channel::Channel(QObject *parent) :
     overlay=Link::create("Overlay");
     volume=Link::create("Volume");
     snap=Link::create("EncodeV");
+    gain=Link::create("Gain");
 
     enable=false;
     enableAVS=false;
@@ -84,7 +85,7 @@ void Channel::init(QVariantMap)
     if(audio!=NULL)
     {
         volume->start();
-        audio->linkA(volume);
+        audio->linkA(gain)->linkA(volume);
     }
 
     QVariantMap path;
@@ -185,9 +186,37 @@ void Channel::updateConfig(QVariantMap cfg)
     data=cfg;
     enable=data["enable"].toBool();
     bool enable2=data["enable2"].toBool();
-    QVariantMap lays;
-    lays["lays"]=cfg["overlay"].toList();
-    overlay->start(lays);
+
+    if(enable || enable2)
+    {
+        QVariantMap lays;
+        lays["lays"]=cfg["overlay"].toList();
+        overlay->start(lays);
+
+        if(cfg.contains("enca"))
+        {
+            QVariantMap gd;
+            gd["gain"]=cfg["enca"].toMap()["gain"];
+            gain->start(gd);
+        }
+
+        if(lineIn!=NULL && cfg.contains("enca"))
+        {
+            QVariantMap cfga=cfg["enca"].toMap();
+            if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()=="line" && !isSrcLine)
+            {
+                audio->unLinkA(gain);
+                lineIn->linkA(gain);
+                isSrcLine=true;
+            }
+            else if(cfga.contains("audioSrc") && cfga["audioSrc"].toString()!="line" && isSrcLine)
+            {
+                isSrcLine=false;
+                lineIn->unLinkA(gain);
+                audio->linkA(gain);
+            }
+        }
+    }
 
     if(encV2!=NULL)
     {

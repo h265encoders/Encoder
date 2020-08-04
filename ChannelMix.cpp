@@ -18,7 +18,7 @@ ChannelMix::ChannelMix(QObject *parent) : Channel(parent)
 
 void ChannelMix::init(QVariantMap cfg)
 {
-    audio->linkA(encA);
+    gain->linkA(encA);
     overlay->linkV(encV);
     overlay->linkV(encV2);
 
@@ -102,7 +102,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         {
             if(!srcA.contains(id))
             {
-                LinkObject *a=Config::findChannelById(id)->audio;
+                LinkObject *a=Config::findChannelById(id)->gain;
                 a->unLinkA(audio);
                 curAList.removeAll(id);
             }
@@ -117,7 +117,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
             Channel *chn=Config::findChannelById(srcA[i].toInt());
             if(chn->audio==NULL )
                 continue;
-            LinkObject *a=chn->audio;
+            LinkObject *a=chn->gain;
             if(!dataMixA.contains("main"))
                 dataMixA["main"]=a->name();
             a->linkA(audio);
@@ -172,7 +172,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
     {
         Channel *chn=Config::findChannelById(outCfg["src"].toInt());
         LinkObject *v=chn->video;
-        LinkObject *a=chn->audio;
+        LinkObject *a=chn->gain;
         if(v!=NULL)
         {
             if(v!=lastSrcV && lastSrcV!=NULL)

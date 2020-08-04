@@ -26,6 +26,7 @@ public:
     LinkObject *volume;
     LinkObject *encA;
     LinkObject *encV;
+    LinkObject *gain;
 
     LinkObject *overlay;
     LinkObject *snap;
