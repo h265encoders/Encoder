@@ -174,7 +174,7 @@ include( "head.php" );
 							EDID
 						</label>
 						<div class="col-sm-6">
-							<select name="edid" class="form-control">
+							<select name="edid" id="edidVal" class="form-control">
 								<option value="LinkPi_1080">LinkPi_1080</option>
 								<option value="LinkPi_4k">LinkPi_4k</option>
 								<option value="RGB">RGB</option>
@@ -200,6 +200,11 @@ include( "head.php" );
 
 		$.ajax({url:"/config/fac",success:function(data){
 				$( "#typeVal" ).val(data.replace(/[\r\n]/g,""));
+
+			}}).responseText;
+
+		$.ajax({url:"/config/edid",success:function(data){
+				$( "#edidVal" ).val(data.replace(/[\r\n]/g,""));
 
 			}}).responseText;
 

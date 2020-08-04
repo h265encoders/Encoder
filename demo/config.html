@@ -29,6 +29,7 @@
             if(cfg[i].type=="net")
             {
                 cfg[i].enca.codec="close";
+		cfg[i].net.minDelay=500;
             }
 
             cfg[i].ndi.name="stream"+i;

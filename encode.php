@@ -859,19 +859,18 @@ include( "groupList.php" );
 						<cn>帧率</cn>
 						<en>framerate</en>
 					</div>
-					<div class="col-md-3 col-sm-6">
-						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-md-1 col-sm-2">
 								<cn>缓冲模式</cn>
 								<en>buffer mode</en>
 							</div>
-							<div class="col-sm-6">
-								<cn>协议</cn>
-								<en>protocol</en><small>for rtsp</small>
+							<div class="col-md-1 col-sm-2">
+								<cn>缓冲时间</cn>
+								<en>buffer time</en>
 							</div>
-						</div>
-					</div>
-							
+							<div class="col-md-1 col-sm-2">
+								<cn>协议</cn>
+								<en>protocol</en>
+							</div>
 							<div class="col-md-1 col-sm-2">
 								<cn>视频解码</cn>
 								<en>video decode</en>
@@ -887,7 +886,7 @@ include( "groupList.php" );
 					
 				</div>
 				<hr style="margin-top:5px; margin-bottom: 10px;"/>
-				<div id="templetNET">
+				<div id="templetNET" class="thin2">
 					<div class="row">
 						<div class="col-md-1 col-sm-2">
 							<input type="text" zcfg="[#].name" class="form-control">
@@ -898,22 +897,21 @@ include( "groupList.php" );
 						<div class="col-md-1 col-sm-2">
 							<input zcfg="[#].net.framerate" type="text" class="form-control">
 						</div>
-						<div class="col-md-3 col-sm-6">
-						<div class="row">
-							<div class="col-sm-6">
+							<div class="col-md-1 col-sm-2">
 								<select zcfg="[#].net.bufferMode" class="form-control">
 									<option value="0" cn="一般" en="Normal"></option>
 									<option value="1" cn="实时" en="NoBuffer"></option>
 									<option value="2" cn="同步" en="Sync"></option>
 								</select>
 							</div>
-							<div class="col-sm-6">
+							<div class="col-md-1 col-sm-2">
+								<input zcfg="[#].net.minDelay" type="text" class="form-control">
+							</div>
+							<div class="col-md-1 col-sm-2">
 								<select zcfg="[#].net.protocol" class="form-control">
 									<option value="udp">UDP</option>
 									<option value="tcp">TCP</option>
 								</select>
-							</div>
-							</div>
 							</div>
 							
 							<div class="col-md-1 col-sm-2">

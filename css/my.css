@@ -650,7 +650,14 @@ color: #fb0;
 .thin .row{
 	margin: 0px;
 }
+.thin2 .row{
+	margin: -5px;
+}
 .thin .row>div{
 	text-align: center;
 	padding: 0px;
+}
+.thin2 .row>div{
+	text-align: center;
+	padding: 5px;
 }
