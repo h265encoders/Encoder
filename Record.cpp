@@ -15,33 +15,39 @@ Record::Record(QObject *parent) : QObject(parent)
 
 void Record::init()
 {
+    bool hasRecord = false;
     QFile file(RECPATH);
     if(file.exists())
     {
+
         file.open(QFile::ReadOnly);
         QString json=file.readAll();
         file.close();
-
         config = Json::decode(json).toMap();
-        QVariantList channels = config["channels"].toList();
-        for(int i=0;i<channels.count();i++)
+        if(!config.isEmpty())
         {
-            QVariantMap chnMap = channels[i].toMap();
-            for(QString format : formats)
-                chnMap[format] = false;
-            chnMap["isPause"] = false;
-            chnMap["startTime"] = "--:--:--";
-            channels[i] = chnMap;
+            hasRecord = true;
+            QVariantList channels = config["channels"].toList();
+            for(int i=0;i<channels.count();i++)
+            {
+                QVariantMap chnMap = channels[i].toMap();
+                for(QString format : formats)
+                    chnMap[format] = false;
+                chnMap["isPause"] = false;
+                chnMap["startTime"] = "--:--:--";
+                channels[i] = chnMap;
+            }
+            config["channels"] = channels;
+
+            QVariantMap anyMap = config["any"].toMap();
+            rootPath = anyMap["path"].toString();
+
+            if(rootPath[rootPath.length()-1] != '/')
+                rootPath += "/";
         }
-        config["channels"] = channels;
-
-        QVariantMap anyMap = config["any"].toMap();
-        rootPath = anyMap["path"].toString();
-
-        if(rootPath[rootPath.length()-1] != '/')
-            rootPath += "/";
     }
-    else
+
+    if(!hasRecord)
     {
         rootPath += "/root/usb/";
         QJsonObject rootObj;
@@ -81,6 +87,7 @@ void Record::init()
         rootObj["channels"] = array;
         config = rootObj.toVariantMap();
     }
+
     Json::saveFile(config,RECPATH);
 }
 
