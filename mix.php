@@ -23,7 +23,8 @@ include( "head.php" );
 							<option value="2">1+2</option>
 							<option cn="画中画" en="PinP" value="3"></option>
 							<option cn="单画面" en="Single" value="4"></option>
-							<option cn="自定义" en="user" value="5"></option>
+							<option cn="上下" en="UpDown" value="5"></option>
+							<option cn="自定义" en="user" value="6"></option>
 						</select>
 				  </div>
 				</form>
@@ -261,6 +262,10 @@ echo isset($extraVo)?$extraVo:"VGA";
 		[
 			{x:0,y:0,w:1,h:1,index:0},
 			{x:2/3,y:2/3,w:1/4,h:1/4,index:1}
+		],
+		[
+			{x:0,y:0,w:1,h:0.5,index:0},
+			{x:0,y:0.5,w:1,h:0.5,index:1}
 		],
 		[
 			{x:0,y:0,w:1,h:1,index:0}
