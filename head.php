@@ -56,11 +56,12 @@ if(!isset($MIX) || $MIX)
 			  }
 				?>
 			  <li><a href="/push.php"><i class="fa fa-arrow-circle-up"></i><cn>多平台直播</cn><en>Multiple Push</en></a></li>
+			  <li><a href="/player.php"><i class="fa fa-play-circle-o"></i><cn>H5 播放器</cn><en>H5 Player</en></a></li>
 <?php
 if(!isset($button) || $button)
 {
 ?>
-			  <li><a href="/uart.php"><i class="fa fa-link"></i><cn>串口、按键</cn><en>Serial, Button</en></a></li>
+		<li><a href="/uart.php"><i class="fa fa-link"></i><cn>串口、按键</cn><en>Serial, Button</en></a></li>
 <?php
 }
 ?>

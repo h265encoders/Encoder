@@ -13,7 +13,7 @@ include( "head.php" );
 				</h3>
 			</div>
 			<div class="panel-body">
-				<video id="player" controls style="width:100%;height: 294px; background: #555;"></video>
+				<video id="player" controls muted style="width:100%;height: 294px; background: #555;"></video>
 			</div>
 		</div>
 	</div>
@@ -194,7 +194,7 @@ include( "head.php" );
 		if (flvjs.isSupported()) {
 			player = flvjs.createPlayer({
 				type: 'flv',
-				hasAudio: false,
+				hasAudio: true,
 				url: 'http://'+window.location.host+'/flv?app=live&stream=preview'
 			});
 			player.attachMediaElement(document.getElementById("player"));
