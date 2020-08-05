@@ -109,6 +109,11 @@ bool Record::update(QString json)
 
 bool Record::execute(const QString &json)
 {
+
+    QString mount = writeCom("df /root/usb/");
+        if(!mount.contains("/root/usb"))
+            return false;
+
     QVariantMap anyMap = config["any"].toMap();
     QString fname = anyMap["fileName"].toString();
     if(fname.isEmpty())
@@ -222,6 +227,9 @@ QString Record::getDurTime()
 
 QVariantMap Record::getState()
 {
+    QString mount = writeCom("df /root/usb/");
+        if(!mount.contains("/root/usb"))
+            return QVariantMap();
     QProcess process;
     process.start("df -h | grep "+rootPath);
     process.waitForFinished();
@@ -246,6 +254,10 @@ bool Record::start()
 {
     if(hasRec)
         return false;
+
+    QString mount = writeCom("df /root/usb/");
+        if(!mount.contains("/root/usb"))
+            return false;
 
     QVariantMap anyObj = config["any"].toMap();
 
