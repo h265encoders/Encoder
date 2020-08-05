@@ -89,8 +89,8 @@ include( "head.php" );
                                     </button>
                                 </div>
                                 <div class="col-sm-4 text-left" style="line-height: 34px;">
-                                    <cn>剩余空间</cn>
-                                    <en>Space </en>:
+                                    <cn>已用空间</cn>
+                                    <en>Used Space</en>:
                                     <span id="space">-</span>
                                 </div>
                             </div>
@@ -338,6 +338,7 @@ include( "head.php" );
             $( "#fileList" ).html( html );
         }
 
+
         function initList()
         {
             $.getJSON( "files/", function ( list ) {
@@ -367,6 +368,11 @@ include( "head.php" );
         function formatControl(event,val){
             setTimeout(()=>{
                 rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
+                    if(!data){
+                        htmlAlert("#alert", "danger", "<cn>没有找到外部存储设备！</cn><en>No external storage device was found!</en>", "", 3000);
+                        initView();
+                        return;
+                    }
                     if(intervalId < 0)
                         intervalId = setInterval( onTimer, 1000 );
                 });
@@ -417,10 +423,7 @@ include( "head.php" );
             } );
         }
 
-        $( function () {
-            $.fn.bootstrapSwitch.defaults.size = 'small';
-            $.fn.bootstrapSwitch.defaults.onColor = 'warning';
-            navIndex( 4 );
+        function initView() {
             $.getJSON("config/config.json", function (result) {
                 ini = result;
                 $.getJSON("config/record.json", function (cfg) {
@@ -460,6 +463,13 @@ include( "head.php" );
                     intervalId = setInterval( onTimer, 1000 )
                 });
             });
+        }
+        $( function () {
+            $.fn.bootstrapSwitch.defaults.size = 'small';
+            $.fn.bootstrapSwitch.defaults.onColor = 'warning';
+            navIndex( 4 );
+            initView();
+            });
 
             $(" #startRecord" ).click(function (e) {
                 var checkChns = new Array();
@@ -486,6 +496,10 @@ include( "head.php" );
                     if (typeof (data.error) != "undefined") {
                         htmlAlert("#alert", "danger", "<cn>启动录制失败！</cn><en>Start record failed!</en>", "", 3000);
                     } else {
+                        if(!data){
+                            htmlAlert("#alert", "danger", "<cn>没有找到外部存储设备！</cn><en>No external storage device was found!</en>", "", 3000);
+                            return;
+                        }
                         if(intervalId < 0)
                             intervalId = setInterval( onTimer, 1000 );
                         htmlAlert("#alert", "success", "<cn>启动录制成功！</cn><en>Start record success!</en>", "", 3000);
@@ -559,7 +573,6 @@ include( "head.php" );
                 search = $( "#searchVal" ).val();
                 initList();
             } );
-        });
     </script>
 <?php
 include( "foot.php" );
