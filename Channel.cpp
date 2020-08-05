@@ -1,6 +1,8 @@
 #include "Channel.h"
 #include "unistd.h"
 #include <QFile>
+#include <QDir>
+#include <QDateTime>
 #include "Json.h"
 
 LinkObject* Channel::httpServer=NULL;
@@ -25,6 +27,7 @@ Channel::Channel(QObject *parent) :
     encV2=NULL;
     udp_sub=NULL;
     id=-1;
+    chnName="";
     if(httpServer==NULL)
     {
         httpServer=Link::create("TSHttp");
@@ -37,6 +40,11 @@ Channel::Channel(QObject *parent) :
         rtspServer=Link::create("Rtsp");
         rtspServer->start();
     }
+
+    cd_timer = new QTimer;
+    connect(cd_timer,SIGNAL(timeout()),SLOT(cdTimeout()));
+    cd_pauseTimer = new QTimer;
+    connect(cd_pauseTimer,SIGNAL(timeout()),SLOT(cdPauseTimeout()));
 }
 
 void Channel::init(QVariantMap)
@@ -417,3 +425,229 @@ void Channel::doSnap()
     QString path="/tmp/snap/snap"+QString::number(id)+".jpg";
     snap->invoke("snap",path);
 }
+
+int Channel::timerStrToInt(QString time)
+{
+    int count_time = 0;
+    if(!time.isEmpty())
+    {
+        time = time.replace("：",":");
+        QStringList timeList = time.split(":");
+        for(int j=0;j<timeList.count();j++)
+        {
+            QString str = timeList[j];
+            if(j == 0)
+                count_time += str.toInt()*3600;
+            if(j == 1)
+                count_time += str.toInt()*60;
+            if(j == 2)
+                count_time += str.toInt();
+        }
+    }
+    else
+        count_time = 99999999;
+    return count_time;
+}
+
+void Channel::startRecord(const QString &fileName, const QString &format)
+{
+    if(formatMap.contains(format))
+    {
+        QString mark = formatMap[format]->property("record").toString();
+        if(mark == "on")
+            return;
+    }
+    QStringList infoList = fileName.split("/");
+    QString filePath;
+    for(int i=0;i<infoList.count();i++)
+    {
+        if(i == infoList.count() - 1)
+            continue;
+        filePath = filePath+infoList[i]+"/";
+    }
+
+    QDir pathDir(filePath);
+    if(!pathDir.exists())
+        pathDir.mkpath(filePath);
+
+    QString jpg=fileName+".jpg";;
+    snap->invoke("snapSync",jpg);
+    if(!formatMap.contains(format))
+        formatMap[format] = Link::create("Mux");
+
+    LinkObject *mux = formatMap[format];
+    QVariantMap data;
+    data["path"] = fileName+"."+format;
+    if(encA==NULL || encA->getState()!="started")
+        data["mute"]=true;
+    else
+        encA->linkA(mux);
+
+    encV->linkV(mux);
+
+    mux->start(data);
+    mux->setProperty("record","on");
+
+    if(startRecordTime.isEmpty())
+    {
+        QDateTime curTime = QDateTime::currentDateTime();
+        startRecordTime = QString::number(curTime.toTime_t());
+    }
+}
+
+void Channel::stopRecord(const QString &format)
+{
+    if(!formatMap.contains(format))
+        return;
+
+    int offCount = 0;
+    QMap<QString,LinkObject*>::Iterator it;
+    for(it = formatMap.begin();it != formatMap.end();++it)
+    {
+        LinkObject *mux = it.value();
+        QString mark = formatMap[it.key()]->property("record").toString();
+        if(format == it.key())
+        {
+            if(mark == "off")
+                return;
+            mux->stop();
+            formatMap[format]->setProperty("record","off");
+            mark = "off";
+        }
+        if(mark == "off")
+            offCount++;
+    }
+    if(formatMap.count() == offCount)
+    {
+        startRecordTime = "";
+        pauseTime = 0;
+    }
+}
+
+void Channel::recordPuase(const bool &pause)
+{
+    QMap<QString,LinkObject*>::Iterator it;
+    for(it = formatMap.begin();it != formatMap.end();++it)
+    {
+        LinkObject *mux = it.value();
+        if(pause)
+        {
+            mux->invoke("pause");
+            cd_pauseTimer->start(1000);
+        }
+        else
+        {
+            mux->invoke("resume");
+            cd_pauseTimer->stop();
+        }
+    }
+}
+
+
+void Channel::cdTimeout()
+{
+    int h = cd_time/3600;
+    int m = (cd_time%3600)/60;
+    int s = (cd_time%3600)%60;
+
+    QString hh = QString::number(h);
+    QString mm = QString::number(m);
+    QString ss = QString::number(s);
+
+    if(hh.length() < 2)
+        hh = "0"+hh;
+    if(mm.length() < 2)
+        mm = "0"+mm;
+    if(ss.length() < 2)
+        ss = "0"+ss;
+
+    QString content = cd_ctx;
+    content = content.replace("hh",hh);
+    content = content.replace("mm",mm);
+    content = content.replace("ss",ss);
+
+    for(int i=0;i<modList.count();i++)
+    {
+         CdType mod = modList[i];
+         QVariantMap layObj = layList[mod.layListIndex].toMap();
+        if(mod.type == "countdown")
+        {
+            layObj["content"] = content;
+            if(cd_time >= 0)
+                layObj["enable"]=true;
+            else
+                layObj["enable"]=false;
+            layList[mod.layListIndex] = layObj;
+        }
+        if(mod.type == "subtitle")
+        {
+            if(mod.startTime == cd_time)
+            {
+                layObj["enable"] = true;
+                layList[mod.layListIndex] = layObj;
+            }
+        }
+    }
+
+    QVariantMap lays;
+    lays["lays"] = layList;
+    overlay->setData(lays);
+
+    if(cd_time >= 0)
+        cd_time--;
+
+    bool mark = false;
+    for(int i=0;i<modList.count();i++)
+    {
+        CdType mod = modList[i];
+        if(mod.type == "subtitle")
+        {
+            if(mod.durTime < 1)
+            {
+                QVariantMap layObj = layList[mod.layListIndex].toMap();
+                layObj["enable"] = false;
+                layList[mod.layListIndex] = layObj;
+            }
+            else
+            {
+                mark = true;
+                if(cd_time <= mod.startTime)
+                {
+                    mod.durTime = mod.durTime-1;
+                    modList[i] = mod;
+                }
+            }
+        }
+    }
+
+    if(!mark && cd_time < 0)
+    {
+        cd_timer->stop();
+        for(int i=0;i<modList.count();i++)
+        {
+             CdType mod = modList[i];
+             QVariantMap layObj = layList[mod.layListIndex].toMap();
+            if(mod.type == "countdown")
+            {
+                layObj["content"] = "00:00:00";
+                layObj["enable"]=false;
+                layList[mod.layListIndex] = layObj;
+            }
+            if(mod.type == "subtitle")
+            {
+                layObj["enable"] = false;
+                layList[mod.layListIndex] = layObj;
+            }
+        }
+        QVariantMap lays;
+        lays["lays"] = layList;
+        overlay->setData(lays);
+    }
+}
+
+void Channel::cdPauseTimeout()
+{
+    pauseTime++;
+}
+
+

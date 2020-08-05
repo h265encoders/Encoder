@@ -30,6 +30,7 @@ void Config::loadConfig(QString path)
     {
         QVariantMap cfg=list[i].toMap();
         int id=cfg["id"].toInt();
+        QString chnName = cfg["name"].toString();
         QString type=cfg["type"].toString();
         Channel *chn=findChannelById(id);
         if(chn==NULL)
@@ -54,6 +55,7 @@ void Config::loadConfig(QString path)
                 chn=new ChannelNDI();
             chn->type=type;
             chn->id=id;
+            chn->chnName = chnName;
             chn->init(cfg);
             chns.append(chn);
         }

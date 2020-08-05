@@ -12,6 +12,7 @@ class RPC : public QObject
 public:
     explicit RPC(QObject *parent = 0);
     void init();
+    QString writeCom(const QString &com);
 private:
     Group *group;
     jcon::JsonRpcTcpServer *rpcServer;
@@ -33,6 +34,7 @@ public slots:
     QVariantList getPushSpeed();
     QString getSN();
     QVariantList getNDIList();
+    bool setNetDhcp(const bool &dhcp = true);
 };
 extern RPC *GRPC;
 #endif // RPC_H

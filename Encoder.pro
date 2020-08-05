@@ -6,12 +6,13 @@ CONFIG += console  c++14
 CONFIG -= app_bundle
 chip = HI3521D
 #SDKVER=V2.0.3.0
-include(../LinkLib/Link.pri)
+include(../../LinkLib/Link.pri)
 if(!contains(DEFINES,HI3516E)){
-include(../LinkLib/LinkNDI.pri)
+include(../../LinkLib/LinkNDI.pri)
 }
 TEMPLATE = app
 
+#DESTDIR = /home/fs/3520D/fs/link/bin
 
 MOC_DIR = Temp/$$chip
 OBJECTS_DIR  = Temp/$$chip

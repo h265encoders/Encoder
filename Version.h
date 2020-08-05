@@ -3,6 +3,6 @@
 
 #define VERSION_VER "1.0.0"
 #define VERSION_BUILD 626
-#define VERSION_DATE "20200804"
+#define VERSION_DATE "20200805"
 #endif // VERSION
 

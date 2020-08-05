@@ -43,11 +43,11 @@ int main(int argc, char *argv[])
     GPush=new Push();
     GPush->init();
 
-    GRPC=new RPC();
-    GRPC->init();
-
     GUart=new UART();
     GUart->init();
+
+    GRPC=new RPC();
+    GRPC->init();
 
 
     return a.exec();

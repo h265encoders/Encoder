@@ -2,8 +2,8 @@
 #define RECORD_H
 
 #include <QObject>
-#include "Link.h"
-#include <QDateTime>
+#include <QVariantMap>
+#include <QDebug>
 
 class Record : public QObject
 {
@@ -12,19 +12,20 @@ public:
     explicit Record(QObject *parent = 0);
     void init();
 private:
-    QMap<int,QList<LinkObject*>> muxMap;
-    bool isRecording;
-    QDateTime startTime;
-    QString fileName;
-    QString rootPath;
     QVariantMap config;
-signals:
+    QString rootPath;
+    QStringList formats;
+    bool hasRec = false;
 
+    QString writeCom(const QString &com);
 public slots:
+    bool update(QString json);
+    bool execute(const QString &json);
+    QString getDurTime();
+    QVariantMap getState();
     bool start();
     bool stop();
-    QVariantMap getState();
-    bool update(QString json);
+    bool isRecordState();
 };
 extern Record *GRecord;
 #endif // RECORD_H

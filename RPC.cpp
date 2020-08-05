@@ -8,6 +8,7 @@
 #include "Record.h"
 #include "Push.h"
 #include "UART.h"
+#include <QProcess>
 
 RPC::RPC(QObject *parent) :
     QObject(parent)
@@ -321,4 +322,33 @@ QVariantList RPC::getNDIList()
         }
     }
     return list;
+}
+
+bool RPC::setNetDhcp(const bool &dhcp)
+{
+    if(!dhcp)
+    {
+        QVariantMap netMap = Json::loadFile("/link/config/net.json").toMap();
+        netMap["dhcp"] = false;
+        Json::saveFile(netMap,"/link/config/net.json");
+        writeCom("/link/shell/setNetwork.sh");
+        return true;
+    }
+    writeCom("udhcpc -i eth0 -q -s /link/shell/dhcp.sh");
+    return true;
+}
+
+QString RPC::writeCom(const QString &com)
+{
+    QProcess proc;
+    QStringList argList;
+    argList << "-c" << com;
+    proc.start("/bin/sh",argList);
+    // 等待进程启动
+    proc.waitForFinished();
+    proc.waitForReadyRead();
+    // 读取进程输出到控制台的数据
+    QByteArray procOutput = proc.readAll();
+    proc.close();
+    return QString(procOutput);
 }
