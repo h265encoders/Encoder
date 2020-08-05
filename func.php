@@ -168,6 +168,7 @@ function changeType() {
 	exec( 'cp /link/fac/'.$_POST[ 'type' ].'/* /link/ -rd' );
 	exec( 'chmod 777 /link -R' );
 	exec( 'pkill Encoder' );
+	exec('rm -f /link/config/record.json');
 }
 
 function delFile() {

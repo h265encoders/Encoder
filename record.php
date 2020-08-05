@@ -540,6 +540,12 @@ include( "head.php" );
             });
 
             $("#save").click(function () {
+                var checkChns = new Array();
+                $("#channels :checked").each(function (i, o) {
+                    var val = $(o).attr("value");
+                    checkChns.push(val);
+                });
+                config["any"].chns = checkChns;
                 rpc("rec.update", [JSON.stringify(config, null, 2)], function (data) {
                     htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save config success!</en>", "", 3000);
                 })
