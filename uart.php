@@ -38,6 +38,12 @@ include( "head.php" );
 							<input zcfg="port" type="text" class="form-control">
 						</div>
 					</div>
+                    <div class="form-group">
+                        <label class="col-md-3 col-sm-4 control-label"><cn>IP地址</cn><en>IP Address</en></label>
+                        <div class="col-md-6 col-sm-8">
+                            <input zcfg="ip" type="text" class="form-control">
+                        </div>
+                    </div>
 					<hr style="margin-top:10px; margin-bottom: 10px;"/>
 					<div class="form-group">
 						<div class="text-center">
@@ -63,21 +69,41 @@ include( "head.php" );
 			</div>
 			<div class="panel-body">
 				<form class="form-horizontal" id="button" role="form">
-					<div id="btnList">
-					<div class="form-group">
-						<div class="col-md-3 col-sm-4">
-							<input type="text" class="form-control text-right" style="border: 0px; background-color: transparent; -webkit-box-shadow: none; box-shadow: none;" readonly zcfg="[#].name" />
-						</div>						
-						<div class="col-md-6 col-sm-8">
-							<select zcfg="[#].click" class="form-control">
-								<option value="push.start" cn="开始推流" en="Start push"></option>
-								<option value="push.stop" cn="停止推流" en="Stop push"></option>
-								<option value="rec.start" cn="开始录制" en="Start recorde"></option>
-								<option value="rec.stop" cn="停止录制" en="Stop recorde"></option>
-							</select>
-						</div>
-					</div>
-					</div>
+                    <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3 col-sm-4"></div>
+                            <div class="col-md-4 col-sm-4">
+                                <cn>短按</cn>
+                                <en>Short Press</en>
+                            </div>
+                            <div class="col-md-3 col-sm-4">
+                                <cn>长按</cn>
+                                <en>Long Press</en>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="btnList">
+                            <div class="form-group">
+                                <div class="col-md-3 col-sm-4">
+                                    <input type="text" class="form-control text-right" style="border: 0px; background-color: transparent; -webkit-box-shadow: none; box-shadow: none;" readonly zcfg="[#].name" />
+                                </div>
+                                <div class="col-md-4 col-sm-4">
+                                    <select zcfg="[#].click" class="form-control">
+                                        <option value="push.start" cn="开始推流" en="Start push"></option>
+                                        <option value="push.stop" cn="停止推流" en="Stop push"></option>
+                                        <option value="rec.start" cn="开始录制" en="Start record"></option>
+                                        <option value="rec.stop" cn="停止录制" en="Stop record"></option>
+                                    </select>
+                                </div>
+                                <div class="col-md-3 col-sm-4">
+                                    <select zcfg="[#].press" class="form-control">
+                                        <option value="enc.setNetDhcp" cn="dhcp" en="dhcp"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
 					<hr style="margin-top:10px; margin-bottom: 10px;"/>
 					<div class="form-group">
 						<div class="text-center">
@@ -107,6 +133,7 @@ include( "head.php" );
 		} );
 		
 		$.getJSON( "config/button.json", function ( res ) {
+		    console.log(res)
 			button=res;
 				zctemplet( "#btnList", button );
 		} );

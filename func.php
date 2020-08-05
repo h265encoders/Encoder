@@ -158,7 +158,7 @@ function setMac() {
 
 function setEDID() {
 	exec( 'cp /link/config/edid/'.$_POST[ 'edid' ].'.bin /link/config/edid/edid.bin' );
-	exec( 'echo '.$_POST[ 'edid' ].' > /link/config/edid' );
+	exec( 'echo '.$_POST[ 'edid' ].' > /link/config/curEDID' );
 }
 
 

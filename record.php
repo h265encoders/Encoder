@@ -1,462 +1,560 @@
 <?php
 include( "head.php" );
 ?>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">
-					<cn>录制参数</cn>
-					<en>Record config</en>
-				</h3>
-			</div>
-			<div class="panel-body">
-				<div id="alert"></div>
-				<hr style="margin: 0;">
-				<div class="row">
-				<div class="col-sm-2 text-right"  style="line-height: 40px;">
-						<strong><cn>通道选择</cn>
-					<en>Channel select</en></strong>
-					</div>
-					<div class="col-sm-9 ">
-						<div class="row" id="channels">
-						</div>
+    <div id="alert"></div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <cn>录制参数</cn>
+                        <en>Record config</en>
+                    </h3>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2 text-center" style="margin-top: 30px;margin-left: 10px">
+                        <strong><cn>通道选择</cn>
+                            <en>Channel select</en></strong>
+                    </div>
+                    <div class="col-sm-9 " style="margin-top: 20px">
+                        <div class= row" id="channels"></div>
+                    </div>
+                </div>
+                <div style="margin-top:5px; margin-bottom: 10px;color: red;width: 100%;height: 1px;background: #cccccc"></div>
+                <div class="panel-body">
+                    <div class="row text-center">
+                        <div class="col-md-2 col-xs-4"></div>
+                        <div class="col-md-9 col-xs-8">
+                            <div class="row">
+                                <div class="col-md-2 col-xs-2">MP4</div>
+                                <div class="col-md-2 col-xs-2">TS</div>
+                                <div class="col-md-2 col-xs-2">FLV</div>
+                                <div class="col-md-2 col-xs-2">MKV</div>
+                                <div class="col-md-2 col-xs-4">MOV</div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr style="margin-top:5px; margin-bottom: 10px;"/>
+                    <div class="row" id="all">
+                        <div class="col-md-2 col-xs-4 text-center">
+                            <cn>全局控制</cn>
+                            <en>Overall config</en>
+                        </div>
+                        <div class="col-md-9 col-xs-8 text-center">
+                            <div class="row">
+                                <div class="col-md-2 col-xs-2">
+                                    <input type="checkbox" zcfg="mp4" class="switch form-control" id="test">
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <input type="checkbox" zcfg="ts" class="switch form-control">
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <input type="checkbox" zcfg="flv" class="switch form-control">
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <input type="checkbox" zcfg="mkv" class="switch form-control">
+                                </div>
+                                <div class="col-md-2 col-xs-2">
+                                    <input type="checkbox" zcfg="mov" class="switch form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px">
+                        <div class="col-sm-6 col-sm-offset-3 text-center">
+                            <button type="button" id="save" class="btn btn-warning">
+                                <cn>保存参数</cn>
+                                <en>Save config</en>
+                            </button>
+                        </div>
+                    </div>
+                    <hr style="margin-top:5px; margin-bottom: 10px;"/>
+                    <div class="row">
+                        <div class="col-md-6 col-md-offset-3" id="recBar">
+                            <div class="row">
+                                <div class="col-sm-2 text-right" style="line-height: 34px;">
+                                    <span id="fileName"></span>
+<!--                                    <strong id="time">[--:--]</strong>-->
+                                </div>
+                                <div class="col-sm-6 text-center">
+                                    <button type="button" id="startRecord" class="btn btn-warning">
+                                        <i class="fa fa-video-camera"></i>
+                                        <cn>录制</cn>
+                                        <en>Record</en>
+                                    </button>
+                                    <button type="button" id="stopRecord" class="btn btn-default">
+                                        <i class="fa fa-stop"></i>
+                                        <cn>全部停止</cn>
+                                        <en>Stop All</en>
+                                    </button>
+                                </div>
+                                <div class="col-sm-4 text-left" style="line-height: 34px;">
+                                    <cn>剩余空间</cn>
+                                    <en>Space </en>:
+                                    <span id="space">-</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
+            <ul class="nav nav-tabs" role="tablist">
+                <li role="presentation" class="active"><a href="#tab0" aria-controls="tab0" role="tab" data-toggle="tab"><i class="fa fa-sign-in"></i> <cn>频道信息</cn><en>Channels</en></a></li>
+                <li role="presentation" onclick="initList()"><a href="#tab1" aria-controls="tab1" role="tab" data-toggle="tab"><i class="fa fa-download"></i> <cn>文件下载</cn><en>Download</en></a></li>
+            </ul>
+            <div class="tab-content">
+                <div role="tabpanel" class="tab-pane fade in active" id="tab0">
+                    <div class="row text-center" style="margin-top: 5px;">
+                        <div class="col-md-2 col-xs-2">
+                            <cn>频道名称</cn>
+                            <en>Video</en>
+                        </div>
+                        <div class="col-md-8 col-xs-8">
+                            <div class="row">
+                                <div class="col-md-2 col-xs-2">MP4</div>
+                                <div class="col-md-2 col-xs-2">TS</div>
+                                <div class="col-md-2 col-xs-2">FLV</div>
+                                <div class="col-md-2 col-xs-2">MKV</div>
+                                <div class="col-md-2 col-xs-2">MOV</div>
+                                <div class="col-md-2 col-xs-2">
+                                    <cn>暂停</cn>
+                                    <en>pause</en>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-2 col-xs-2">
+                            <cn>录制时间</cn>
+                            <en>recordTime</en>
+                        </div>
+                    </div>
+                    <hr style="margin-top:5px; margin-bottom: 10px;"/>
+                    <div id="templet">
+                        <div class="row text-center">
+                            <div class="col-md-2 col-xs-2">
+                                <input zcfg="[#].chnName" type="text" class="form-control" disabled="disabled">
+                            </div>
+                            <div class="col-md-8 col-xs-8">
+                                <div class="row text-center">
+                                    <div class="col-md-2 col-xs-2">
+                                        <input type="checkbox" zcfg="[#].mp4" format="mp4" class="switch form-control">
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <input type="checkbox" zcfg="[#].ts" format="ts" class="switch form-control">
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <input type="checkbox" zcfg="[#].flv" format="flv" class="switch form-control">
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <input type="checkbox" zcfg="[#].mkv" format="mkv" class="switch form-control">
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <input type="checkbox" zcfg="[#].mov" format="mov" class="switch form-control">
+                                    </div>
+                                    <div class="col-md-2 col-xs-2">
+                                        <input type="checkbox" zcfg="[#].isPause" format="isPause" class="switch form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 col-xs-2">
+                                <input zcfg="[#].durTime" type="text" class="form-control" disabled="disabled" style="color: #399bff;border: none;background: none;width: 100%;outline: none;text-align:center" >
+                            </div>
+                        </div>
+                        <hr style="margin-top:10px; margin-bottom: 10px;"/>
+                    </div>
+                </div>
+                <div role="tabpanel" class="tab-pane fade in" id="tab1">
+                    <div class="row text-center" style="margin-top: 5px;">
+                        <div class="col-md-12">
+                            <div class="panel panel-default">
+                                <div class="panel-body">
+                                    <div class="row" style="margin-bottom: 20px;margin-left: 200px">
+                                        <div class="col-md-10">
+                                            <div class="col-md-4 col-md-offset-8">
+                                                <input type="text" class="form-control" id="searchVal">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2 text-left">
+                                            <button id="search" type="button" class="btn btn-warning">
+                                                <cn>搜索</cn>
+                                                <en>Search</en>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="fileList"></div>
+                                    <div class="row">
+                                        <div class="col-md-12 text-center">
+                                            <nav aria-label="...">
+                                                <ul class="pagination" id="pagenav">
+                                                </ul>
+                                            </nav>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="playerModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content text-dark">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">
+                        <cn>视频播放</cn>
+                        <en>Video player</en>
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <video id="player" controls style="width:100%;height:100%;object-fit: fill"></video>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="vendor/switch/bootstrap-switch.js"></script>
+    <script src="js/zcfg.js"></script>
+    <script type="text/javascript" language="javascript" src="js/confirm/jquery-confirm.min.js"></script>
+    <script src="vendor/jwplayer/jwplayer.js"></script>
+    <script>
 
-					</div>
-				</div>
-				<hr style="margin: 0;">
-				<div class="row" id="format">
-					<div class="col-sm-2 text-right"  style="line-height: 40px;">
-						<strong><cn>文件格式</cn>
-						<en>Format</en></strong>
-					</div>
-					<div class="col-sm-9 ">
-						<div class="row">
-							<div class="col-sm-2">
-								<div class="checkbox">
-									<label>
-								  <input type="checkbox" name="mp4"> MP4
-								</label>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<div class="checkbox">
-									<label>
-								  <input type="checkbox" name="ts"> TS
-								</label>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<div class="checkbox">
-									<label>
-								  <input type="checkbox" name="flv"> FLV
-								</label>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<div class="checkbox">
-									<label>
-								  <input type="checkbox" name="mkv"> MKV
-								</label>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<div class="checkbox">
-									<label>
-								  <input type="checkbox" name="mov"> MOV
-								</label>
-								</div>
-							</div>
-							<div class="col-sm-2">
-								<div class="checkbox">
-									<label>
-								  <input type="checkbox" name="avi"> AVI
-								</label>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-				<hr style="margin: 0; margin-bottom: 8px;">
-				<div class="row">
-					<div class="col-sm-6 col-sm-offset-3 text-center">
-						
-						<button type="button" id="save" class="btn btn-warning">
-							<cn>保存参数</cn>
-							<en>Save config</en>
-						</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-6 col-md-offset-3" id="recBar">
-		<div class="row">
-			<div class="col-sm-4 text-right" style="line-height: 34px;">
-				<span id="fileName"></span>
-				<strong id="time">[--:--]</strong>
-			</div>
-			<div class="col-sm-4 text-center">
-				<button type="button" id="start" class="btn btn-warning">
-					<i class="fa fa-video-camera"></i>
-					<cn>录制</cn>
-					<en>Record</en>
-				</button>
-
-				<button type="button" id="stop" class="btn btn-default disabled ">
-					<i class="fa fa-stop"></i>
-					<cn>停止</cn>
-					<en>Stop</en>
-				</button>
-			</div>
-			<div class="col-sm-4 text-left" style="line-height: 34px;">
-				<cn>剩余空间</cn>
-				<en>Space available</en>:
-				<span id="space">-</span>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-body">
-				<div class="row" id="fileList">
-					
-				</div>
-
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<nav aria-label="...">
-							<ul class="pagination" id="pagenav">
-							</ul>
-						</nav>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<div class="modal fade" id="playerModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
-		<div class="modal-content text-dark">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				<h4 class="modal-title">
-					<cn>视频播放</cn>
-					<en>Video player</en>
-				</h4>
-			</div>
-			<div class="modal-body">
-				<div id="player" style="width: 100%; padding-bottom: 56.25%; background: #ccc;">
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<script src="vendor/switch/bootstrap-switch.min.js"></script>
-<script src="js/zcfg.js"></script>
-<script type="text/javascript" language="javascript" src="js/confirm/jquery-confirm.min.js"></script>
-<script src="vendor/jwplayer/jwplayer.js"></script>
-<script>
-	var isIE = !-[ 1, ];
-	var hasFlash = true;
-	var inited = false;
-
-	function initPlayer( url ) {
-		if ( inited )
-			return false;
-		inited = true;
-		if ( isIE ) {
-			try {
-				var swf1 = new ActiveXObject( 'ShockwaveFlash.ShockwaveFlash' );
-				hasFlash = true;
-			} catch ( e ) {
-				hasFlash = false;
-			}
-		} else {
-			try {
-				var swf2 = navigator.plugins[ 'Shockwave Flash' ];
-				if ( swf2 == undefined ) {
-					hasFlash = false;
-				} else {
-					hasFlash = true;
-				}
-			} catch ( e ) {
-				hasFlash = false;
-			}
-		}
-		if ( hasFlash ) {
-
-			jwplayer( "player" ).setup( {
-				width: "100%",
-				height: "auto",
-				autostart: "false",
-				aspectratio: "16:9",
-				rtmp: {
-					bufferlength: 0.1
-				},
-				playlist: [ {
-					file: url
-				} ],
-				mute: "false",
-				androidhls: false
-			} );
-		}
-		return true;
-	}
-
-	$( '#playerModal' ).on( 'hidden.bs.modal', function ( e ) {
-		jwplayer( "player" ).stop();
-	} )
-
-	function play( url ) {
-
-		$( '#playerModal' ).modal( 'show' )
-
-		var host = window.location.host;
-		var path = "http://" + host + url;
-		if ( !initPlayer( path ) ) {
-			jwplayer( "player" ).load( [ {
-				file: path
-			} ] );
-		}
-		jwplayer( "player" ).play( true );
-	}
-
-
-	function delFile( name ) {
-		$.confirm( {
-			title: '<cn>删除文件</cn><en>Delete</en>',
-			content: '<cn>是否删除该文件？</cn><en>Confirm to delete this file?</en>',
-			buttons: {
-				ok: {
-					text: "<cn>确认</cn><en>Confirm</en>",
-					btnClass: 'btn-warning',
-					keys: [ 'enter' ],
-					action: function () {
-						func( "delFile", {
-							"name": name
-						}, function ( data ) {
-							console.log(data);
-							initList();
-						} );
-					}
-				},
-				cancel: {
-					text: "<cn>取消</cn><en>Cancel</en>",
-					action: function () {}
-				}
-
-			}
-		} );
-
-	}
-
-	var fileList = [];
-	var totalPage = 0;
-	var curPage = 0;
-	var eachPage = 10;
-	
-		var config = null;
-		var chnConfig = null;
-
-	function gotoPage( num ) {
-		curPage = num;
-		$( "#fileList" ).html( "" );
-		var html = "";
-		$( "#pagenav li" ).each( function ( i, o ) {
-			if ( i == num )
-				$( o ).addClass( "active" );
-			else
-				$( o ).removeClass( "active" );
-		} );
-		$.ajaxSettings.async = false; 
-		for ( var i = num * eachPage; i < fileList.length && i < num * eachPage + eachPage; i++ ) {
-			if ( fileList[ i ].type != "directory" || fileList[ i ].name.length!=15 )
-				continue;
-			
-			var name = fileList[ i ].name;
-			var path = '/files/' + name + '/';
-			var tmp = '<div class="col-md-12"><div class="panel panel-default"><div class="panel-heading text-center">'
-						+'<span>'+name+'</span>'
-						+'<button onClick="delFile(\'' + name + '\');" type="button" class="btn btn-sm btn-warning pull-right">'
-						+'<i class="fa fa-trash-o"></i> <cn>删除</cn><en>Delete</en></button></div><div class="panel-body"><div class="row">';
-			$.getJSON( path, function ( list1 ) {
-				for(var i=0;i<list1.length;i++){
-					if ( list1[ i ].type != "directory" )
-						continue;
-					var chnId=parseInt(list1[ i ].name);
-					
-					tmp+='<div class="col-sm-6 col-md-3"><ul class="list-group"><li class="list-group-item text-center">'
-							+'<strong>'+chnConfig[chnId].name+'</strong></li>';
-					var path2 = path + '/'+list1[ i ].name+'/';
-					$.getJSON( path2, function ( list2 ) {
-						var tmp2="";
-						var jpg="";
-						var mp4="";
-						for(var i=0;i<list2.length;i++){
-							var name2=list2[i].name;
-							
-							if(name2.indexOf(".jpg")>0)
-								jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
-							else{
-								if(name2.indexOf(".mp4")>0)
-									mp4='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+name2+'\');"><i class="fa fa-play"></i></button></li>';
-								else
-									tmp2+='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a></li>';
-							}
-						}
-						tmp+=jpg+mp4+tmp2+'</ul></div>';
-					});
-				}
-			});
-			
-			tmp+='</div></div></div></div>';			
-			html += tmp;
-		}
-		$.ajaxSettings.async = true; 
-		$( "#fileList" ).html( html );
-	}
-	
-	function initList()
-	{
-		$.getJSON( "files/", function ( list ) {
-      	
-        fileList=[];
-        for(var i=list.length-1;i>=0;i--)
-          fileList.push(list[i]);
-        totalPage = Math.ceil( list.length / eachPage );
-
-        var nav = "";
-        for ( var i = 0; i < totalPage; i++ ) {
-          nav += '<li class="active"><a href="#" onClick="gotoPage('+i+')">'+(i+1)+'</a></li>';
+        $( '#playerModal' ).on( 'hidden.bs.modal', function ( e ) {
+            $('#player').trigger('pause');
+        } )
+        function play( url ) {
+            $( '#playerModal' ).modal( 'show' )
+            var host = window.location.host;
+            var path = "http://" + host + url;
+            $("#player").attr("src",path);
+            $('#player').trigger('play');
         }
-        $( "#pagenav" ).html( nav );
-        gotoPage(curPage);
-      });
-	}
-
-	$( function () {
-		navIndex( 4 );
-		$.getJSON( "config/record.json?rnd=" + Math.random(), function ( result ) {
-			config = result;
-			for ( var i = 0; i < config.format.length; i++ ) {
-				var fmt = config.format[ i ];
-				$( '#format input[name="' + fmt + '"]' ).attr( "checked", true );
-			}
-
-			$.getJSON( "config/config.json?rnd=" + Math.random(), function ( chns ) {
-				chnConfig = chns;
-				var html = "";
-				for ( var i = 0; i < chns.length; i++ ) {
-					html += '<div class="col-sm-3"><div class="checkbox"><label><input type="checkbox" name="' + i + '">' + chns[ i ].name + '</label></div></div>';
-				}
-				$( "#channels" ).html( html );
-				for ( var i = 0; i < config.channel.length; i++ ) {
-					var cid = config.channel[ i ];
-					$( "#channels input" ).eq( cid ).attr( "checked", true );
-				}
-				initList();
-			} );
-
-		} );
-
-		var duration = 0;
-		var updateTime = 0;
-		var isRecording = false;
-
-		function getState() {
-			rpc( "rec.getState", null, function ( data ) {
-				duration = data.duration / 1000;
-				var now = new Date();
-				updateTime = now.getTime() / 1000;
-				isRecording = data.isRecording;
-				$('#space').text(data.space);
-				if ( isRecording ) {
-					$( '#fileName' ).text( data.fileName );
-					$( "#start" ).removeClass( "btn-warning" );
-					$( "#start" ).addClass( "btn-default" );
-					$( "#start" ).addClass( "disabled" );
-					$( "#stop" ).removeClass( "disabled" );
-					$( "#stop" ).removeClass( "btn-default" );
-					$( "#stop" ).addClass( "btn-warning" );
-
-				} else {
-					$( '#fileName' ).text( "" );
-					$( "#stop" ).removeClass( "btn-warning" );
-					$( "#stop" ).addClass( "btn-default" );
-					$( "#stop" ).addClass( "disabled" );
-					$( "#start" ).removeClass( "disabled" );
-					$( "#start" ).removeClass( "btn-default" );
-					$( "#start" ).addClass( "btn-warning" );
-				}
-			} );
-		}
-
-		function onTimer() {
-			if ( isRecording ) {
-				function fix( num ) {
-					if ( num < 10 )
-						return '0' + num;
-					else
-						return num;
-				}
-				var now = new Date();
-				var diff = now.getTime() / 1000 - updateTime + duration;
-				var m = Math.floor( diff / 60 );
-				var s = Math.floor( diff % 60 );
-				$( '#time' ).text( "[" + fix( m ) + ":" + fix( s ) + "]" );
-			} else {
-				$( '#time' ).text( "[--:--]" );
-			}
-
-		}
-
-		function init() {
-			
-			getState();
-			setInterval( onTimer, 1000 );
-
-		}
-		init();
-
-		$( "#start" ).click( function ( e ) {
-			rpc( "rec.start", null, function ( data ) {
-				getState();
-			} );
-		} );
-
-		$( "#stop" ).click( function ( e ) {
-			rpc( "rec.stop", null, function ( data ) {
-				getState();
-			} );
-		} );
-
-		$( "#save" ).click( function ( e ) {
-			var fmts = [];
-			var chns = [];
-			$( "#format :checked" ).each( function ( i, o ) {
-				fmts.push( $( o ).attr( "name" ) );
-			} );
-			$( "#channels :checked" ).each( function ( i, o ) {
-				chns.push( $( o ).attr( "name" ) );
-			} );
-			config.format = fmts;
-			config.channel = chns;
-			rpc( "rec.update", [ JSON.stringify( config, null, 2 ) ], function ( data ) {
-				if ( typeof ( data.error ) != "undefined" ) {
-					htmlAlert( "#alert", "danger", "<cn>保存设置失败！</cn><en>Save config failed!</en>", "", 2000 );
-				} else
-					htmlAlert( "#alert", "success", "<cn>保存设置成功！</cn><en>Save config success!</en>", "", 2000 );
-			} );
-		} );
 
 
-	} );
-</script>
+        function delFile( name ) {
+            $.confirm( {
+                title: '<cn>删除文件</cn><en>Delete</en>',
+                content: '<cn>是否删除该文件？</cn><en>Confirm to delete this file?</en>',
+                buttons: {
+                    ok: {
+                        text: "<cn>确认</cn><en>Confirm</en>",
+                        btnClass: 'btn-warning',
+                        keys: [ 'enter' ],
+                        action: function () {
+                            func( "delFile", {
+                                "name": name
+                            }, function ( data ) {
+                                console.log(data);
+                                initList();
+                            } );
+                        }
+                    },
+                    cancel: {
+                        text: "<cn>取消</cn><en>Cancel</en>",
+                        action: function () {}
+                    }
+
+                }
+            } );
+
+        }
+
+        var fileList = [];
+        var totalPage = 0;
+        var curPage = 0;
+        var eachPage = 20;
+        var search = "";
+        var config,ini;
+        var intervalId = -1;
+
+        function gotoPage( num ) {
+            curPage = num;
+            $( "#fileList" ).html( "" );
+            var html = "";
+            $( "#pagenav li" ).each( function ( i, o ) {
+                if ( i == num )
+                    $( o ).addClass( "active" );
+                else
+                    $( o ).removeClass( "active" );
+            } );
+            $.ajaxSettings.async = false;
+            for ( var i = num * eachPage; i < fileList.length && i < num * eachPage + eachPage; i++ ) {
+                if ( fileList[ i ].type != "directory" )
+                    continue;
+                var name = fileList[ i ].name;
+                var path = '/files/' + name + '/';
+                var tmp = "";
+                $.getJSON( path, function ( list1 ) {
+
+                    var dirMark = false;
+                    for(var i=0;i<list1.length;i++)
+                    {
+                        for(var j=0;j<ini.length;j++)
+                        {
+                            if(list1[i].name == ini[j].id+"" && list1[ i ].type == "directory")
+                                dirMark = true;
+                        }
+                    }
+                    if(!dirMark)
+                        return;
+                    tmp = '<div class="col-md-12"><div class="panel panel-default"><div class="panel-heading text-center">'
+                        +'<span>'+name+'</span>'
+                        +'<button onClick="delFile(\'' + name + '\');" type="button" class="btn btn-sm btn-warning pull-right">'
+                        +'<i class="fa fa-trash-o"></i> <cn>删除</cn><en>Delete</en></button></div><div class="panel-body"><div class="row">';
+                    for(var i=0;i<list1.length;i++){
+                        if ( list1[ i ].type != "directory" )
+                            continue;
+                        var chnId=parseInt(list1[ i ].name);
+                        tmp+='<div class="col-sm-6 col-md-3"><ul class="list-group"><li class="list-group-item text-center">'
+                            +'<strong>'+ini[chnId].name+'</strong></li>';
+                        var path2 = path +list1[ i ].name+'/';
+                        $.getJSON( path2, function ( list2 ) {
+                            var tmp2="";
+                            var jpg="";
+                            var mp4="";
+                            for(var i=0;i<list2.length;i++){
+                                var name2=list2[i].name;
+
+                                if(name2.indexOf(".jpg")>0)
+                                    jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
+                                else{
+                                    if(name2.indexOf(".mp4")>0)
+                                        mp4+='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+name2+'\');"><i class="fa fa-play"></i></button></li>';
+                                    else
+                                        tmp2+='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a></li>';
+                                }
+                            }
+                            tmp+=jpg+mp4+tmp2+'</ul></div>';
+                        });
+                    }
+                });
+
+                tmp+='</div></div></div></div>';
+                html += tmp;
+            }
+            $.ajaxSettings.async = true;
+            $( "#fileList" ).html( html );
+        }
+
+        function initList()
+        {
+            $.getJSON( "files/", function ( list ) {
+                fileList=[];
+                for(var i=list.length-1;i>=0;i--)
+                {
+                    if(search != "")
+                    {
+                        var dirName = list[i].name;
+                        if(dirName.indexOf(search) != -1)
+                            fileList.push(list[i]);
+                    }
+                    else
+                        fileList.push(list[i]);
+                }
+                totalPage = Math.ceil( fileList.length / eachPage );
+
+                var nav = "";
+                for ( var i = 0; i < totalPage; i++ ) {
+                    nav += '<li class="active"><a href="#" onClick="gotoPage('+i+')">'+(i+1)+'</a></li>';
+                }
+                $( "#pagenav" ).html( nav );
+                gotoPage(curPage);
+            });
+        }
+
+        function formatControl(event,val){
+            setTimeout(()=>{
+                rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
+                    if(intervalId < 0)
+                        intervalId = setInterval( onTimer, 1000 );
+                });
+            },500);
+        }
+
+        function onTimer() {
+            var channels = config["channels"];
+            rpc( "rec.getDurTime", [], function ( data ) {
+                var obj = $.parseJSON( data );
+                for (var i=0;i<channels.length;i++)
+                {
+                    var chn = channels[i];
+                    var id = chn["id"];
+                    id = parseInt(id);
+                    if(obj.hasOwnProperty("chn"+id))
+                        chn["durTime"] = obj["chn"+id];
+                    else
+                        chn["durTime"] = "--:--:--";
+                }
+
+                var enabledChn = new Array();
+                for (var i = 0; i < ini.length; i++) {
+                    var id = ini[i].id;
+                    for(var j = 0; j< channels.length; j++)
+                    {
+                        if (id === channels[j].id) {
+                            channels[j].chnName = ini[i].name;
+                            channels[j].enable = ini[i].enable;
+                            if(ini[i].enable)
+                                enabledChn.push(channels[j]);
+                        }
+                    }
+                }
+                zctemplet("#templet", enabledChn);
+                $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                    formatControl(event,data);
+                });
+            });
+        }
+
+        function getState() {
+            rpc( "rec.getState", null, function ( data ) {
+                if($.isEmptyObject(data))
+                    $('#space').text("--/--");
+                else
+                    $('#space').text(data.used + " / " + data.total);
+            } );
+        }
+
+        $( function () {
+            $.fn.bootstrapSwitch.defaults.size = 'small';
+            $.fn.bootstrapSwitch.defaults.onColor = 'warning';
+            navIndex( 4 );
+            $.getJSON("config/config.json", function (result) {
+                ini = result;
+                $.getJSON("config/record.json", function (cfg) {
+                    config = cfg;
+                    var chns = cfg["channels"];
+                    var enabledChn = new Array();
+                    var html = "";
+                    for (var i = 0; i < result.length; i++) {
+                        var id = result[i].id;
+                        for(var j = 0; j< chns.length; j++)
+                        {
+                            if (id === chns[j].id) {
+                                chns[j].chnName = result[i].name;
+                                chns[j].enable = result[i].enable;
+                                chns[j].durTime = "--:--:--";
+                                if(result[i].enable)
+                                {
+                                    enabledChn.push(chns[j]);
+                                    html += '<div class="col-sm-3"><div class="checkbox"><label><input type="checkbox" name="' + i + '" value="'+result[i].id+'">' + result[ i ].name + '</label></div></div>';
+                                }
+                            }
+                        }
+                    }
+                    zctemplet("#templet", enabledChn);
+                    $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                        formatControl(event,data);
+                    });
+                    zcfg("#all", cfg["any"]);
+                    $( "#channels" ).html( html );
+                    var channels = cfg.any.chns;
+                    for ( var i = 0; i < channels.length; i++ ) {
+                        var cid = channels[ i ];
+                        $( "#channels input[name='"+cid+"']" ).attr( "checked", true );
+                    }
+                    initList();
+                    getState();
+                    intervalId = setInterval( onTimer, 1000 )
+                });
+            });
+
+            $(" #startRecord" ).click(function (e) {
+                var checkChns = new Array();
+                $("#channels :checked").each(function (i, o) {
+                    var val = $(o).attr("value");
+                    checkChns.push(val);
+                    var channels = config.channels;
+                    var any = config.any;
+                    for (var i = 0; i < channels.length; i++) {
+                        var chn = channels[i];
+                        if (val == chn.id) {
+                            for (var key in chn) {
+                                if (any.hasOwnProperty(key))
+                                    chn[key] = any[key];
+
+                            }
+                        }
+                        channels[i] = chn;
+                    }
+                    config.channels = channels;
+                });
+                config["any"].chns = checkChns;
+                rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
+                    if (typeof (data.error) != "undefined") {
+                        htmlAlert("#alert", "danger", "<cn>启动录制失败！</cn><en>Start record failed!</en>", "", 3000);
+                    } else {
+                        if(intervalId < 0)
+                            intervalId = setInterval( onTimer, 1000 );
+                        htmlAlert("#alert", "success", "<cn>启动录制成功！</cn><en>Start record success!</en>", "", 3000);
+                        $.getJSON("config/record.json", function (cfg) {
+                            var chns = cfg["channels"];
+                            var enabledChn = new Array();
+                            for (var i = 0; i < ini.length; i++) {
+                                var id = ini[i].id;
+                                for (var j = 0; j < chns.length; j++) {
+                                    if (id === chns[j].id) {
+                                        chns[j].chnName = ini[i].name;
+                                        chns[j].enable = ini[i].enable;
+                                        if (ini[i].enable)
+                                            enabledChn.push(chns[j]);
+                                    }
+                                }
+                            }
+                            zctemplet("#templet", enabledChn);
+                            $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                                formatControl(event,data);
+                            });
+                        });
+                    }
+                })
+            });
+
+            $("#stopRecord").click(function (e) {
+                rpc( "rec.stop", [], function ( data ) {
+                    $.getJSON("config/record.json", function (cfg) {
+                        var chns = cfg["channels"];
+                        var enabledChn = new Array();
+                        for (var i = 0; i < ini.length; i++) {
+                            var id = ini[i].id;
+                            for(var j = 0; j< chns.length; j++)
+                            {
+                                if (id === chns[j].id) {
+                                    chns[j].chnName = ini[i].name;
+                                    chns[j].enable = ini[i].enable;
+                                    if(ini[i].enable)
+                                        enabledChn.push(chns[j]);
+                                }
+                            }
+                        }
+                        zctemplet("#templet", enabledChn);
+                        zcfg("#all", cfg["any"]);
+                        $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                            formatControl(event,data);
+                        });
+                        clearInterval(intervalId);
+                    });
+                } );
+            });
+
+            $("#save").click(function () {
+                rpc("rec.update", [JSON.stringify(config, null, 2)], function (data) {
+                    htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save config success!</en>", "", 3000);
+                })
+            });
+
+            $("#setAllName").blur(function () {
+                $("#setAllName").css("border","solid 1px black")
+            });
+
+            $( "#search" ).click( function ( e ) {
+                search = $( "#searchVal" ).val();
+                initList();
+            } );
+        });
+    </script>
 <?php
 include( "foot.php" );
 ?>
