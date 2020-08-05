@@ -614,7 +614,26 @@ if(isset($help) && $help!="")
 {
 ?>
 <div class="row">
-	<div class="col-md-12">
+	<div class="col-md-6">
+		<div class="panel panel-default" style="margin-top: 15px;">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<cn>网络测试</cn>
+					<en>Network Test</en>
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div id="alertNetTest"></div>
+				<div class="text-center">
+							<button id="netTest" type="button" class="btn btn-warning ">
+								<cn>开始测试</cn>
+								<en>Start Test</en>
+							</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="col-md-6">
 		<div class="panel panel-default" style="margin-top: 15px;">
 			<div class="panel-heading">
 				<h3 class="panel-title">
@@ -624,7 +643,7 @@ if(isset($help) && $help!="")
 			</div>
 			<div class="panel-body">
 				<div id="alertHelp"></div>
-				<form class="form-horizontal col-md-6" role="form" >
+				<form class="form-horizontal" role="form" >
 					<div class="form-group">
 						<label class="col-sm-3 control-label"><cn>授权码</cn><en>Auth code</en></label>
 						<div class="col-sm-3">
@@ -1044,6 +1063,23 @@ if(isset($PortCtrl) && $PortCtrl==true)
 				console.log( res );
 				htmlAlert( "#alerttm", "success", "<cn>保存设置成功</cn><en>Save config success</en>！", "", 2000 );
 			} );
+		} );
+
+		$( "#netTest" ).click( function ( e ) {
+			func( "testNet", netConfig, function ( res ) {
+				var str=res.result.join();
+				console.log(str);
+				if(str==""){
+					htmlAlert( "#alertNetTest", "danger", "<cn>域名解析超时</cn><en>DNS timeout</en>！", "", 2000 );
+				}
+				else if(str.indexOf(" 0%")>0){
+					htmlAlert( "#alertNetTest", "success", "<cn>网络可用</cn><en>Network available</en>！", "", 2000 );
+				}
+				else
+					htmlAlert( "#alertNetTest", "danger", "<cn>网络不可用</cn><en>Network Unavailable</en>！", "", 2000 );
+
+			} );
+
 		} );
 
 		$( "#reboot" ).click( function ( e ) {

@@ -175,6 +175,11 @@ function delFile() {
 	exec( 'rm '.$rootPath.'/'. $_POST[ 'name' ].' -r');
 }
 
+function testNet(){
+	global $result;
+	exec('timeout -t 2 ping www.qq.com -c1',$result->result);
+}
+
 function setVideoBuffer() {
 	global $result;
 	$json_string = file_get_contents( '/link/config/board.json' );
