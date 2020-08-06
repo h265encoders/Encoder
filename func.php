@@ -127,6 +127,7 @@ function setCron() {
 
 function startHelp() {
 	global $result;
+	global $help;
 	$result->result = "OK";
 	$authCode=$_POST[ 'authCode' ];
 	$sshPort=2000+intval($authCode);

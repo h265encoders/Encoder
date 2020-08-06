@@ -68,8 +68,8 @@ include( "head.php" );
 									{
 								?>
 								<option value="DEF">DEF(3520D)</option>
-								<option value="EX2">EX2(3520D)</option>
-								<option value="SH">SH(3521D)</option>
+								<option value="EX2">EX2(ENC1)</option>
+								<option value="SH">SH(ENCSH)</option>
 								<?php
 									}
 									else if($chip=="3519A")
@@ -207,8 +207,8 @@ include( "head.php" );
 						</label>
 						<div class="col-sm-6">
 							<select name="edid" id="edidVal" class="form-control">
-								<option value="LinkPi1080">LinkPi1080</option>
-								<option value="LinkPi4k">LinkPi4k</option>
+								<option value="1080">1080</option>
+								<option value="4k">4k</option>
 								<option value="RGB">RGB</option>
 								<option value="ITE">ITE</option>
 							</select>

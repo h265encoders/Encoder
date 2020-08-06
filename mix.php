@@ -148,6 +148,21 @@ include( "head.php" );
 							</select>
 						</div>
 					</div>
+<!--
+							<div class="form-group">
+								<label class="col-sm-4 control-label">
+									<cn>旋转</cn><en>rotate</en>
+								</label>
+								<div class="col-sm-6">
+									<select zcfg="output.rotate" class="form-control">
+										<option value="0">0</option>
+										<option value="90">90</option>
+										<option value="180">180</option>
+										<option value="270">270</option>
+									</select>
+								</div>
+							</div>
+-->
 					<div class="form-group">
 						<label class="col-sm-4 control-label">
 							<cn>视频源</cn><en>video source</en>
@@ -192,6 +207,21 @@ echo isset($extraVo)?$extraVo:"VGA";
 							</select>
 						</div>
 					</div>
+<!--
+							<div class="form-group">
+								<label class="col-sm-4 control-label">
+									<cn>旋转</cn><en>rotate</en>
+								</label>
+								<div class="col-sm-6">
+									<select zcfg="output2.rotate" class="form-control">
+										<option value="0">0</option>
+										<option value="90">90</option>
+										<option value="180">180</option>
+										<option value="270">270</option>
+									</select>
+								</div>
+							</div>
+-->
 					<div class="form-group">
 						<label class="col-sm-4 control-label">
 							<cn>视频源</cn><en>video source</en>
