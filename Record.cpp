@@ -10,7 +10,7 @@
 
 Record::Record(QObject *parent) : QObject(parent)
 {
-    formats << "mp4" << "ts" << "flv" << "mkv" << "mov" << "avi";
+    formats << "mp4" << "ts" << "flv" << "mkv" << "mov";
 }
 
 void Record::init()
@@ -19,7 +19,6 @@ void Record::init()
     QFile file(RECPATH);
     if(file.exists())
     {
-
         file.open(QFile::ReadOnly);
         QString json=file.readAll();
         file.close();
@@ -54,7 +53,6 @@ void Record::init()
 
         QJsonObject anyObj;
         anyObj["chns"] = QJsonArray();
-        anyObj["avi"] = false;
         anyObj["mp4"] = false;
         anyObj["flv"] = false;
         anyObj["mkv"] = false;
@@ -69,7 +67,6 @@ void Record::init()
         for(Channel *chn : channels)
         {
             QJsonObject obj;
-            obj["avi"] = false;
             obj["chnName"] = chn->chnName;
             obj["durTime"] = "--:--:--";
             obj["enable"] = chn->enable;
@@ -109,10 +106,8 @@ bool Record::update(QString json)
 
 bool Record::execute(const QString &json)
 {
-
-    QString mount = writeCom("df /root/usb/");
-        if(!mount.contains("/root/usb"))
-            return false;
+    if(!isMountDisk())
+        return false;
 
     QVariantMap anyMap = config["any"].toMap();
     QString fname = anyMap["fileName"].toString();
@@ -227,9 +222,8 @@ QString Record::getDurTime()
 
 QVariantMap Record::getState()
 {
-    QString mount = writeCom("df /root/usb/");
-        if(!mount.contains("/root/usb"))
-            return QVariantMap();
+    if(!isMountDisk())
+        return QVariantMap();
     QProcess process;
     process.start("df -h | grep "+rootPath);
     process.waitForFinished();
@@ -252,12 +246,8 @@ QVariantMap Record::getState()
 
 bool Record::start()
 {
-    if(hasRec)
+    if(!isMountDisk() || hasRec)
         return false;
-
-    QString mount = writeCom("df /root/usb/");
-        if(!mount.contains("/root/usb"))
-            return false;
 
     QVariantMap anyObj = config["any"].toMap();
 
@@ -285,7 +275,6 @@ bool Record::start()
 
 bool Record::stop()
 {
-    qDebug() << "stop"<< "@@@@";
     QVariantMap anyObj = config["any"].toMap();
     anyObj["fileName"] = "";
     config["any"] = anyObj;
@@ -298,6 +287,7 @@ bool Record::stop()
         {
             chnMap[format] = false;
         }
+        chnMap["isPause"] = false;
         chnMap["duration"] = "--:--:--";
         list << chnMap;
     }
@@ -321,6 +311,21 @@ bool Record::isRecordState()
     }
 
     return isRecord;
+}
+
+bool Record::isMountDisk()
+{
+    QVariantMap anyObj = config["any"].toMap();
+    QString path = anyObj["path"].toString();
+
+    if(path.right(1) == "/")
+        path = path.left(path.count() -1);
+
+    QString mount = writeCom("df "+path);
+    if(!mount.contains(path))
+        return false;
+
+    return true;
 }
 
 

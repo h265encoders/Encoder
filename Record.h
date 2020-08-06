@@ -26,6 +26,7 @@ public slots:
     bool start();
     bool stop();
     bool isRecordState();
+    bool isMountDisk();
 };
 extern Record *GRecord;
 #endif // RECORD_H
