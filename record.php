@@ -221,6 +221,14 @@ include( "head.php" );
     <script src="vendor/jwplayer/jwplayer.js"></script>
     <script>
 
+        var fileList = [];
+        var totalPage = 0;
+        var curPage = 0;
+        var eachPage = 20;
+        var search = "";
+        var config,ini;
+        var intervalId = -1;
+
         $( '#playerModal' ).on( 'hidden.bs.modal', function ( e ) {
             $('#player').trigger('pause');
         } )
@@ -246,7 +254,6 @@ include( "head.php" );
                             func( "delFile", {
                                 "name": name
                             }, function ( data ) {
-                                console.log(data);
                                 initList();
                             } );
                         }
@@ -260,14 +267,6 @@ include( "head.php" );
             } );
 
         }
-
-        var fileList = [];
-        var totalPage = 0;
-        var curPage = 0;
-        var eachPage = 20;
-        var search = "";
-        var config,ini;
-        var intervalId = -1;
 
         function gotoPage( num ) {
             curPage = num;
@@ -338,47 +337,6 @@ include( "head.php" );
             $( "#fileList" ).html( html );
         }
 
-
-        function initList()
-        {
-            $.getJSON( "files/", function ( list ) {
-                fileList=[];
-                for(var i=list.length-1;i>=0;i--)
-                {
-                    if(search != "")
-                    {
-                        var dirName = list[i].name;
-                        if(dirName.indexOf(search) != -1)
-                            fileList.push(list[i]);
-                    }
-                    else
-                        fileList.push(list[i]);
-                }
-                totalPage = Math.ceil( fileList.length / eachPage );
-
-                var nav = "";
-                for ( var i = 0; i < totalPage; i++ ) {
-                    nav += '<li class="active"><a href="#" onClick="gotoPage('+i+')">'+(i+1)+'</a></li>';
-                }
-                $( "#pagenav" ).html( nav );
-                gotoPage(curPage);
-            });
-        }
-
-        function formatControl(event,val){
-            setTimeout(()=>{
-                rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
-                    if(!data){
-                        htmlAlert("#alert", "danger", "<cn>没有找到外部存储设备！</cn><en>No external storage device was found!</en>", "", 3000);
-                        initView();
-                        return;
-                    }
-                    if(intervalId < 0)
-                        intervalId = setInterval( onTimer, 1000 );
-                });
-            },500);
-        }
-
         function onTimer() {
             var channels = config["channels"];
             rpc( "rec.getDurTime", [], function ( data ) {
@@ -414,6 +372,50 @@ include( "head.php" );
             });
         }
 
+        function formatControl(event,val){
+            setTimeout(()=>{
+                rpc("rec.isMountDisk", [], function (data) {
+                    if(!data){
+                        initView();
+                        setTimeout(function () {
+                            htmlAlert("#alert", "danger", "<cn>没有找到外部存储设备！</cn><en>No external storage device was found!</en>", "", 3000);
+                        },500);
+                        return;
+                    }
+                    rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
+                        if(intervalId < 0)
+                            intervalId = setInterval( onTimer, 1000 );
+                    });
+                });
+            },500);
+        }
+
+        function initList()
+        {
+            $.getJSON( "files/", function ( list ) {
+                fileList=[];
+                for(var i=list.length-1;i>=0;i--)
+                {
+                    if(search != "")
+                    {
+                        var dirName = list[i].name;
+                        if(dirName.indexOf(search) != -1)
+                            fileList.push(list[i]);
+                    }
+                    else
+                        fileList.push(list[i]);
+                }
+                totalPage = Math.ceil( fileList.length / eachPage );
+
+                var nav = "";
+                for ( var i = 0; i < totalPage; i++ ) {
+                    nav += '<li class="active"><a href="#" onClick="gotoPage('+i+')">'+(i+1)+'</a></li>';
+                }
+                $( "#pagenav" ).html( nav );
+                gotoPage(curPage);
+            });
+        }
+
         function getState() {
             rpc( "rec.getState", null, function ( data ) {
                 if($.isEmptyObject(data))
@@ -424,6 +426,7 @@ include( "head.php" );
         }
 
         function initView() {
+            var formats = ["mp4","ts","flv","mkv","mov"];
             $.getJSON("config/config.json", function (result) {
                 ini = result;
                 $.getJSON("config/record.json", function (cfg) {
@@ -431,6 +434,7 @@ include( "head.php" );
                     var chns = cfg["channels"];
                     var enabledChn = new Array();
                     var html = "";
+                    var isRecordMark = false;
                     for (var i = 0; i < result.length; i++) {
                         var id = result[i].id;
                         for(var j = 0; j< chns.length; j++)
@@ -441,26 +445,37 @@ include( "head.php" );
                                 chns[j].durTime = "--:--:--";
                                 if(result[i].enable)
                                 {
+                                    for(var k=0;k<formats.length;k++){
+                                        if(chns[j][formats[k]])
+                                            isRecordMark = true;
+                                    }
                                     enabledChn.push(chns[j]);
                                     html += '<div class="col-sm-3"><div class="checkbox"><label><input type="checkbox" name="' + i + '" value="'+result[i].id+'">' + result[ i ].name + '</label></div></div>';
                                 }
                             }
                         }
                     }
-                    zctemplet("#templet", enabledChn);
-                    $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
-                        formatControl(event,data);
-                    });
-                    zcfg("#all", cfg["any"]);
                     $( "#channels" ).html( html );
                     var channels = cfg.any.chns;
                     for ( var i = 0; i < channels.length; i++ ) {
                         var cid = channels[ i ];
                         $( "#channels input[name='"+cid+"']" ).attr( "checked", true );
                     }
+
+                    zctemplet("#templet", enabledChn);
+                    zcfg("#all", cfg["any"]);
+
+                    if(isRecordMark)
+                        intervalId = setInterval( onTimer, 1000 )
+                    else
+                        clearInterval(intervalId);
+
                     initList();
                     getState();
-                    intervalId = setInterval( onTimer, 1000 )
+
+                    $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                        formatControl(event,data);
+                    });
                 });
             });
         }
@@ -472,34 +487,32 @@ include( "head.php" );
             });
 
             $(" #startRecord" ).click(function (e) {
-                var checkChns = new Array();
-                $("#channels :checked").each(function (i, o) {
-                    var val = $(o).attr("value");
-                    checkChns.push(val);
-                    var channels = config.channels;
-                    var any = config.any;
-                    for (var i = 0; i < channels.length; i++) {
-                        var chn = channels[i];
-                        if (val == chn.id) {
-                            for (var key in chn) {
-                                if (any.hasOwnProperty(key))
-                                    chn[key] = any[key];
-
-                            }
-                        }
-                        channels[i] = chn;
+                rpc("rec.isMountDisk", [], function (data) {
+                    if(!data){
+                        htmlAlert("#alert", "danger", "<cn>没有找到外部存储设备！</cn><en>No external storage device was found!</en>", "", 3000);
+                        return;
                     }
-                    config.channels = channels;
-                });
-                config["any"].chns = checkChns;
-                rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
-                    if (typeof (data.error) != "undefined") {
-                        htmlAlert("#alert", "danger", "<cn>启动录制失败！</cn><en>Start record failed!</en>", "", 3000);
-                    } else {
-                        if(!data){
-                            htmlAlert("#alert", "danger", "<cn>没有找到外部存储设备！</cn><en>No external storage device was found!</en>", "", 3000);
-                            return;
+                    var checkChns = new Array();
+                    $("#channels :checked").each(function (i, o) {
+                        var val = $(o).attr("value");
+                        checkChns.push(val);
+                        var channels = config.channels;
+                        var any = config.any;
+                        for (var i = 0; i < channels.length; i++) {
+                            var chn = channels[i];
+                            if (val == chn.id) {
+                                for (var key in chn) {
+                                    if (any.hasOwnProperty(key))
+                                        chn[key] = any[key];
+
+                                }
+                            }
+                            channels[i] = chn;
                         }
+                        config.channels = channels;
+                    });
+                    config["any"].chns = checkChns;
+                    rpc("rec.execute", [JSON.stringify(config, null, 2)], function (data) {
                         if(intervalId < 0)
                             intervalId = setInterval( onTimer, 1000 );
                         htmlAlert("#alert", "success", "<cn>启动录制成功！</cn><en>Start record success!</en>", "", 3000);
@@ -522,34 +535,19 @@ include( "head.php" );
                                 formatControl(event,data);
                             });
                         });
-                    }
+                    })
                 })
             });
 
             $("#stopRecord").click(function (e) {
                 rpc( "rec.stop", [], function ( data ) {
-                    $.getJSON("config/record.json", function (cfg) {
-                        var chns = cfg["channels"];
-                        var enabledChn = new Array();
-                        for (var i = 0; i < ini.length; i++) {
-                            var id = ini[i].id;
-                            for(var j = 0; j< chns.length; j++)
-                            {
-                                if (id === chns[j].id) {
-                                    chns[j].chnName = ini[i].name;
-                                    chns[j].enable = ini[i].enable;
-                                    if(ini[i].enable)
-                                        enabledChn.push(chns[j]);
-                                }
-                            }
-                        }
-                        zctemplet("#templet", enabledChn);
-                        zcfg("#all", cfg["any"]);
-                        $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
-                            formatControl(event,data);
+                    if(data){
+                        $.getJSON("config/record.json", function (cfg) {
+                            clearInterval(intervalId);
+                            initView();
+                            htmlAlert("#alert", "success", "<cn>停止录制成功！</cn><en>Stop record success!</en>", "", 3000);
                         });
-                        clearInterval(intervalId);
-                    });
+                    }
                 } );
             });
 
