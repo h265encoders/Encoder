@@ -97,11 +97,6 @@ include( "head.php" );
                                         </div>
                                     </div>
                                 </div>
-<!--                                <div class="col-sm-4 text-left" style="line-height: 34px">-->
-<!--                                    <cn>已用空间</cn>-->
-<!--                                    <en>Used Space</en>:-->
-<!--                                    <span id="space">-</span>-->
-<!--                                </div>-->
                             </div>
                         </div>
                     </div>
