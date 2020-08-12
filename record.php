@@ -76,7 +76,7 @@ include( "head.php" );
                                     <span id="fileName"></span>
 <!--                                    <strong id="time">[--:--]</strong>-->
                                 </div>
-                                <div class="col-sm-6 text-center">
+                                <div class="col-sm-5 text-right">
                                     <button type="button" id="startRecord" class="btn btn-warning">
                                         <i class="fa fa-video-camera"></i>
                                         <cn>录制</cn>
@@ -88,11 +88,20 @@ include( "head.php" );
                                         <en>Stop All</en>
                                     </button>
                                 </div>
-                                <div class="col-sm-4 text-left" style="line-height: 34px;">
-                                    <cn>已用空间</cn>
-                                    <en>Used Space</en>:
-                                    <span id="space">-</span>
+                                <div class="col-sm-5">
+                                    <div class="row">
+                                        <div class="col-sm-11 col-sm-offset-1 text-left" style="line-height: 34px">
+                                            <cn>已用空间</cn>
+                                            <en>Used Space</en>:
+                                            <span id="space">-</span>
+                                        </div>
+                                    </div>
                                 </div>
+<!--                                <div class="col-sm-4 text-left" style="line-height: 34px">-->
+<!--                                    <cn>已用空间</cn>-->
+<!--                                    <en>Used Space</en>:-->
+<!--                                    <span id="space">-</span>-->
+<!--                                </div>-->
                             </div>
                         </div>
                     </div>
@@ -468,8 +477,10 @@ include( "head.php" );
                     if(isRecordMark)
                         intervalId = setInterval( onTimer, 1000 )
                     else
+                    {
                         clearInterval(intervalId);
-
+                        intervalId = -1;
+                    }
                     initList();
                     getState();
 
@@ -544,6 +555,7 @@ include( "head.php" );
                     if(data){
                         $.getJSON("config/record.json", function (cfg) {
                             clearInterval(intervalId);
+                            intervalId = -1;
                             initView();
                             htmlAlert("#alert", "success", "<cn>停止录制成功！</cn><en>Stop record success!</en>", "", 3000);
                         });
