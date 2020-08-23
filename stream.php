@@ -420,7 +420,7 @@ if(!isset($HLS) || $HLS)
 
 				</div>
 			</div>
-			<div role="tabpanel" class="tab-pane fade in" id="tab7">
+			<div role="tabpanel" class="tab-pane fade in thin2" id="tab7">
 				<div class="row text-center" style="margin-top: 5px;">
 					<div class="col-md-2 col-xs-4">
 						<cn>频道名称</cn>
@@ -432,11 +432,14 @@ if(!isset($HLS) || $HLS)
 					<div class="col-md-2 col-xs-4">
 						IP
 					</div>
-					<div class="col-md-2 col-xs-4">
+					<div class="col-md-1 col-xs-2">
 						<cn>端口</cn><en>Port</en>
 					</div>
-					<div class="col-md-2 col-xs-4">
+					<div class="col-md-1 col-xs-2">
 						<cn>延时</cn><en>Latency</en>
+					</div>
+					<div class="col-md-2 col-xs-4">
+						<cn>密码</cn><en>Password</en>
 					</div>
 					<div class="col-md-2 col-xs-4">
 						<cn>开关</cn>
@@ -459,11 +462,14 @@ if(!isset($HLS) || $HLS)
 						<div class="col-md-2 col-xs-4">
 							<input zcfg="[#].stream.srt.ip" type="text" class="form-control">
 						</div>
-						<div class="col-md-2 col-xs-4">
+						<div class="col-md-1 col-xs-2">
 							<input zcfg="[#].stream.srt.port" type="text" class="form-control">
 						</div>
-						<div class="col-md-2 col-xs-4 text-center">
+						<div class="col-md-1 col-xs-2 text-center">
 							<input zcfg="[#].stream.srt.latency" type="text" class="form-control">
+						</div>
+						<div class="col-md-2 col-xs-4 text-center">
+							<input zcfg="[#].stream.srt.passwd" type="text" class="form-control">
 						</div>
 						<div class="col-md-2 col-xs-4 text-center">
 							<input zcfg="[#].stream.srt.enable" type="checkbox" class="switch form-control">
@@ -482,11 +488,14 @@ if(!isset($HLS) || $HLS)
 						<div class="col-md-2 col-xs-4">
 							<input zcfg="[#].stream2.srt.ip" type="text" class="form-control">
 						</div>
-						<div class="col-md-2 col-xs-4">
+						<div class="col-md-1 col-xs-2">
 							<input zcfg="[#].stream2.srt.port" type="text" class="form-control">
 						</div>
-						<div class="col-md-2 col-xs-4 text-center">
+						<div class="col-md-1 col-xs-2 text-center">
 							<input zcfg="[#].stream2.srt.latency" type="text" class="form-control">
+						</div>
+						<div class="col-md-2 col-xs-4 text-center">
+							<input zcfg="[#].stream2.srt.passwd" type="text" class="form-control">
 						</div>
 						<div class="col-md-2 col-xs-4 text-center">
 							<input zcfg="[#].stream2.srt.enable" type="checkbox" class="switch form-control">

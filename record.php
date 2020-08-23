@@ -468,8 +468,10 @@ include( "head.php" );
                     if(isRecordMark)
                         intervalId = setInterval( onTimer, 1000 )
                     else
+                    {
                         clearInterval(intervalId);
-
+                        intervalId = -1;
+                    }
                     initList();
                     getState();
 
@@ -544,6 +546,7 @@ include( "head.php" );
                     if(data){
                         $.getJSON("config/record.json", function (cfg) {
                             clearInterval(intervalId);
+                            intervalId = -1;
                             initView();
                             htmlAlert("#alert", "success", "<cn>停止录制成功！</cn><en>Stop record success!</en>", "", 3000);
                         });

@@ -16,6 +16,7 @@
             cfg[i].stream.srt.ip="127.0.0.1";
             cfg[i].stream.srt.port=9001+i;
             cfg[i].stream.srt.latency=50;
+	    cfg[i].stream.srt.passwd="";
             cfg[i].stream.push.path="rtmp://127.0.0.1/live/test_main"+i;
 
             cfg[i].stream2.srt={};
@@ -24,6 +25,7 @@
             cfg[i].stream2.srt.ip="127.0.0.1";
             cfg[i].stream2.srt.port=9101+i;
             cfg[i].stream2.srt.latency=50;
+	    cfg[i].stream2.srt.passwd="";
             cfg[i].stream2.push.path="rtmp://127.0.0.1/live/test_sub"+i;
 
             if(cfg[i].type=="net")
