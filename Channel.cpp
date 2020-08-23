@@ -207,6 +207,8 @@ void Channel::updateConfig(QVariantMap cfg)
             gd["gain"]=cfg["enca"].toMap()["gain"];
             gain->start(gd);
         }
+        else
+            gain->start();
 
         if(lineIn!=NULL && cfg.contains("enca"))
         {
@@ -278,7 +280,12 @@ void Channel::updateConfig(QVariantMap cfg)
         QString mode=cfg["mode"].toString();
         if(mode=="listener")
             ip="0.0.0.0";
-        data["path"]="srt://"+ip+":" + QString::number(cfg["port"].toInt())+"?mode="+mode+"&latency="+ QString::number(cfg["latency"].toInt());
+
+        QString url="srt://"+ip+":" + QString::number(cfg["port"].toInt())+"?mode="+mode+"&latency="+ QString::number(cfg["latency"].toInt());
+
+        if(!cfg["passwd"].toString().isEmpty())
+            url+="&passphrase="+cfg["passwd"].toString();
+        data["path"]=url;
         muxMap["srt"]->start(data);
     }
     else
@@ -471,6 +478,7 @@ void Channel::startRecord(const QString &fileName, const QString &format)
         pathDir.mkpath(filePath);
 
     QString jpg=fileName+".jpg";;
+    snap->invoke("snapSync",jpg);
     snap->invoke("snapSync",jpg);
     if(!formatMap.contains(format))
         formatMap[format] = Link::create("Mux");

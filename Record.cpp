@@ -23,7 +23,7 @@ void Record::init()
         QString json=file.readAll();
         file.close();
         config = Json::decode(json).toMap();
-        if(!config.isEmpty())
+        if(!config.isEmpty() && config.contains("any"))
         {
             hasRecord = true;
             QVariantList channels = config["channels"].toList();
