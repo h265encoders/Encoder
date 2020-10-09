@@ -32,6 +32,10 @@ void RPC::init()
 
     device=Link::create("Device");
     device->start();
+//    device->invoke("setTally",2);
+//    device->invoke("enableIR");
+
+
 }
 
 

@@ -4,7 +4,7 @@ QT -= gui
 TARGET = Encoder
 CONFIG += console  c++14
 CONFIG -= app_bundle
-chip = HI3531D
+chip = HI3521D
 #SDKVER=V2.0.3.0
 include(/home/linkpi/work/LinkLib/Link.pri)
 if(!contains(DEFINES,HI3516E)){
