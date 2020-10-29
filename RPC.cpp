@@ -32,10 +32,9 @@ void RPC::init()
 
     device=Link::create("Device");
     device->start();
-//    device->invoke("setTally",2);
-//    device->invoke("enableIR");
 
-
+    if(Config::chns[0]->muxMap.contains("ndi"))
+        Config::chns[0]->muxMap["ndi"]->linkE(device);
 }
 
 

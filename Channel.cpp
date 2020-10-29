@@ -53,8 +53,14 @@ void Channel::init(QVariantMap)
     sd["width"]=640;
     sd["height"]=360;
     sd["codec"]="jpeg";
+
     if(type=="vi" )
+    {
+#ifdef HI3516E
+        sd["scaleUp"]=true;
+#endif
         sd["share"]=0;
+    }
     snap->start(sd);
 
     if(lineIn==NULL)
