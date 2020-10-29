@@ -70,13 +70,14 @@ include( "head.php" );
 								<option value="DEF">DEF(3520D)</option>
 								<option value="EX2">EX2(ENC1)</option>
 								<option value="SH">SH(ENCSH)</option>
+								<option value="V2">V2(ENC1V2)</option>
 								<?php
 									}
 									else if($chip=="3519A")
 									{
 								?>
-								<option value="DEF">DEF</option>
-								<option value="MPTCP">MPTCP</option>
+								<option value="ENC1P">ENC1P</option>
+								<option value="C3519A">C3519A</option>
 								<?php
 									}
 								?>

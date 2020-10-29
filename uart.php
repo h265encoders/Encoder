@@ -58,6 +58,10 @@ include( "head.php" );
 		</div>
 	</div>	
 </div>
+<?php
+if(isset($button) && $button)
+{
+?>
 <div class="row">
 	<div class="col-md-6 col-md-offset-3">
 		<div class="panel panel-default">
@@ -94,11 +98,13 @@ include( "head.php" );
                                         <option value="push.stop" cn="停止推流" en="Stop push"></option>
                                         <option value="rec.start" cn="开始录制" en="Start record"></option>
                                         <option value="rec.stop" cn="停止录制" en="Stop record"></option>
+                                        <option value="" cn="无" en="None"></option>
                                     </select>
                                 </div>
                                 <div class="col-md-3 col-sm-4">
                                     <select zcfg="[#].press" class="form-control">
                                         <option value="enc.setNetDhcp" cn="dhcp" en="dhcp"></option>
+                                        <option value="" cn="无" en="None"></option>
                                     </select>
                                 </div>
                             </div>
@@ -118,7 +124,9 @@ include( "head.php" );
 		</div>
 	</div>	
 </div>
-
+<?php
+}
+?>
 <script src="js/zcfg.js"></script>
 <script>
 	$( function () {
