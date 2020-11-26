@@ -66,7 +66,7 @@ if(!isset($button) || $button)
 }
 ?>
 <?php
-if(!isset($remote) || $remote)
+if(isset($remote) && $remote)
 {
   ?>
   <li><a href="/remote.php"><i class="fa fa-fire"></i><cn>红外遥控</cn><en>Remote</en></a></li>
