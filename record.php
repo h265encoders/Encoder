@@ -162,7 +162,7 @@ include( "head.php" );
                                 </div>
                             </div>
                             <div class="col-md-2 col-xs-2">
-                                <input zcfg="[#].durTime" type="text" class="form-control" disabled="disabled" style="color: #399bff;border: none;background: none;width: 100%;outline: none;text-align:center" >
+                                <input zcfg="[#].durTime" type="text" class="form-control" disabled="disabled" style="color: var(--btn_background);border: none;background: none;width: 100%;outline: none;text-align:center" >
                             </div>
                         </div>
                         <hr style="margin-top:10px; margin-bottom: 10px;"/>

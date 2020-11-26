@@ -162,6 +162,29 @@ function setEDID() {
 	exec( 'echo '.$_POST[ 'edid' ].' > /link/config/curEDID' );
 }
 
+function addNewTheme() {
+	global  $result;
+	exec( "cp /link/web/css/theme/default.css /link/web/css/theme/".$_POST["name"].".css");
+	$result->result = "OK";
+}
+
+function delTheme() {
+	global  $result;
+	exec( "rm -f /link/web/css/theme/".$_POST["name"].".css");
+	$result->result = "OK";
+}
+
+function saveTheme() {
+	global  $result;
+	file_put_contents( '/link/web/css/theme/'.$_POST['name'].'.css', $_POST['css'] );
+	$result->result = "OK";
+}
+
+function saveConfigFile() {
+	global  $result;
+	file_put_contents( "/link".$_POST["path"], $_POST['data'] );
+	$result->result = "OK";
+}
 
 
 function changeType() {

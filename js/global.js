@@ -103,6 +103,7 @@ function changeLang(lang){
 	$("option["+lang+"]").each(function(){
 		$(this).text($(this).attr(lang));
 	});
+	func("saveConfigFile",{path: "/config/lang.json",data:JSON.stringify({"lang":lang},null,2)});
 }
 
 $(function(){
@@ -110,12 +111,9 @@ $(function(){
 	  cache: false
 	});
 	
-	console.log($.cookie('lang'));
-	
 	if($.cookie('lang')==undefined)
 		changeLang($("#globaljs").attr("defLang"));
 	else
 		changeLang($.cookie('lang'));
-	
-	
+
 });

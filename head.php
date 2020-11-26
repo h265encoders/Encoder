@@ -65,6 +65,14 @@ if(!isset($button) || $button)
 <?php
 }
 ?>
+<?php
+if(!isset($remote) || $remote)
+{
+  ?>
+  <li><a href="/remote.php"><i class="fa fa-fire"></i><cn>红外遥控</cn><en>Remote</en></a></li>
+  <?php
+}
+?>
           </ul>
         </li>
         <li role="presentation" class="dropdown"> <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true"> <i class="fa fa-gears menuIcon"></i><cn>高级设置</cn><en>Options</en><span class="caret"></span> </a>

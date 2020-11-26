@@ -146,27 +146,38 @@ include( "head.php" );
         } );
 
         var interfaceCount = 6;
-        try {
-            $.ajaxSetup( {
-                cache: false
-            } );
-            $( '.chart' ).easyPieChart( {
-                easing: 'easeOutElastic',
-                delay: 2000,
-                barColor: '#FB0',
-                trackColor: '#CCC',
-                scaleColor: false,
-                lineWidth: 20,
-                trackWidth: 16,
-                lineCap: 'butt',
-                width: 50,
-                onStep: function ( from, to, percent ) {
-                    $( this.el ).parent().find( '.percent' ).text( Math.round( percent ) + "%" );
-                }
-            } );
-        } catch ( e ) {
 
-        }
+        var theme_color = "";
+        $.ajax({url:"/css/theme/"+used_theme+".css",success:function(data){
+                var key = "--system_state_active";
+                data = data.substring(data.indexOf(key),data.length);
+                var index1 = data.indexOf(":");
+                var index2 = data.indexOf(";");
+                theme_color = data.substring(index1+1,index2);
+
+                try {
+                    $.ajaxSetup( {
+                        cache: false
+                    } );
+                    $( '.chart' ).easyPieChart( {
+                        easing: 'easeOutElastic',
+                        delay: 2000,
+                        barColor: theme_color,
+                        trackColor: '#CCC',
+                        scaleColor: false,
+                        lineWidth: 20,
+                        trackWidth: 16,
+                        lineCap: 'butt',
+                        width: 50,
+                        onStep: function ( from, to, percent ) {
+                            $( this.el ).parent().find( '.percent' ).text( Math.round( percent ) + "%" );
+                        }
+                    } );
+                } catch ( e ) {
+
+                }
+        }});
+
 
         {
             var cnt = 0;
@@ -285,6 +296,7 @@ include( "head.php" );
                 try {
                     $( "#usage #cpu" ).data( 'easyPieChart' ).update( data.cpu );
                     $( "#usage #mem" ).data( 'easyPieChart' ).update( data.mem );
+                    $( "#usage #temperature #bar" ).css( "background", theme_color);
                     $( "#usage #temperature #mask" ).css( "bottom", data.temperature + "%" );
 
                 } catch ( e ) {
@@ -379,55 +391,63 @@ include( "head.php" );
 
         var plot = null;
         try {
-            plot = $.plot( $( "#netState" ), [ {
-                data: GetData1( 0 ),
-                lines: {
-                    fill: true
-                }
-            }, {
-                data: GetData2( 0 ),
-                lines: {
-                    show: true
-                }
-            } ], {
-                series: {
-                    lines: {
-                        show: true,
-                        fill: true
-                    },
-                    shadowSize: 0
-                },
-                yaxis: {
-                    min: 0,
-                    max: 800,
-                    tickSize: 160,
-                    tickFormatter: function ( v, axis ) {
-
-                        if ( axis.max < 1024 )
-                            return v + "Kb/s";
-                        else {
-                            v /= 1024;
-
-                            if ( axis.max < 10240 )
-                                return v.toFixed( 2 ) + "Mb/s";
-                            else
-                                return Math.floor( v ) + "Mb/s";
+            $.ajax({url: "/css/theme/" + used_theme + ".css", success: function (data) {
+                    var key = "--system_state_active";
+                    data = data.substring(data.indexOf(key), data.length);
+                    var index1 = data.indexOf(":");
+                    var index2 = data.indexOf(";");
+                    theme_color = data.substring(index1 + 1, index2);
+                    plot = $.plot( $( "#netState" ), [ {
+                        data: GetData1( 0 ),
+                        lines: {
+                            fill: true
                         }
-                    }
-                },
-                xaxis: {
-                    show: false
-                },
-                grid: {
-                    hoverable: true,
-                    clickable: true,
-                    tickColor: "#eeeeee",
-                    borderWidth: 1,
-                    borderColor: "#FF8888"
-                },
-                colors: [ "#FF9933", "#555" ],
-                tooltip: false
-            } );
+                    }, {
+                        data: GetData2( 0 ),
+                        lines: {
+                            show: true
+                        }
+                    } ], {
+                        series: {
+                            lines: {
+                                show: true,
+                                fill: true
+                            },
+                            shadowSize: 0
+                        },
+                        yaxis: {
+                            min: 0,
+                            max: 800,
+                            tickSize: 160,
+                            tickFormatter: function ( v, axis ) {
+
+                                if ( axis.max < 1024 )
+                                    return v + "Kb/s";
+                                else {
+                                    v /= 1024;
+
+                                    if ( axis.max < 10240 )
+                                        return v.toFixed( 2 ) + "Mb/s";
+                                    else
+                                        return Math.floor( v ) + "Mb/s";
+                                }
+                            }
+                        },
+                        xaxis: {
+                            show: false
+                        },
+                        grid: {
+                            hoverable: true,
+                            clickable: true,
+                            tickColor: "#eeeeee",
+                            borderWidth: 1,
+                            borderColor: "#cccccc"
+                        },
+                        colors: [ theme_color, "#555" ],
+                        tooltip: false
+                    } );
+                }
+            })
         } catch ( e ) {}
 
         function updateNetState() {
