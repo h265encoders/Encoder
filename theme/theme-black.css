@@ -92,7 +92,7 @@ html,body{
     background-color: #59acff !important;
     border-color: #fff !important;
 }
-.btn-default:hover,.btn-default:focus,.btn-default:active, {
+.btn-default:hover,.btn-default:focus,.btn-default:active {
     background-color: #59acff !important;
     border-color: #fff !important;
     color: #fff;

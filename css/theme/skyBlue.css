@@ -1,0 +1,42 @@
+
+html{
+    --body_background:#f0f0f4;
+    --foot_background:#00BFFF;
+    --foot_color:#fff;
+
+    --navbar_background:#333;
+    --navbar_item_color:#fff;
+    --navbar_item_background:#333;
+    --navbar_item_active:#00BFFF;
+    --navbar_item_active_background:#333;
+
+    --navtab_background:#f0f0f4;
+    --navtab_item_color:#999;
+    --navtab_item_background:#f0f0f4;
+    --navtab_item_active:#555;
+    --navtab_item_active_border:#00BFFF;
+
+    --dropdown_background:#333;
+    --dropdown_color:#fff;
+    --dropdown_item_active_background:#00BFFF;
+    --dropdown_item_active:#fff;
+
+    --title_panel_background:#fff;
+    --title_panel_color:#333;
+
+    --slider_touch:#00BFFF;
+    --slider_selection:#87CEEB;
+
+    --switch_active:#00BFFF;
+
+    --btn_color:#fff;
+    --btn_background:#00BFFF;
+    --btn_hover_color:#fff;
+    --btn_hover_background:#87CEFA;
+
+    --checkbox_active:#00BFFF;
+    --input_active:#00BFFF;
+
+    --system_state_active:#00BFFF;
+
+}

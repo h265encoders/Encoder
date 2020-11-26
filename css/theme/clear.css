@@ -1,0 +1,190 @@
+
+/*背景颜色*/
+body{
+    background: #f0f0f4;
+}
+/*页脚颜色*/
+.footer{
+    background: black;
+    color: white;
+}
+
+/*导航栏背景色*/
+.navbar,.nav-tabs{
+    background: #333;
+}
+
+/* 导航栏 默认 字体图标颜色及背景色                                                             */
+.navc > li.active > a,.navc > li > a {
+    color: #fff !important;
+    background-color: #333 !important;
+}
+
+/* 导航栏 划入 字体图标颜色及背景色                                                             */
+.navc > li.active > a,.navc > li > a:hover {
+    color: white !important;
+    background-color: black !important;
+}
+/* 导航栏 图标划入颜色*/
+.navc > li > a:hover i{
+    color: white;
+}
+
+/* 页面内导航栏默认字体颜色*/
+.nav-tabs {
+    background: #f0f0f4;
+}
+.nav-tabs a {
+    color: #999;
+    background: #f0f0f4;
+}
+
+/*  页面内导航栏选中字体颜色及上边框颜色 */
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+    transition: all .2s ease;
+    color: #555!important;
+    padding-top:8px!important;
+    border-radius: 0;
+    background: #fff;
+    border-top: 4px solid #555 !important;
+}
+
+
+/* 导航栏下拉菜单展开时 导航栏图标字体选中颜色 */
+.navbar-nav > .open > a, .navbar-nav > .open > a:focus {
+    color: white !important;
+    background-color: #333 !important;
+}
+
+/* 导航栏下拉菜单背景色 */
+.navbar .dropdown-menu,.navr .dropdown-menu {
+    background-color: #333;
+}
+
+/* 导航栏下拉菜单展开后，默认字体颜色*/
+.navbar .dropdown-menu > li > a{
+    color: white;
+}
+
+/* 导航栏下拉菜单划入背景色及字体颜色 */
+.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:focus,.navr .dropdown-menu li a:hover {
+    background: #000 !important;
+    color: white !important;
+}
+
+
+/*标题栏背景色 及 字体颜色*/
+.panel-default .panel-heading,.panel .title {
+    background-color: white;
+    color: #333;
+}
+@media (min-width:768px){
+    .modal-dialog{width:600px}
+}
+
+
+/* 滑动条 拖动按钮颜色*/
+.slider-handle {
+    background: black !important;
+}
+
+/* 滑动条禁用滑动条颜色*/
+.slider-disabled .slider-selection {
+    background: grey !important;
+}
+
+/* 滑动条背景颜色*/
+.slider-selection {
+    background: grey !important;
+}
+
+
+/* 按钮颜色及字体颜色 */
+.btn-warning,#ctlBtn {
+    background: white;
+    color: black;
+    border-color: black;
+}
+/* 按钮划入颜色及字体颜色*/
+.btn-warning:hover,.btn-warning:focus,.btn-warning:active,#ctlBtn:hover,#ctlBtn:focus,#ctlBtn:active {
+    background-color: white !important;
+    border-color: black !important;
+}
+
+
+/* switch开关颜色 */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
+    background-color: black;
+}
+
+/* 上传按钮(选择文件)颜色 */
+.webuploader-pick{
+    background: none;
+    color: white;
+    border-color: black;
+}
+/* 上传按钮(选择文件)划入颜色 */
+.webuploader-pick-hover{
+    background: none;
+    color: white;
+    border-color: black;
+}
+
+/* checkbox 复选框勾选颜色 */
+input[type="checkbox"] {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    background-clip: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: -0.15px 0.6px 0 0;
+    vertical-align: text-bottom;
+    border-radius: 2px;
+    -webkit-transition: background-color 0.25s;
+    transition: background-color 0.25s;
+    background-color: white;
+    border: 1px solid #d7d7d7;
+}
+
+input[type="checkbox"]:checked {
+    background-color: white;
+    border-color: white;
+}
+
+input[type="checkbox"]:checked:after {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 8px;
+    border: 0 solid black;
+    border-width: 0 0 2px 2px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+input[type="checkbox"]:disabled {
+    opacity: 0.65;
+}
+input[type="checkbox"]:focus {
+    outline: none;
+    box-shadow: inset 0 1px 1px rgba(255,255,255,0.075), 0 0px 2px black;
+}
+
+.navbar-nav>li>a:hover {
+    animation: menuHover 0.3s;
+    animation-fill-mode: forwards;
+    -webkit-animation: menuHover 0.3s;
+    -webkit-animation-fill-mode: forwards;
+}
+.navbar .dropdown-menu > li > a:hover,.navbar .dropdown-menu > li > a:focus
+{
+    animation: menuHover 0.3s;
+    animation-fill-mode: forwards;
+    -webkit-animation: menuHover 0.3s;
+    -webkit-animation-fill-mode: forwards;
+}
+

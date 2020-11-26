@@ -1,0 +1,219 @@
+
+/*背景颜色*/
+html,body{
+    background: var(--body_background);
+    height: 100%;
+}
+/*页脚颜色*/
+.footer{
+    background: var(--foot_background);
+    color: var(--foot_color);
+}
+
+/*导航栏背景色*/
+.navbar,.nav-tabs{
+    background: var(--navbar_background);
+}
+
+/* 导航栏 默认 字体图标颜色及背景色                                                             */
+.navc > li.active > a,.navc > li > a {
+    color: var(--navbar_item_color) !important;
+    background-color: var(--navbar_item_background) !important;
+}
+
+/* 导航栏 划入 字体图标颜色及背景色                                                             */
+.navc > li.active > a,.navc > li > a:hover {
+    color: var(--navbar_item_active) !important;
+    background-color: var(--navbar_item_active_background) !important;
+}
+/* 导航栏 图标划入颜色*/
+.navc > li > a:hover i{
+    color: var(--navbar_item_active);
+}
+
+/* 页面内导航栏默认字体颜色*/
+.nav-tabs {
+    background: var(--navtab_background);
+}
+.nav-tabs a {
+    color: var(--navtab_item_color);
+    background: var(--navtab_item_background);
+}
+
+/*  页面内导航栏选中字体颜色及上边框颜色 */
+.nav-tabs > li.active > a, .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+    transition: all .2s ease;
+    color: var(--navtab_item_active)!important;
+    padding-top:8px!important;
+    border-radius: 0;
+    background: #fff;
+    border-top: 4px solid var(--navtab_item_active_border) !important;
+}
+
+
+/* 导航栏下拉菜单展开时 导航栏图标字体选中颜色 */
+.navbar-nav > .open > a, .navbar-nav > .open > a:focus {
+    color: var(--navbar_item_active)!important;
+    background-color: var(--navbar_item_active_background) !important;
+}
+
+/* 导航栏下拉菜单背景色 */
+.navbar .dropdown-menu,.navr .dropdown-menu {
+    background-color: var(--dropdown_background);
+}
+
+/* 导航栏下拉菜单展开后，默认字体颜色*/
+.navbar .dropdown-menu > li > a{
+    color: var(--dropdown_color);
+}
+
+/* 导航栏下拉菜单划入背景色及字体颜色 */
+.navbar .dropdown-menu li a:hover, .navbar .dropdown-menu li a:focus,.navr .dropdown-menu li a:hover {
+    background: var(--dropdown_item_active_background)!important;
+    color: var(--dropdown_item_active)!important;
+}
+
+
+/*标题栏背景色 及 字体颜色*/
+.panel-default .panel-heading,.panel .title {
+    background-color: var(--title_panel_background);
+    color: var(--title_panel_color);
+}
+@media (min-width:768px){
+    .modal-dialog{width:600px}
+}
+
+
+/* 滑动条 拖动按钮颜色*/
+.slider-handle {
+    background: var(--slider_touch)!important;
+}
+
+/* 滑动条禁用滑动条颜色*/
+.slider-disabled .slider-selection {
+    background: var(--slider_selection)!important;
+}
+
+/* 滑动条背景颜色*/
+.slider-selection {
+    background: var(--slider_selection)!important;
+}
+
+
+/* 按钮颜色及字体颜色 */
+.btn-warning,#ctlBtn {
+    background-color: var(--btn_background);
+    color: var(--btn_color);
+    border-color: var(--btn_background);
+}
+/* 按钮划入颜色及字体颜色*/
+.btn-warning:hover,.btn-warning:focus,.btn-warning:active,#ctlBtn:hover,#ctlBtn:focus,#ctlBtn:active {
+    background-color: var(--btn_hover_background) !important;
+    border-color: var(--btn_hover_color) !important;
+    outline: none !important;
+}
+
+/* 按钮划入颜色及字体颜色*/
+.btn-default:hover,.btn-default:focus,.btn-default:active {
+    background-color: var(--btn_hover_background) !important;
+    border-color: var(--btn_hover_color) !important;
+    outline: none !important;
+}
+
+
+/* switch开关颜色 */
+.bootstrap-switch .bootstrap-switch-handle-on.bootstrap-switch-warning,.bootstrap-switch .bootstrap-switch-handle-off.bootstrap-switch-warning {
+    background-color: var(--switch_active);
+}
+
+/* 上传按钮(选择文件)颜色 */
+.webuploader-pick{
+    background: var(--btn_background);
+    color: var(--btn_color);
+}
+/* 上传按钮(选择文件)划入颜色 */
+.webuploader-pick-hover{
+    background: var(--btn_hover_background);
+    color: var(--btn_hover_color);
+}
+
+/* checkbox 复选框勾选颜色 */
+input[type="checkbox"] {
+    position: relative;
+    width: 13px;
+    height: 13px;
+    background-clip: border-box;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    margin: -0.15px 0.6px 0 0;
+    vertical-align: text-bottom;
+    border-radius: 2px;
+    -webkit-transition: background-color 0.25s;
+    transition: background-color 0.25s;
+    background-color: #fff;
+    border: 1px solid #d7d7d7;
+}
+
+input[type="checkbox"]:checked {
+    background-color: var(--checkbox_active);
+    border-color: var(--checkbox_active);
+}
+
+input[type="checkbox"]:checked:after {
+    content: '';
+    display: block;
+    height: 5px;
+    width: 8px;
+    border: 0 solid #fff;
+    border-width: 0 0 2px 2px;
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    position: absolute;
+    top: 2px;
+    left: 2px;
+}
+input[type="checkbox"]:disabled {
+    opacity: 0.65;
+}
+/*input[type="checkbox"]:focus {*/
+/*    border-color: var(--checkbox_active);*/
+/*}*/
+
+/*input[type="text"]:focus {*/
+/*    border-color: var(--input_active);*/
+/*    box-shadow: 1px 1px 3px var(--input_active);*/
+/*}*/
+
+/* 导航栏划入动画字体颜色 */
+@keyframes menuHover {
+    from {
+        color: #fff;
+    }
+    to {
+        color: var(--navbar_item_active);
+    }
+}
+
+/* 导航栏划入动画字体颜色 */
+@-webkit-keyframes menuHover {
+    from {
+        color: #fff;
+    }
+    to {
+        color: var(--navbar_item_active);
+    }
+}
+.navbar-nav>li>a:hover {
+    animation: menuHover 0.3s;
+    animation-fill-mode: forwards;
+    -webkit-animation: menuHover 0.3s;
+    -webkit-animation-fill-mode: forwards;
+}
+.navbar .dropdown-menu > li > a:hover,.navbar .dropdown-menu > li > a:focus
+{
+    animation: menuHover 0.3s;
+    animation-fill-mode: forwards;
+    -webkit-animation: menuHover 0.3s;
+    -webkit-animation-fill-mode: forwards;
+}
