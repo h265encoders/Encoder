@@ -400,7 +400,7 @@ echo isset($extraVo)?$extraVo:"VGA";
 		curChn = id;
 		mixCfg = config[id];
 		var str=JSON.stringify(mixCfg["layout"]);
-		curLayIndex=5;
+		curLayIndex=6;
 		for(var i=0;i<SysLayout.length;i++){
 			if(JSON.stringify(SysLayout[i])==str)
 			{
@@ -410,9 +410,9 @@ echo isset($extraVo)?$extraVo:"VGA";
 				
 		}
 		
-		if(curLayIndex==5){
-			$( "#SysLayout" ).val(5);
-			SysLayout[5]=mixCfg["layout"];
+		if(curLayIndex==6){
+			$( "#SysLayout" ).val(6);
+			SysLayout[6]=mixCfg["layout"];
 		}
 			
 		
