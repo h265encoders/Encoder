@@ -241,7 +241,7 @@ include( "head.php" );
 </script>
 
 <script>
-
+    var iconMap = {"my-ok":"ok", "my-9":"9", "my-8":"8", "my-7":"7", "my-6":"6", "my-5":"5", "my-4":"4", "my-3":"3", "my-2":"2", "my-1":"1", "my-0":"0",}
     var features = null;
     var feaArray = [];
 

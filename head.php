@@ -4,6 +4,50 @@ include( "session.php" );
 include( "headhead.php" );
 
 ?>
+<script>
+    var linkHref = function(path) {
+        var link = document.createElement('link');
+        link.href = path;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        $('head')[0].appendChild(link);
+    }
+    var used_theme = localStorage.getItem("themeName");
+    if(used_theme === null || used_theme === "" || used_theme === undefined) {
+        $.getJSON("/config/theme.json",function (data) {
+            var used = data["used"];
+            if(used !== "" && used !== undefined && used !== null ) {
+                localStorage.setItem("themeName",used);
+                linkHref("/css/theme/"+used+".css");
+                linkHref("/css/theme/theme.css");
+            } else {
+                location.reload();
+            }
+        })
+    } else {
+        linkHref("/css/theme/"+used_theme+".css");
+        linkHref("/css/theme/theme.css");
+        setTimeout(function () {
+            $.getJSON("/config/theme.json",function (data) {
+                var used = data["used"];
+                if(used !== "" || used !== undefined ) {
+                    localStorage.setItem("themeName",used);
+                }
+            })
+        },1000);
+    }
+
+    $.getJSON("/config/lang.json",function (data) {
+        var lang = data["lang"];
+        $("#langcss").attr("href","/css/"+lang+".css");
+        $.cookie('lang',lang);
+        $("option["+lang+"]").each(function(){
+            $(this).text($(this).attr(lang));
+        });
+    })
+
+
+</script>
 <nav class="navbar navbar-default">
   <div class="container" > 
     <!-- Brand and toggle get grouped for better mobile display -->

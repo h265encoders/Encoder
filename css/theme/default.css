@@ -21,8 +21,8 @@ html{
     --dropdown_item_active_background:#000;
     --dropdown_item_active:#fff;
 
-    --title_panel_background:#fff;
-    --title_panel_color:#333;
+    --title_panel_background:#444;
+    --title_panel_color:#fff;
 
     --slider_touch:#fb0;
     --slider_selection:#fd5;
