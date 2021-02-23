@@ -106,11 +106,52 @@ function changeLang(lang){
 	func("saveConfigFile",{path: "/config/lang.json",data:JSON.stringify({"lang":lang},null,2)});
 }
 
+function getUsedTheme() {
+	var theme = "";
+	$.ajaxSettings.async = false;
+	$.getJSON("/config/theme.json",function (data) {
+		var used = data["used"];
+		if(used !== "" || used !== undefined ){
+			theme = used;
+			localStorage.setItem("used_theme",used);
+		}
+	})
+	$.ajaxSettings.async = true;
+	return theme;
+}
+
+function getUsedLang() {
+	$.ajaxSettings.async = false;
+	$.getJSON("/config/lang.json",function (data) {
+		var lang = data["lang"];
+		$("#langcss").attr("href","/css/"+lang+".css");
+		$.cookie('lang',lang);
+		$("option["+lang+"]").each(function(){
+			$(this).text($(this).attr(lang));
+		});
+	})
+	$.ajaxSettings.async = true;
+}
+
+function　linkHref(path) {
+	var link = document.createElement('link');
+	link.href = path;
+	link.rel = 'stylesheet';
+	link.type = 'text/css';
+	$('head')[0].appendChild(link);
+}
+
+linkHref("/css/theme/clear.css");
+linkHref("/css/theme/"+getUsedTheme()+".css");
+linkHref("/css/theme/theme.css");
+
 $(function(){
 	$.ajaxSetup({
 	  cache: false
 	});
-	
+
+	getUsedLang();
+
 	if($.cookie('lang')==undefined)
 		changeLang($("#globaljs").attr("defLang"));
 	else
