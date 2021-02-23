@@ -250,6 +250,7 @@ bool Record::start()
         return false;
 
     QVariantMap anyObj = config["any"].toMap();
+    QVariantList chns = anyObj["chns"].toList();
 
     anyObj["fileName"] = "";
     config["any"] = anyObj;
@@ -259,10 +260,21 @@ bool Record::start()
     for(int i=0;i<channels.count();i++)
     {
         QVariantMap chnMap = channels[i].toMap();
-        for(QString format:formats)
+        if(chns.contains(chnMap["id"]))
         {
-            chnMap[format] = anyObj[format];
+            for(QString format:formats)
+            {
+                chnMap[format] = anyObj[format];
+            }
         }
+        else
+        {
+            for(QString format:formats)
+            {
+                chnMap[format] = false;
+            }
+        }
+
         chnMap["duration"] = "--:--:--";
         list << chnMap;
     }
