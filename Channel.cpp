@@ -462,7 +462,7 @@ int Channel::timerStrToInt(QString time)
     return count_time;
 }
 
-void Channel::startRecord(const QString &fileName, const QString &format)
+void Channel::startRecord(const QString &fileName, const QString &format, QVariantMap fragment)
 {
     if(formatMap.contains(format))
     {
@@ -486,12 +486,46 @@ void Channel::startRecord(const QString &fileName, const QString &format)
     QString jpg=fileName+".jpg";;
     snap->invoke("snapSync",jpg);
     snap->invoke("snapSync",jpg);
+
     if(!formatMap.contains(format))
         formatMap[format] = Link::create("Mux");
 
-    LinkObject *mux = formatMap[format];
     QVariantMap data;
-    data["path"] = fileName+"."+format;
+    LinkObject *mux = formatMap[format];
+
+    if(format == "mp4")
+    {
+        if(!fragment.isEmpty())
+        {
+            bool duraEnable = fragment["segmentDuraEnable"].toBool();
+            bool sizeEnable = fragment["segmentSizeEnable"].toBool();
+            if(duraEnable)
+            {
+                data["segmentDuration"] = fragment["segmentDura"].toInt()*1000;
+                data["segmentSize"] = 0;
+                data["path"] = fileName+"_%d."+format;
+            }
+            if(sizeEnable)
+            {
+                data["segmentDuration"] = 0;
+                data["segmentSize"] = fragment["segmentSize"].toInt()*1024*1024;
+                data["path"] = fileName+"_%d."+format;
+            }
+            if(!duraEnable && !sizeEnable)
+            {
+                data["segmentDuration"] = 0;
+                data["segmentSize"] = 0;
+                data["path"] = fileName+"_0."+format;
+            }
+            data["startNum"] = 0;
+        }
+
+    }
+    else
+    {
+        data["path"] = fileName+"."+format;
+    }
+
     if(encA==NULL || encA->getState()!="started")
         data["mute"]=true;
     else

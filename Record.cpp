@@ -121,6 +121,7 @@ bool Record::execute(const QString &json)
     QVariantMap any = config["any"].toMap();
     any["fileName"] = fname;
     QVariantList channels = config["channels"].toList();
+    QVariantMap fragment = any["fragment"].toMap();
     hasRec = false;
 
     for(int i=0;i<channels.count();i++)
@@ -143,7 +144,8 @@ bool Record::execute(const QString &json)
                 QString com = "ls "+fileName+"*."+format + " | wc -l";
                 QString result = writeCom(com);
                 QString name = fileName+QString::number(result.toInt());
-                chn->startRecord(name,format);
+
+                chn->startRecord(name,format,fragment);
             }
             else
                 chn->stopRecord(format);

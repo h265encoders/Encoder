@@ -70,7 +70,7 @@ public:
     int pauseTime = 0;
 
     int timerStrToInt(QString time);
-    void startRecord(const QString &fileName,const QString &format = "mp4");
+    void startRecord(const QString &fileName,const QString &format = "mp4",QVariantMap fragment = QVariantMap());
     void stopRecord(const QString &format = "mp4");
     void recordPuase(const bool &pause = false);
 signals:
