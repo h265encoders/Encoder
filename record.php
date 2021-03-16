@@ -10,6 +10,9 @@ include( "head.php" );
                         <cn>录制参数</cn>
                         <en>Record config</en>
                     </h3>
+                    <div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">
+                        <i class="fa fa-cog" aria-hidden="true" onclick="onSetting()"></i>
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-center" style="margin-top: 30px;margin-left: 10px">
@@ -76,7 +79,7 @@ include( "head.php" );
                                     <span id="fileName"></span>
 <!--                                    <strong id="time">[--:--]</strong>-->
                                 </div>
-                                <div class="col-sm-5 text-right">
+                                <div class="col-sm-6 text-center">
                                     <button type="button" id="startRecord" class="btn btn-warning">
                                         <i class="fa fa-video-camera"></i>
                                         <cn>录制</cn>
@@ -88,14 +91,10 @@ include( "head.php" );
                                         <en>Stop All</en>
                                     </button>
                                 </div>
-                                <div class="col-sm-5">
-                                    <div class="row">
-                                        <div class="col-sm-11 col-sm-offset-1 text-left" style="line-height: 34px">
-                                            <cn>已用空间</cn>
-                                            <en>Used Space</en>:
-                                            <span id="space">-</span>
-                                        </div>
-                                    </div>
+                                <div class="col-sm-4 text-left" style="line-height: 34px;">
+                                    <cn>已用空间</cn>
+                                    <en>Used Space</en>:
+                                    <span id="space">-</span>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +161,7 @@ include( "head.php" );
                                 </div>
                             </div>
                             <div class="col-md-2 col-xs-2">
-                                <input zcfg="[#].durTime" type="text" class="form-control" disabled="disabled" style="color: var(--btn_background);border: none;background: none;width: 100%;outline: none;text-align:center" >
+                                <input zcfg="[#].durTime" type="text" class="form-control" disabled="disabled" style="color: #399bff;border: none;background: none;width: 100%;outline: none;text-align:center" >
                             </div>
                         </div>
                         <hr style="margin-top:10px; margin-bottom: 10px;"/>
@@ -209,12 +208,115 @@ include( "head.php" );
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">
-                        <cn>视频播放</cn>
-                        <en>Video player</en>
+                        <cn id="playTitleCn">视频播放</cn>
+                        <en id="playTitleEn">Video player</en>
                     </h4>
                 </div>
                 <div class="modal-body">
                     <video id="player" controls style="width:100%;height:100%;object-fit: fill"></video>
+                </div>
+                <div class="modal-footer" id="btnBox">
+                    <button type="button" class="btn btn-warning" onclick="onPlayFragment('previous')">
+                        <cn>上个分段</cn>
+                        <en>Previous Fragment</en>
+                    </button>
+                    <button type="button" class="btn btn-warning" onclick="onPlayFragment('next')">
+                        <cn>下个分段</cn>
+                        <en>Next Fragment</en>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="setModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content text-dark" style="border: none">
+                <div class="panel panel-default">
+                    <div class="title">
+                        <div class="row">
+                            <div class="col-md-10 col-sm-10">
+                                <h3 class="panel-title">
+                                    <cn>MP4分段设置</cn>
+                                    <en>MP4 Fragment Setting</en>
+                                </h3>
+                            </div>
+                            <div class="col-md-2 col-sm-2">
+                                <div class="row">
+                                    <div class="col-md-2 col-sm-2"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="panel-body">
+                            <form class="form-horizontal text-center" role="form" id="segment">
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-offset-4" style="padding: 0">
+                                                <cn>时长分段</cn>
+                                                <en>Time</en>
+                                            </div>
+                                            <div class="col-sm-3" style="font-size: 12px;color: #aaaaaa;padding: 0">
+                                                <cn>[单位秒]</cn>
+                                                <en>[unit s]</en>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <input zcfg="segmentDura" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input id="segmentDuraEnable" zcfg="segmentDuraEnable" type="checkbox" class="switch form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-sm-4 control-label">
+                                        <div class="row">
+                                            <div class="col-sm-4 col-sm-offset-4" style="padding: 0">
+                                                <cn>大小分段</cn>
+                                                <en>Size</en>
+                                            </div>
+                                            <div class="col-sm-3" style="font-size: 12px;color: #aaaaaa;padding: 0">
+                                                <cn>[单位M]</cn>
+                                                <en>[unit M]</en>
+                                            </div>
+                                        </div>
+                                    </label>
+                                    <div class="col-sm-4">
+                                        <input zcfg="segmentSize" type="text" class="form-control">
+                                    </div>
+                                    <div class="col-sm-4">
+                                        <input id="segmentSizeEnable" zcfg="segmentSizeEnable" type="checkbox" class="switch form-control">
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 20px">
+                                    <div id="info" class="col-sm-10 col-sm-offset-1" style="color: red;display: none")>
+                                        <cn>*检查到当前正在录制,请全部停止后在继续</cn>
+                                        <en>*Check that recording is under way, please stop all and continue</en>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 20px">
+                                    <div class="col-sm-6 col-sm-offset-6">
+                                        <div class="row">
+                                            <div class="col-sm-3 col-sm-offset-3">
+                                                <button type="button" class=" save btn btn-warning" data-dismiss="modal">
+                                                    <cn>取消</cn>
+                                                    <en>Cancel</en>
+                                                </button>
+                                            </div>
+                                            <div class="col-sm-2 col-sm-offset-1">
+                                                <button type="button" class=" save btn btn-warning" onclick="setMp4Segment()">
+                                                    <cn>设定</cn>
+                                                    <en>Save</en>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -232,18 +334,125 @@ include( "head.php" );
         var search = "";
         var config,ini;
         var intervalId = -1;
+        var playPath,playName;
+        var playStart,playCount;
+        var fragmentData;
+
+        $("#playerModal,#setModal").on('show.bs.modal', function(){
+            var $this = $(this);
+            var $modal_dialog = $this.find('.modal-dialog');
+            // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
+            $this.css('display', 'block');
+            $modal_dialog.css({'margin-top': Math.max(0, ($(window).height() - $modal_dialog.height()) / 2) });
+        });
+        $("#setModal").on('hide.bs.modal', function(){
+            $("#info").hide();
+        });
 
         $( '#playerModal' ).on( 'hidden.bs.modal', function ( e ) {
             $('#player').trigger('pause');
         } )
-        function play( url ) {
-            $( '#playerModal' ).modal( 'show' )
+        function play( path,name,start,count) {
+            $( '#playerModal' ).modal( 'show' );
+            playPath = path;
+            playName = name;
+            playStart = parseInt(start);
+            playCount = parseInt(count);
             var host = window.location.host;
-            var path = "http://" + host + url;
+            var path = "http://" + host + path + name +"_"+start+".mp4";
             $("#player").attr("src",path);
             $('#player').trigger('play');
+            if(count > 1){
+                $("#playTitleCn").html("视频播放(　分段1　)");
+                $("#playTitleEn").html("Video player(　Fragment 1　)");
+                $("#btnBox").show();
+            } else {
+                $("#playTitleCn").html("视频播放");
+                $("#playTitleEn").html("Video player");
+                $("#btnBox").hide();
+            }
+
         }
 
+        function onPlayFragment(type){
+            var curUrl = $("#player").attr("src");
+            var list = curUrl.split("_");
+            var curNum = list[2].substring(0,1);
+            if(type == "next") {
+                var nextNum = parseInt(curNum)+1;
+                if(nextNum < playStart+playCount){
+                    var url = "http://"+location.hostname+playPath+playName+"_"+nextNum+".mp4";
+                    $("#playTitleCn").html("视频播放(　分段"+(nextNum-playStart+1)+"　)");
+                    $("#playTitleEn").html("Video player(　Fragment "+(nextNum-playStart+1)+"　)");
+                    $("#player").attr("src",url);
+                    $('#player').trigger('play');
+                }
+            } else {
+                var preNum = parseInt(curNum)-1;
+                if(preNum >= playStart){
+                    var url = "http://"+location.hostname+playPath+playName+"_"+preNum+".mp4";
+                    $("#playTitleCn").html("视频播放(　分段"+(preNum-playStart+1)+"　)");
+                    $("#playTitleEn").html("Video player(　Fragment "+(preNum-playStart+1)+"　)");
+                    $("#player").attr("src",url);
+                    $('#player').trigger('play');
+                }
+            }
+
+        }
+
+        $("#player")[0].addEventListener('ended', function(e) {
+            var curUrl = $("#player").attr("src");
+            var list = curUrl.split("_");
+            var curNum = list[2].substring(0,1);
+            var nextNum = parseInt(curNum)+1;
+            if(nextNum < playStart+playCount){
+                var url = "http://"+location.hostname+playPath+playName+"_"+nextNum+".mp4";
+                $("#playTitleCn").html("视频播放(　分段"+(nextNum-playStart+1)+"　)");
+                $("#playTitleEn").html("Video player(　Fragment "+(nextNum-playStart+1)+"　)");
+                $("#player").attr("src",url);
+                $('#player').trigger('play');
+            }
+        })
+
+        function onSetting() {
+            $( '#setModal' ).modal( 'show' );
+            var segmentDura=0,segmentSize=0;
+            var segmentDuraEnable = false,segmentSizeEnable=false;
+            var fragment = config["any"]["fragment"];
+            if(config["any"].hasOwnProperty("fragment")){
+                if(fragment.hasOwnProperty("segmentDura"))
+                    segmentDura = fragment["segmentDura"];
+                if(fragment.hasOwnProperty("segmentSize"))
+                    segmentSize = fragment["segmentSize"];
+                if(fragment.hasOwnProperty("segmentDuraEnable"))
+                    segmentDuraEnable = fragment["segmentDuraEnable"];
+                if(fragment.hasOwnProperty("segmentSizeEnable"))
+                    segmentSizeEnable = fragment["segmentSizeEnable"];
+            }
+            fragmentData = {
+                segmentDura: segmentDura,
+                segmentSize: segmentSize,
+                segmentDuraEnable: segmentDuraEnable,
+                segmentSizeEnable: segmentSizeEnable
+            }
+            zcfg( "#segment", fragmentData );
+        }
+        
+        function setMp4Segment() {
+            rpc("rec.isRecordState", [], function (data) {
+                if(data) {
+                    $("#info").show();
+                    return;
+                }
+                config["any"].fragment = fragmentData;
+                rpc("rec.update", [JSON.stringify(config, null, 2)], function (data) {
+                    $( '#setModal' ).modal( 'hide' );
+                    htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save config success!</en>", "", 3000);
+                })
+            })
+
+
+        }
 
         function delFile( name ) {
             $.confirm( {
@@ -317,16 +526,42 @@ include( "head.php" );
                             var tmp2="";
                             var jpg="";
                             var mp4="";
+                            var start = 0;
+                            var count = 0;
+                            var mark = "";
+
                             for(var i=0;i<list2.length;i++){
                                 var name2=list2[i].name;
 
                                 if(name2.indexOf(".jpg")>0)
                                     jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
                                 else{
-                                    if(name2.indexOf(".mp4")>0)
-                                        mp4+='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+name2+'\');"><i class="fa fa-play"></i></button></li>';
-                                    else
+                                    if(name2.indexOf(".mp4")>0) {
+                                        var nList = name2.split("_");
+                                        var nn = nList[0].substring(0,7);
+                                        var num = nList[1];
+                                        num = num.substring(0,num.indexOf(".mp4"));
+                                        if(mark == ""){
+                                            mark = nn;
+                                            start = num;
+                                        }
+
+                                        if(nn != mark){
+                                            var mp4Name = mark + ".mp4";
+                                            //mp4+='<li class="list-group-item" start="'+start+'" count="'+count+'"><a href="'+path2+mp4Name+'" download="' + mp4Name + '"><i class="fa fa-download"></i>'+mp4Name+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+mp4Name+'\');"><i class="fa fa-play"></i></button></li>';
+                                            mp4+='<li class="list-group-item"><a href="javascript:void(0)" onclick="onDownloadMp4(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\')"><i class="fa fa-download"></i>'+mp4Name+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\');"><i class="fa fa-play"></i></button></li>';
+                                            mark = nn;
+                                            count = 0;
+                                            start = num;
+                                        }
+                                        count++;
+                                        if(i == list2.length -1){
+                                            var mp4Name = mark + ".mp4";
+                                            mp4+='<li class="list-group-item"><a href="javascript:void(0)" onclick="onDownloadMp4(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\')"><i class="fa fa-download"></i>'+mp4Name+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\');"><i class="fa fa-play"></i></button></li>';
+                                        }
+                                    } else {
                                         tmp2+='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a></li>';
+                                    }
                                 }
                             }
                             tmp+=jpg+mp4+tmp2+'</ul></div>';
@@ -341,6 +576,17 @@ include( "head.php" );
             $( "#fileList" ).html( html );
         }
 
+        function onDownloadMp4(path,name,startNum,count) {
+            for(var i=0;i<count;i++){
+                var url = path+name+"_"+(parseInt(startNum)+i)+".mp4";
+                var a = document.createElement('a');
+                var e = document.createEvent('MouseEvents');
+                e.initEvent('click', false, false);
+                a.href = url;
+                a.download = name+"_"+(i+1)+".mp4";
+                a.dispatchEvent(e)
+            }
+        }
         function onTimer() {
             var channels = config["channels"];
             rpc( "rec.getDurTime", [], function ( data ) {
@@ -481,6 +727,24 @@ include( "head.php" );
 
                     $("#templet .switch").on("switchChange.bootstrapSwitch",function ( event ,data ) {
                         formatControl(event,data);
+                    });
+
+                    $("#segmentSizeEnable").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                        if(data) {
+
+                            fragmentData["segmentDuraEnable"] = false;
+                            fragmentData["segmentSizeEnable"] = true;
+                            zcfg( "#segment", fragmentData );
+                        }
+
+                    });
+                    $("#segmentDuraEnable").on("switchChange.bootstrapSwitch",function ( event ,data ) {
+                        if(data) {
+                            fragmentData["segmentSizeEnable"] = false;
+                            fragmentData["segmentDuraEnable"] = true;
+                            zcfg( "#segment", fragmentData );
+                        }
+
                     });
                 });
             });

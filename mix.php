@@ -7,25 +7,27 @@ include( "head.php" );
 			<div class="caption ">
 				<form class="form-inline ">
 				  <div class="form-group ">
-						
 						<label class="control-label">
 							<cn>频道</cn>
 							<en>Channel</en>:
 						</label>
-							<select id="channels" class="form-control"></select>	
+                        <select id="channels" class="form-control"></select>
 						<label class="control-label" style="margin-left: 15px;">
-						<cn>布局</cn>
+						    <cn>布局</cn>
 							<en>Layout</en>:
 						</label>
 							<select id="SysLayout" class="form-control">
-							<option cn="9宫格" en="grid 3x3" value="0"></option>
-							<option cn="4分屏" en="grid 2x2"value="1"></option>
-							<option value="2">1+2</option>
-							<option cn="画中画" en="PinP" value="3"></option>
-							<option cn="单画面" en="Single" value="4"></option>
-							<option cn="上下" en="UpDown" value="5"></option>
-							<option cn="自定义" en="user" value="6"></option>
+<!--							<option cn="9宫格" en="grid 3x3" value="0"></option>-->
+<!--							<option cn="4分屏" en="grid 2x2"value="1"></option>-->
+<!--							<option value="2">1+2</option>-->
+<!--							<option cn="画中画" en="PinP" value="3"></option>-->
+<!--							<option cn="单画面" en="Single" value="4"></option>-->
+<!--							<option cn="上下" en="UpDown" value="5"></option>-->
+<!--							<option cn="自定义" en="user" value="6"></option>-->
 						</select>
+                        <label id="defLay" style="position: absolute;right: 30px;top:20px;cursor: pointer">
+                            <i class="fa fa-cog fa-lg"></i>
+                        </label>
 				  </div>
 				</form>
 			</div>
@@ -64,33 +66,6 @@ include( "head.php" );
 		</div>
 	</div>
 	
-</div>
-<div class="row">
-	<div class="col-md-12">
-		<div class="panel panel-default">
-			<div class="panel-heading">
-				<h3 class="panel-title">
-					<cn>自定义布局</cn>
-					<en>User Layout</en>
-				</h3>
-			</div>
-			<div class="panel-body">
-					<div class="row">
-						<div class="col-md-12">
-							<form class="form-horizontal"  role="form">
-								<textarea  class="form-control" id="userLay" style="min-height: 100px; margin-bottom: 10px;">123</textarea>
-							</form>
-						</div>
-						<div class="col-md-12 text-center">
-							<button type="button" id="saveUser" class=" save btn btn-warning">
-								<cn>保存</cn>
-								<en>Save</en>
-							</button>
-						</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 <div class="row" <?php if(isset($HDMI_Out) && !$HDMI_Out) echo 'style="display: none;"'; ?> >
 	<div class="col-md-12">
@@ -256,7 +231,9 @@ echo isset($extraVo)?$extraVo:"VGA";
 		</div>
 	</div>
 </div>
+
 <script src="vendor/switch/bootstrap-switch.min.js"></script>
+<script type="text/javascript" language="javascript" src="js/confirm/jquery-confirm.min.js"></script>
 <script src="js/zcfg.js"></script>
 <script>
 	$.fn.bootstrapSwitch.defaults.size = 'small';
@@ -265,46 +242,17 @@ echo isset($extraVo)?$extraVo:"VGA";
 	var config = null;
 	var mixCfg = null;
 	var curChn = -1;
+	var defLays = null;
 	var curLayIndex = 0;
-	var SysLayout =[
-		[
-			{x:0,y:0,w:1/3,h:1/3,index:0},
-			{x:1/3,y:0,w:1/3,h:1/3,index:1},
-			{x:2/3,y:0,w:1/3,h:1/3,index:2},
-			{x:0,y:1/3,w:1/3,h:1/3,index:3},
-			{x:1/3,y:1/3,w:1/3,h:1/3,index:4},
-			{x:2/3,y:1/3,w:1/3,h:1/3,index:5},
-			{x:0,y:2/3,w:1/3,h:1/3,index:6},
-			{x:1/3,y:2/3,w:1/3,h:1/3,index:7},
-			{x:2/3,y:2/3,w:1/3,h:1/3,index:8}
-		],
-		[
-			{x:0,y:0,w:1/2,h:1/2,index:0},
-			{x:1/2,y:0,w:1/2,h:1/2,index:1},
-			{x:0,y:1/2,w:1/2,h:1/2,index:2},
-			{x:1/2,y:1/2,w:1/2,h:1/2,index:3}
-		],
-		[
-			{x:0,y:1/6,w:2/3,h:2/3,index:0},
-			{x:2/3,y:1/6,w:1/3,h:1/3,index:1},
-			{x:2/3,y:3/6,w:1/3,h:1/3,index:2}
-		],
-		[
-			{x:0,y:0,w:1,h:1,index:0},
-			{x:2/3,y:2/3,w:1/4,h:1/4,index:1}
-		],
-		[
-			{x:0,y:0,w:1,h:1,index:0}
-		],
-		[
-			{x:0,y:0,w:1,h:0.5,index:0},
-			{x:0,y:0.5,w:1,h:0.5,index:1}
-		],
-		[
-			
-		]
-	];
-				
+	var SysLayout = [];
+
+    $("#myModal").on('show.bs.modal', function(){
+        var $this = $(this);
+        var $modal_dialog = $this.find('.modal-dialog');
+        $this.css('display', 'block');
+        $modal_dialog.css({'margin-top': Math.max(0, ($(window).height() - $modal_dialog.height()) / 2) });
+    });
+
 	function isMute(obj)
 	{
 		return $(obj).hasClass("btn-disable");
@@ -355,6 +303,38 @@ echo isset($extraVo)?$extraVo:"VGA";
 		} );
 		$( "#SysLayout" ).change( function () {
 			curLayIndex=$( "#SysLayout" ).val();
+			var defLay = defLays[curLayIndex];
+            var temp = [];
+            var type = false;
+			for(var i=0;i<defLay.layouts.length;i++){
+                var lay = defLay.layouts[i];
+                if(lay.id < 0){
+                    temp.push("-1");
+                } else {
+                    type = true;
+                    temp.push(lay.id+"");
+                }
+            }
+			var mixSrcV = mixCfg["srcV"];
+
+			//如果自定义布局中存在指定输入源
+			if(type){
+                mixCfg["srcV"] = temp;
+            }
+			// for(var i=0;i<mixSrcV.length;i++){
+			//     if( i >= temp.length)
+			//         break;
+            //     if(mixSrcV[i] == "-1")
+            //         continue;
+			//     var mark = false;
+			//     for(var j=0;j<temp.length;j++){
+			//         if(temp[j] == mixSrcV[i])
+			//             mark = true;
+            //     }
+			//     if(!mark)
+			//         temp[i] = mixSrcV[i];
+            // }
+			// mixCfg["srcV"] = temp;
 			setLayout();
 			update();
 		} );
@@ -414,11 +394,7 @@ echo isset($extraVo)?$extraVo:"VGA";
 			$( "#SysLayout" ).val(6);
 			SysLayout[6]=mixCfg["layout"];
 		}
-			
-		
 		setLayout();
-		
-		
 	}
 
 	function update()
@@ -458,6 +434,26 @@ echo isset($extraVo)?$extraVo:"VGA";
 		$( "#snap" ).attr( "src", "/snap/snap" + curChn + ".jpg?rnd=" + Math.random() );
 	}
 
+	$("#defLay").click(function () {
+        $.confirm( {
+            title: '<cn>布局</cn><en>Layout</en>',
+            content: '<cn>是否打开布局管理器？</cn><en>Jump to Layout Manager?</en>',
+            buttons: {
+                ok: {
+                    text: "<cn>打开</cn><en>Confirm</en>",
+                    btnClass: 'btn-warning',
+                    keys: [ 'enter' ],
+                    action: function () {
+                        window.location.href　= "http://"+location.hostname+"/defLayout.php";
+                    }
+                },
+                cancel: {
+                    text: "<cn>取消</cn><en>Cancel</en>"
+                }
+
+            }
+        } );
+    });
 
 
 	function save() {
@@ -477,18 +473,28 @@ echo isset($extraVo)?$extraVo:"VGA";
 				htmlAlert( "#alertOut", "success", "<cn>保存设置成功！</cn><en>Save config success!</en>", "", 2000 );
 		} );
 	} );
-	
-	$( "#saveUser" ).click( function ( e ) {
-		mixCfg["layout"]=JSON.parse($("#userLay").val());
-		$( "#save" ).click();
-	} );
 
+    $.ajaxSettings.async = false;
+    $.getJSON( "config/defLays.json?rnd=" + Math.random(), function ( result ) {
+        defLays = result;
+        for(var i=0;i<defLays.length;i++){
+            var defLay = defLays[i];
+            var las = defLay.layouts;
+            var layout = [];
+            for(var j=0;j<las.length;j++) {
+                layout.push(las[j].pos);
+            }
+            SysLayout.push(layout);
+            $("#SysLayout").append("<option cn='"+defLay.layName+"' en='"+defLay.layNameEn+"' value='"+defLay.layId+"'></option>");
+        }
+    } );
 
 	$.getJSON( "config/config.json?rnd=" + Math.random(), function ( result ) {
 		config = result;
 		init();
-		
 	} );
+    $.ajaxSettings.async = true;
+
 </script>
 <?php
 include( "foot.php" );
