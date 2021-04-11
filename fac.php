@@ -338,11 +338,11 @@ include( "head.php" );
 
 	$( function () {
 		navIndex( 5 );
-		$.ajax({url:"/config/fac",success:function(data){
+		$.ajax({url:"config/fac",success:function(data){
 				$( "#typeVal" ).val(data.replace(/[\r\n]/g,""));
 			}}).responseText;
 
-        $.ajax( {url: "/config/mac", success: function ( data ) {
+        $.ajax( {url: "config/mac", success: function ( data ) {
                 var mac=data.replace( /[\r\n]/g, "" ).toUpperCase();
                 var macStr="";
                 for(var i=0;i<mac.length;i+=2){
@@ -354,7 +354,7 @@ include( "head.php" );
             }
         } ).responseText;
 
-		$.ajax({url:"/config/curEDID",success:function(data){
+		$.ajax({url:"config/curEDID",success:function(data){
 				$( "#edidVal" ).val(data.replace(/[\r\n]/g,""));
 
 			}}).responseText;

@@ -121,12 +121,12 @@
     } );
 
     $(function () {
-        $.ajax({url:"/config/oled/oledMods.json",success:function(data){
+        $.ajax({url:"config/oled/oledMods.json",success:function(data){
                 initMods(data["mods"]);
                 own = data["own"];
             }}).responseText;
 
-        $.ajax({url:"/config/oled/oled.json",success:function(data){
+        $.ajax({url:"config/oled/oled.json",success:function(data){
                 array = data["mods"];
                 initDesign();
             }}).responseText;

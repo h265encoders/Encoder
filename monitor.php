@@ -118,7 +118,7 @@ include( "head.php" );
 
 	function show() {
 		setTimeout( snap, 100 );
-		$( "#snap" ).attr( "src", "/snap/snap" + chnId + ".jpg?rnd=" + Math.random );
+		$( "#snap" ).attr( "src", "snap/snap" + chnId + ".jpg?rnd=" + Math.random );
 	}
 	
 	function getImage()

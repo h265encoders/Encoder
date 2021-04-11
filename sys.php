@@ -780,7 +780,7 @@ if(isset($help) && $help!="")
 		$( ".switch" ).bootstrapSwitch();
 
 		$.ajax( {
-			url: "/config/mac",
+			url: "config/mac",
 			success: function ( data ) {
 				var mac=data.replace( /[\r\n]/g, "" ).toUpperCase();
 				var macStr="";
@@ -795,7 +795,7 @@ if(isset($help) && $help!="")
 		
 		
 		$.ajax( {
-			url: "/config/mac2",
+			url: "config/mac2",
 			success: function ( data ) {
 				var mac=data.replace( /[\r\n]/g, "" ).toUpperCase();
 				var macStr="";

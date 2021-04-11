@@ -905,7 +905,7 @@
                         array.push(themes[i]);
                 }
                 themeObj["themes"] = array;
-                func("saveConfigFile",{path: "/config/theme.json",data: JSON.stringify(themeObj,null,2)},function (res) {
+                func("saveConfigFile",{path: "config/theme.json",data: JSON.stringify(themeObj,null,2)},function (res) {
                     if(res["result"] === "OK"){
                         var theme_tpl   =  $("#theme_tpl").html();
                         var template = Handlebars.compile(theme_tpl);
@@ -990,7 +990,7 @@
                 var themes = themeObj["themes"];
                 themes.push(name);
                 themeObj["themes"] = themes;
-                func("saveConfigFile",{path: "/config/theme.json",data: JSON.stringify(themeObj,null,2)},function (res) {
+                func("saveConfigFile",{path: "config/theme.json",data: JSON.stringify(themeObj,null,2)},function (res) {
                     if(res["result"] === "OK") {
                         $('#myModal').modal('hide');
                         var theme_tpl   =  $("#theme_tpl").html();
@@ -1005,7 +1005,7 @@
 
     $( "#setTheme" ).click( function () {
         themeObj["used"] = $("#theme").val();
-        func("saveConfigFile",{path: "/config/theme.json",data: JSON.stringify(themeObj,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/theme.json",data: JSON.stringify(themeObj,null,2)},function (res) {
             if(res["result"] === "OK"){
                 localStorage.removeItem("themeName");
                 location.reload();
@@ -1014,7 +1014,7 @@
     });
 
     $(function () {
-        $.ajax({url:"/config/theme.json",success:function(data){
+        $.ajax({url:"config/theme.json",success:function(data){
                 themeObj = data;
                 var used = data["used"];
                 var themes = data["themes"];

@@ -66,22 +66,22 @@ function rpcc(func, params, callbak, usrdata, jsonrpc) {
 }
 
 function rpc(func, params, callbak, usrdata) {
-	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'http://'+window.location.host+'/RPC' });
+	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'RPC' });
 	rpcc(func, params, callbak, usrdata, jsonrpc);
 }
 
 function rpc2(func, params, callbak, usrdata) {
-	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'http://'+window.location.host+'/RPC2' });
+	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'RPC2' });
 	rpcc(func, params, callbak, usrdata, jsonrpc);
 }
 
 function rpc3(func, params, callbak, usrdata) {
-	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'http://'+window.location.host+'/RPC3' });
+	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'RPC3' });
 	rpcc(func, params, callbak, usrdata, jsonrpc);
 }
 
 function rpc4(func, params, callbak, usrdata) {
-	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'http://'+window.location.host+'/RPC4' });
+	var jsonrpc = new $.JsonRpcClient({ ajaxUrl: 'RPC4' });
 	rpcc(func, params, callbak, usrdata, jsonrpc);
 }
 
@@ -89,7 +89,7 @@ function rpc4(func, params, callbak, usrdata) {
 
 function func(func, data, callbak)
 {
-	$.post("/func.php?func="+func,data,callbak,"json");
+	$.post("func.php?func="+func,data,callbak,"json");
 }
 
 function navIndex(index){
@@ -98,18 +98,18 @@ function navIndex(index){
 
 
 function changeLang(lang){
-	$("#langcss").attr("href","/css/"+lang+".css");
+	$("#langcss").attr("href","css/"+lang+".css");
 	$.cookie('lang',lang);
 	$("option["+lang+"]").each(function(){
 		$(this).text($(this).attr(lang));
 	});
-	func("saveConfigFile",{path: "/config/lang.json",data:JSON.stringify({"lang":lang},null,2)});
+	func("saveConfigFile",{path: "config/lang.json",data:JSON.stringify({"lang":lang},null,2)});
 }
 
 function getUsedTheme() {
 	var theme = "";
 	$.ajaxSettings.async = false;
-	$.getJSON("/config/theme.json",function (data) {
+	$.getJSON("config/theme.json",function (data) {
 		var used = data["used"];
 		if(used !== "" || used !== undefined ){
 			theme = used;
@@ -122,9 +122,9 @@ function getUsedTheme() {
 
 function getUsedLang() {
 	$.ajaxSettings.async = false;
-	$.getJSON("/config/lang.json",function (data) {
+	$.getJSON("config/lang.json",function (data) {
 		var lang = data["lang"];
-		$("#langcss").attr("href","/css/"+lang+".css");
+		$("#langcss").attr("href","css/"+lang+".css");
 		$.cookie('lang',lang);
 		$("option["+lang+"]").each(function(){
 			$(this).text($(this).attr(lang));
@@ -141,9 +141,9 @@ function　linkHref(path) {
 	$('head')[0].appendChild(link);
 }
 
-linkHref("/css/theme/clear.css");
-linkHref("/css/theme/"+getUsedTheme()+".css");
-linkHref("/css/theme/theme.css");
+linkHref("css/theme/clear.css");
+linkHref("css/theme/"+getUsedTheme()+".css");
+linkHref("css/theme/theme.css");
 
 $(function(){
 	$.ajaxSetup({

@@ -1,8 +1,8 @@
 <?php
 include( "head.php" );
 ?>
-<link href="/css/fontawesome-iconpicker.min.css" rel="stylesheet">
-<link href="/css/loading.css" rel="stylesheet">
+<link href="css/fontawesome-iconpicker.min.css" rel="stylesheet">
+<link href="css/loading.css" rel="stylesheet">
 <div id="alert"></div>
     <div class="row" id="effect">
         <div class="col-md-5 col-md-offset-1">
@@ -496,7 +496,7 @@ include( "head.php" );
             btnArray[i].btnNameCN = "按键"+(i+1);
             btnArray[i].btnNameEN = "Button"+(i+1);
         }
-        func("saveConfigFile",{path: "/config/oled/remote.json",data: JSON.stringify(btnArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/oled/remote.json",data: JSON.stringify(btnArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 initRemoteBtns();
                 $('#infoModal').modal("hide");
@@ -504,7 +504,7 @@ include( "head.php" );
                     var config = feaArray[i];
                     config["btns"].splice(index,1);
                 }
-                func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+                func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
                     if(res["result"] === "OK")
                         initFeatures();
                 })
@@ -521,7 +521,7 @@ include( "head.php" );
             icon:iconSelect,
         }
         btnArray.push(obj);
-        func("saveConfigFile",{path: "/config/oled/remote.json",data: JSON.stringify(btnArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/oled/remote.json",data: JSON.stringify(btnArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 initRemoteBtns();
                 $('#myModal').modal("hide");
@@ -537,7 +537,7 @@ include( "head.php" );
                     var config = feaArray[i];
                     config["btns"].push(feaObj);
                 }
-                func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+                func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
                     if(res["result"] === "OK")
                         initFeatures();
                 })
@@ -568,7 +568,7 @@ include( "head.php" );
             else
                 config["used"] = false;
         }
-        func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 rpc4("remote.updateConfig", [], function (data) {
                     initFeatures();
@@ -588,7 +588,7 @@ include( "head.php" );
     });
 
     $("#saveProject").click(function () {
-        func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 rpc4("remote.updateConfig", [], function (data) {
                     htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save success!</en>", "", 3000);
@@ -630,12 +630,12 @@ include( "head.php" );
 
 	$( function () {
 		navIndex( 4 );
-        $.ajax({url:"/config/oled/remote.json",success:function(data){
+        $.ajax({url:"config/oled/remote.json",success:function(data){
                 btnArray = data;
                 initRemoteBtns();
-                $.ajax({url:"/config/oled/remods.json",success:function(data){
+                $.ajax({url:"config/oled/remods.json",success:function(data){
                         features = data;
-                        $.ajax({url:"/config/oled/remfea.json",success:function(data){
+                        $.ajax({url:"config/oled/remfea.json",success:function(data){
                                 feaArray = data;
                                 initFeatures();
                                 for(var i=0;i<feaArray.length;i++){

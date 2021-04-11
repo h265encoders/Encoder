@@ -420,7 +420,7 @@ include( "head.php" );
 
 	function show() {
 		setTimeout( snap, 100 );
-		$( "#snap" ).attr( "src", "/snap/snap" + curChn + ".jpg?rnd=" + Math.random() );
+		$( "#snap" ).attr( "src", "snap/snap" + curChn + ".jpg?rnd=" + Math.random() );
 	}
 
 	//	  $("#snap").load(function(){

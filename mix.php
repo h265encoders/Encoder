@@ -431,7 +431,7 @@ echo isset($extraVo)?$extraVo:"VGA";
 
 	function show() {
 		setTimeout( snap, 100 );
-		$( "#snap" ).attr( "src", "/snap/snap" + curChn + ".jpg?rnd=" + Math.random() );
+		$( "#snap" ).attr( "src", "snap/snap" + curChn + ".jpg?rnd=" + Math.random() );
 	}
 
 	$("#defLay").click(function () {

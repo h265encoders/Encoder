@@ -184,7 +184,7 @@ include("head.php");
             {
                 var cnt = 0;
                 var config;
-                $.getJSON( "/config/board.json", function ( data ) {
+                $.getJSON( "config/board.json", function ( data ) {
                     var ifaceV=data.interfaceV;
                     var htmlStr="";
                     for(var name in ifaceV){
@@ -210,7 +210,7 @@ include("head.php");
 
                     $("#iface").html(htmlStr);
 
-                    $.getJSON( "/config/config.json", function ( data ) {
+                    $.getJSON( "config/config.json", function ( data ) {
                         config = data;
                         show();
                         getVolume();
@@ -278,7 +278,7 @@ include("head.php");
                                 continue;
 
                             if ( config[ i ].enable )
-                                $( "#preview img" ).eq( k ).attr( "src", "/snap/snap" + config[ i ].id + ".jpg?rnd=" + Math.random() );
+                                $( "#preview img" ).eq( k ).attr( "src", "snap/snap" + config[ i ].id + ".jpg?rnd=" + Math.random() );
                             else
                                 $( "#preview img" ).eq( k ).attr( "src", "img/nosignal.jpg" );
                             k++;

@@ -95,7 +95,7 @@ include( "head.php" );
 	function show() {
 		setTimeout( snap, 100 );
 		if(chncfg.enable && chncfg.ndi.name!="")
-			$( "#snap" ).attr( "src", "/snap/snap" + chnId + ".jpg?rnd=" + Math.random() );
+			$( "#snap" ).attr( "src", "snap/snap" + chnId + ".jpg?rnd=" + Math.random() );
 		else
 			$( "#snap" ).attr( "src", "img/nosignal.jpg" );
 	}

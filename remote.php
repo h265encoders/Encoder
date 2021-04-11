@@ -1,8 +1,8 @@
 <?php
 include( "head.php" );
 ?>
-<link href="/css/fontawesome-iconpicker.min.css" rel="stylesheet">
-<link href="/css/loading.css" rel="stylesheet">
+<link href="css/fontawesome-iconpicker.min.css" rel="stylesheet">
+<link href="css/loading.css" rel="stylesheet">
 <div id="alert"></div>
     <div class="row" id="effect">
         <div class="col-md-6 col-md-offset-3">
@@ -342,7 +342,7 @@ include( "head.php" );
             else
                 config["used"] = false;
         }
-        func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 rpc4("remote.updateConfig", [], function (data) {
                     initFeatures();
@@ -362,7 +362,7 @@ include( "head.php" );
     });
 
     $("#saveProject").click(function () {
-        func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 rpc4("remote.updateConfig", [], function (data) {
                     htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save success!</en>", "", 3000);
@@ -374,9 +374,9 @@ include( "head.php" );
 
 	$( function () {
 		navIndex( 4 );
-        $.ajax({url:"/config/oled/remods.json",success:function(data){
+        $.ajax({url:"config/oled/remods.json",success:function(data){
                 features = data;
-                $.ajax({url:"/config/oled/remfea.json",success:function(data){
+                $.ajax({url:"config/oled/remfea.json",success:function(data){
                         feaArray = data;
                         initFeatures();
                         for(var i=0;i<feaArray.length;i++){
