@@ -124,7 +124,7 @@ include("head.php");
             $.fn.bootstrapSwitch.defaults.size = 'mini';
             $.fn.bootstrapSwitch.defaults.onColor = 'warning';
 
-            var theme_color = "";
+            var theme_color = "#ffbb00";
             var used_theme = localStorage.getItem("used_theme");
             $.ajax({url:"css/theme/"+used_theme+".css",async:false, success:function(data){
                     var key = "--system_state_active";

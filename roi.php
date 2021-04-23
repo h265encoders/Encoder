@@ -5,10 +5,26 @@ include( "head.php" );
 	<div class="col-md-7">
 		<div class="thumbnail" style="position: relative;">
 			<div class="caption">
-				<select id="channels" class="form-control"></select>
+				<div class="row">
+					<div class="col-xs-6">
+						<select id="channels" class="form-control"></select>
+					</div>
+					<div class="col-xs-6">
+						<select id="index" class="form-control">
+							<option value="0" en="area_0" cn="区域0"></option>
+							<option value="1" en="area_1" cn="区域1"></option>
+							<option value="2" en="area_2" cn="区域2"></option>
+							<option value="3" en="area_3" cn="区域3"></option>
+							<option value="4" en="area_4" cn="区域4"></option>
+							<option value="5" en="area_5" cn="区域5"></option>
+							<option value="6" en="area_6" cn="区域6"></option>
+							<option value="7" en="area_7" cn="区域7"></option>
+						</select>
+					</div>
+				</div>
 			</div>
-			<img id="snap" src=""> 
-			<div style="padding-bottom: 56.25%; position: absolute; left: 5px; right: 5px; margin-top: -56.25%;" id="rectP">
+			<img id="snap" src="" style="">
+			<div style="padding-bottom: 56.25%; position: absolute; left: 5px; right: 5px; top:56px;" id="rectP">
 				<div id="rect" style="position: absolute; border: 4px solid #ff0000; display: none;"></div>
 			</div>
 		</div>
@@ -53,7 +69,7 @@ include( "head.php" );
 					<div class="form-group">
 						<label class="col-md-3 control-label">
 							<cn>背景帧率</cn>
-							<en>Text</en>
+							<en>BG framerate</en>
 						</label>
 						<div class="col-md-6">
 							<input zcfg="framerate" class="form-control" type="text"/>
@@ -89,11 +105,12 @@ include( "head.php" );
 	$( ".switch" ).bootstrapSwitch();
 	var config = null;
 	var curChn = -1;
+	var curIndex = -1;
 	var curRoi = null;
 
 	function init() {
 		for ( var i = 0; i < config.length; i++ ) {
-			if ( config[ i ].type == "file" )
+			if ( config[ i ].type == "file" || !config[i].enable )
 				continue;
 			$( "#channels" ).append( '<option value="' + i + '">' + config[ i ].name + '</option>' );
 		}
@@ -104,6 +121,21 @@ include( "head.php" );
 			setChannel( $( "#channels" ).val() );
 
 		} );
+
+		$( "#index" ).change( function () {
+			setIndex( $( "#index" ).val() );
+		} );
+	}
+
+	function setIndex( id ) {
+		curIndex = id;
+		curRoi = config[ curChn ].encv.roi[ curIndex ];
+		zcfg( "#edit", curRoi );
+		$("#rect").css("left",(100*curRoi.x)+"%");
+		$("#rect").css("top",(100*curRoi.y)+"%");
+		$("#rect").css("width",(100*curRoi.w)+"%");
+		$("#rect").css("height",(100*curRoi.h)+"%");
+		$("#rect").css("display","block");
 	}
 
 	$.getJSON( "config/config.json", function ( result ) {
@@ -113,7 +145,8 @@ include( "head.php" );
 
 	function setChannel( id ) {
 		curChn = id;
-		curRoi = config[ id ].encv.roi[ 0 ];
+		$( "#index" ).val(0);
+		setIndex(0);
 		zcfg( "#edit", curRoi );
 		$("#rect").css("left",(100*curRoi.x)+"%");
 		$("#rect").css("top",(100*curRoi.y)+"%");
@@ -191,7 +224,7 @@ include( "head.php" );
 	}
 
 	function show() {
-		setTimeout( snap, 100 );
+		setTimeout( snap, 200 );
 		$( "#snap" ).attr( "src", "snap/snap" + curChn + ".jpg?rnd=" + Math.random() );
 	}
 

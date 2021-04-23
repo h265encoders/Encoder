@@ -36,6 +36,7 @@
         HSIGN:{color:"#99cc66",width:"256px",height:"30px"},
         SSIGN:{color:"#666699",width:"256px",height:"30px"},
         INPUT:{color:"#009966",width:"256px",height:"30px"},
+        CHN:{color:"#669966",width:"256px",height:"90px"}
     }
 
     function onCheckBoxClick(obj) {

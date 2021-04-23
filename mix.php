@@ -444,7 +444,7 @@ echo isset($extraVo)?$extraVo:"VGA";
                     btnClass: 'btn-warning',
                     keys: [ 'enter' ],
                     action: function () {
-                        window.location.href　= "http://"+location.hostname+"/defLayout.php";
+                        window.location.href　= "defLayout.php";
                     }
                 },
                 cancel: {

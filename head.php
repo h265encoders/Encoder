@@ -79,6 +79,7 @@ if(isset($remote) && $remote)
           <ul class="dropdown-menu">
               <li><a href="sys.php"><i class="fa fa-gear"></i><cn>系统设置</cn><en>System</en></a></li>
               <li><a href="group.php"><i class="fa fa-server"></i><cn>群组设置</cn><en>Group</en></a></li>
+              <li><a href="rproxy.php"><i class="fa fa-wechat"></i><cn>远程访问</cn><en>Reverse Proxy</en></a></li>
           </ul>
         </li>
       </ul>
