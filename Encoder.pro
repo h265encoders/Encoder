@@ -44,7 +44,8 @@ SOURCES += main.cpp \
     Record.cpp \
     Push.cpp \
     UART.cpp \
-    ChannelNDI.cpp
+    ChannelNDI.cpp \
+    ChannelAlsa.cpp
 
 HEADERS += \
     RPC.h \
@@ -78,4 +79,5 @@ HEADERS += \
     Record.h \
     Push.h \
     UART.h \
-    ChannelNDI.h
+    ChannelNDI.h \
+    ChannelAlsa.h

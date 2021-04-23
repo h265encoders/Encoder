@@ -60,7 +60,7 @@ void ChannelMix::init(QVariantMap cfg)
 
     Channel::init();
 }
-
+#include "unistd.h"
 void ChannelMix::updateConfig(QVariantMap cfg)
 {
     if(cfg["enable"].toBool())
@@ -70,6 +70,7 @@ void ChannelMix::updateConfig(QVariantMap cfg)
         {
             dataMixV["width"]=cfg["encv"].toMap()["width"].toInt();
             dataMixV["height"]=cfg["encv"].toMap()["height"].toInt();
+            dataMixV["framerate"]=cfg["encv"].toMap()["framerate"].toInt();
         }
 
         video->start(dataMixV);

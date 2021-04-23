@@ -5,6 +5,7 @@
 #include <jcon/json_rpc_tcp_server.h>
 #include "Link.h"
 #include "Group.h"
+#include <QProcess>
 
 class RPC : public QObject
 {
@@ -17,7 +18,9 @@ private:
     Group *group;
     jcon::JsonRpcTcpServer *rpcServer;
     LinkObject *device;
+    QProcess procTrans;
 
+    void startTrans();
 signals:
 
 public slots:
@@ -35,6 +38,7 @@ public slots:
     QString getSN();
     QVariantList getNDIList();
     bool setNetDhcp(const bool &dhcp = true);
+    bool setTrans(QString json);
 };
 extern RPC *GRPC;
 #endif // RPC_H

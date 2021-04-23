@@ -42,7 +42,14 @@ void ChannelUSB::updateConfig(QVariantMap cfg)
         }
         else
             alsa->start();
-        usb->start();
+
+        {
+            QVariantMap data;
+            data["width"]=cfg["encv"].toMap()["width"].toInt();
+            data["height"]=cfg["encv"].toMap()["height"].toInt();
+            usb->start(data);
+        }
+
         if(cfg["encv"].toMap()["codec"].toString()!="close")
             encV->start(cfg["encv"].toMap());
         else

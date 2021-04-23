@@ -126,6 +126,10 @@ void Channel::init(QVariantMap)
     path["path"]="srt://:" + QString::number(9000+id)+"?mode=listener&latency=50";
     muxMap["srt"]->setData(path);
 
+//    muxMap["sls"]=Link::create("Mux");
+//    path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
+//    muxMap["sls"]->setData(path);
+
 
     muxMap["ts"]=Link::create("Mux");
     path["format"]="mpegts";
@@ -164,6 +168,10 @@ void Channel::init(QVariantMap)
         muxMap_sub["srt"]=Link::create("Mux");
         path["path"]="srt://:" + QString::number(9100+id)+"?mode=listener&latency=50";
         muxMap_sub["srt"]->setData(path);
+
+//        muxMap_sub["sls"]=Link::create("Mux");
+//        path["path"]="srt://127.0.0.1:8080?streamid=push/live/sub" + QString::number(id);
+//        muxMap_sub["sls"]->setData(path);
 
         muxMap_sub["ts"]=Link::create("Mux");
         path["format"]="mpegts";
@@ -427,7 +435,14 @@ void Channel::updateConfig(QVariantMap cfg)
     QVariantMap ndiCfg;
     ndiCfg=cfg["ndi"].toMap();
     if(enable && ndiCfg["enable"].toBool())
+    {
         muxMap["ndi"]->start(ndiCfg);
+
+        if(encV!=NULL)
+            encV->linkV(muxMap["ndi"]);
+        if(encV2!=NULL)
+            encV2->linkV(muxMap["ndi"]);
+    }
     else
         muxMap["ndi"]->stop();
 #endif

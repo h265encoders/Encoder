@@ -34,7 +34,6 @@ int main(int argc, char *argv[])
                 +"_"+Link::getVersion()["build"].toString();
     Json::saveFile(version,"/link/config/version.json");
 
-
     Config::loadConfig(CFGPATH);
 
     GRecord=new Record();

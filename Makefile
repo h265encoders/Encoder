@@ -12,10 +12,10 @@ MAKEFILE      = Makefile
 
 CC            = arm-hisiv500-linux-gcc
 CXX           = arm-hisiv500-linux-g++
-DEFINES       = -DHI3531D -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_TESTLIB_LIB -DQT_XML_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR='"/home/linkpi/work/Encoder"'
+DEFINES       = -DHI3521D -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_TESTLIB_LIB -DQT_XML_LIB -DQT_SERIALPORT_LIB -DQT_CORE_LIB -DQT_TESTCASE_BUILDDIR='"/home/linkpi/work/Encoder"'
 CFLAGS        = -pipe -O2 -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -pipe -O2 -std=c++0x -std=c++1y -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I../LinkLib/include -I../../../zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I../../../zc/cross/v500/ffmpeg/include -I../../../zc/cross/v500/qt5/include -I../../../zc/cross/v500/qt5/include/QtNetwork -I../../../zc/cross/v500/qt5/include/QtTest -I../../../zc/cross/v500/qt5/include/QtXml -I../../../zc/cross/v500/qt5/include/QtSerialPort -I../../../zc/cross/v500/qt5/include/QtCore -ITemp/HI3531D -I../../../zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++
+INCPATH       = -I. -I../LinkLib/include -I../../../zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I../../../zc/cross/v500/ffmpeg/include -I../../../zc/cross/v500/qt5/include -I../../../zc/cross/v500/qt5/include/QtNetwork -I../../../zc/cross/v500/qt5/include/QtTest -I../../../zc/cross/v500/qt5/include/QtXml -I../../../zc/cross/v500/qt5/include/QtSerialPort -I../../../zc/cross/v500/qt5/include/QtCore -ITemp/HI3521D -I../../../zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++
 QMAKE         = /home/zc/cross/v500/qt5/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -33,10 +33,10 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = Encoder1.0.0
-DISTDIR = /home/linkpi/work/Encoder/Temp/HI3531D/Encoder1.0.0
+DISTDIR = /home/linkpi/work/Encoder/Temp/HI3521D/Encoder1.0.0
 LINK          = arm-hisiv500-linux-g++
 LFLAGS        = -Wl,-O1 -Wl,-rpath,/home/zc/cross/v500/voaac/lib -Wl,-rpath,/home/zc/cross/v500/lame/lib -Wl,-rpath,/home/zc/cross/v500/qt5/lib
-LIBS          = $(SUBLIBS) -L/home/linkpi/work/LinkLib/HI3531D/lib -lLinkBase -lLinkCodec -lLinkIO -lLinkStream -lLinkProcess /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libmpi.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libdnvqe.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libhdmi.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libive.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libjpeg6b.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libmd.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libpciv.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libtde.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libupvqe.a /home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib/libVoiceEngine.a -L/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/lib -lhive_common -lhive_RNR -lhive_HPF -lhive_GAIN -lhive_EQ -lhive_ANR -lhive_AGC -lhive_AEC -lm -ldl -L/home/zc/cross/v500/ssl/lib -lssl -lcrypto -L/home/zc/cross/v500/alsa-lib/lib -lasound -L/home/zc/cross/v500/ffmpeg/lib -lavfilter -lavdevice -lavformat -lavcodec -lavutil -lswresample /home/zc/cross/v500/fdkaac/lib/libfdk-aac.a /home/zc/cross/v500/lame/lib/libmp3lame.a -lLinkNDI -L/home/zc/cross/v500/expat/lib -lexpat -L/home/zc/cross/v500/dbus/lib -ldbus-1 -L/home/zc/cross/v500/daemon/lib -ldaemon -L/home/zc/cross/v500/avahi/lib -lavahi-common -lavahi-client -L/home/zc/cross/v500/NDI/lib -lndi -L/home/zc/cross/v500/qt5/lib -lQt5Network -L/home/zc/cross/v500/tslib/lib -lQt5Test -lQt5Xml -lQt5SerialPort -lQt5Core -lpthread 
+LIBS          = $(SUBLIBS) -L/home/linkpi/work/LinkLib/HI3521D/lib -lLinkBase -lLinkCodec -lLinkIO -lLinkStream -lLinkProcess /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libmpi.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libdnvqe.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libhdmi.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libive.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libjpeg6b.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libmd.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libtde.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libupvqe.a /home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib/libVoiceEngine.a -L/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/lib -lhive_common -lhive_RNR -lhive_HPF -lhive_GAIN -lhive_EQ -lhive_ANR -lhive_AGC -lhive_AEC -lm -ldl -L/home/zc/cross/v500/ssl/lib -lssl -lcrypto -L/home/zc/cross/v500/alsa-lib/lib -lasound -L/home/zc/cross/v500/ffmpeg/lib -lavfilter -lavdevice -lavformat -lavcodec -lavutil -lswresample /home/zc/cross/v500/fdkaac/lib/libfdk-aac.a /home/zc/cross/v500/lame/lib/libmp3lame.a -lLinkNDI -L/home/zc/cross/v500/expat/lib -lexpat -L/home/zc/cross/v500/dbus/lib -ldbus-1 -L/home/zc/cross/v500/daemon/lib -ldaemon -L/home/zc/cross/v500/avahi/lib -lavahi-common -lavahi-client -L/home/zc/cross/v500/NDI/lib -lndi -L/home/zc/cross/v500/qt5/lib -lQt5Network -L/home/zc/cross/v500/tslib/lib -lQt5Test -lQt5Xml -lQt5SerialPort -lQt5Core -lpthread 
 AR            = arm-hisiv500-linux-ar cqs
 RANLIB        = 
 SED           = sed
@@ -44,7 +44,7 @@ STRIP         = arm-hisiv500-linux-strip
 
 ####### Output directory
 
-OBJECTS_DIR   = Temp/HI3531D/
+OBJECTS_DIR   = Temp/HI3521D/
 
 ####### Files
 
@@ -75,78 +75,82 @@ SOURCES       = main.cpp \
 		Record.cpp \
 		Push.cpp \
 		UART.cpp \
-		ChannelNDI.cpp Temp/HI3531D/moc_RPC.cpp \
-		Temp/HI3531D/moc_Group.cpp \
-		Temp/HI3531D/moc_Channel.cpp \
-		Temp/HI3531D/moc_ChannelNet.cpp \
-		Temp/HI3531D/moc_ChannelVI.cpp \
-		Temp/HI3531D/moc_Config.cpp \
-		Temp/HI3531D/moc_GroupRPC.cpp \
-		Temp/HI3531D/moc_ChannelMix.cpp \
-		Temp/HI3531D/moc_ChannelUSB.cpp \
-		Temp/HI3531D/moc_ChannelFile.cpp \
-		Temp/HI3531D/moc_json_rpc_endpoint.cpp \
-		Temp/HI3531D/moc_json_rpc_request.cpp \
-		Temp/HI3531D/moc_json_rpc_server.cpp \
-		Temp/HI3531D/moc_json_rpc_socket.cpp \
-		Temp/HI3531D/moc_json_rpc_client.cpp \
-		Temp/HI3531D/moc_json_rpc_tcp_client.cpp \
-		Temp/HI3531D/moc_json_rpc_tcp_server.cpp \
-		Temp/HI3531D/moc_json_rpc_tcp_socket.cpp \
-		Temp/HI3531D/moc_Record.cpp \
-		Temp/HI3531D/moc_Push.cpp \
-		Temp/HI3531D/moc_UART.cpp \
-		Temp/HI3531D/moc_ChannelNDI.cpp
-OBJECTS       = Temp/HI3531D/main.o \
-		Temp/HI3531D/RPC.o \
-		Temp/HI3531D/Group.o \
-		Temp/HI3531D/Channel.o \
-		Temp/HI3531D/ChannelNet.o \
-		Temp/HI3531D/ChannelVI.o \
-		Temp/HI3531D/Config.o \
-		Temp/HI3531D/GroupRPC.o \
-		Temp/HI3531D/ChannelMix.o \
-		Temp/HI3531D/ChannelUSB.o \
-		Temp/HI3531D/ChannelFile.o \
-		Temp/HI3531D/string_util.o \
-		Temp/HI3531D/json_rpc_debug_logger.o \
-		Temp/HI3531D/json_rpc_endpoint.o \
-		Temp/HI3531D/json_rpc_error.o \
-		Temp/HI3531D/json_rpc_file_logger.o \
-		Temp/HI3531D/json_rpc_logger.o \
-		Temp/HI3531D/json_rpc_request.o \
-		Temp/HI3531D/json_rpc_server.o \
-		Temp/HI3531D/json_rpc_success.o \
-		Temp/HI3531D/json_rpc_client.o \
-		Temp/HI3531D/json_rpc_tcp_client.o \
-		Temp/HI3531D/json_rpc_tcp_server.o \
-		Temp/HI3531D/json_rpc_tcp_socket.o \
-		Temp/HI3531D/Record.o \
-		Temp/HI3531D/Push.o \
-		Temp/HI3531D/UART.o \
-		Temp/HI3531D/ChannelNDI.o \
-		Temp/HI3531D/moc_RPC.o \
-		Temp/HI3531D/moc_Group.o \
-		Temp/HI3531D/moc_Channel.o \
-		Temp/HI3531D/moc_ChannelNet.o \
-		Temp/HI3531D/moc_ChannelVI.o \
-		Temp/HI3531D/moc_Config.o \
-		Temp/HI3531D/moc_GroupRPC.o \
-		Temp/HI3531D/moc_ChannelMix.o \
-		Temp/HI3531D/moc_ChannelUSB.o \
-		Temp/HI3531D/moc_ChannelFile.o \
-		Temp/HI3531D/moc_json_rpc_endpoint.o \
-		Temp/HI3531D/moc_json_rpc_request.o \
-		Temp/HI3531D/moc_json_rpc_server.o \
-		Temp/HI3531D/moc_json_rpc_socket.o \
-		Temp/HI3531D/moc_json_rpc_client.o \
-		Temp/HI3531D/moc_json_rpc_tcp_client.o \
-		Temp/HI3531D/moc_json_rpc_tcp_server.o \
-		Temp/HI3531D/moc_json_rpc_tcp_socket.o \
-		Temp/HI3531D/moc_Record.o \
-		Temp/HI3531D/moc_Push.o \
-		Temp/HI3531D/moc_UART.o \
-		Temp/HI3531D/moc_ChannelNDI.o
+		ChannelNDI.cpp \
+		ChannelAlsa.cpp Temp/HI3521D/moc_RPC.cpp \
+		Temp/HI3521D/moc_Group.cpp \
+		Temp/HI3521D/moc_Channel.cpp \
+		Temp/HI3521D/moc_ChannelNet.cpp \
+		Temp/HI3521D/moc_ChannelVI.cpp \
+		Temp/HI3521D/moc_Config.cpp \
+		Temp/HI3521D/moc_GroupRPC.cpp \
+		Temp/HI3521D/moc_ChannelMix.cpp \
+		Temp/HI3521D/moc_ChannelUSB.cpp \
+		Temp/HI3521D/moc_ChannelFile.cpp \
+		Temp/HI3521D/moc_json_rpc_endpoint.cpp \
+		Temp/HI3521D/moc_json_rpc_request.cpp \
+		Temp/HI3521D/moc_json_rpc_server.cpp \
+		Temp/HI3521D/moc_json_rpc_socket.cpp \
+		Temp/HI3521D/moc_json_rpc_client.cpp \
+		Temp/HI3521D/moc_json_rpc_tcp_client.cpp \
+		Temp/HI3521D/moc_json_rpc_tcp_server.cpp \
+		Temp/HI3521D/moc_json_rpc_tcp_socket.cpp \
+		Temp/HI3521D/moc_Record.cpp \
+		Temp/HI3521D/moc_Push.cpp \
+		Temp/HI3521D/moc_UART.cpp \
+		Temp/HI3521D/moc_ChannelNDI.cpp \
+		Temp/HI3521D/moc_ChannelAlsa.cpp
+OBJECTS       = Temp/HI3521D/main.o \
+		Temp/HI3521D/RPC.o \
+		Temp/HI3521D/Group.o \
+		Temp/HI3521D/Channel.o \
+		Temp/HI3521D/ChannelNet.o \
+		Temp/HI3521D/ChannelVI.o \
+		Temp/HI3521D/Config.o \
+		Temp/HI3521D/GroupRPC.o \
+		Temp/HI3521D/ChannelMix.o \
+		Temp/HI3521D/ChannelUSB.o \
+		Temp/HI3521D/ChannelFile.o \
+		Temp/HI3521D/string_util.o \
+		Temp/HI3521D/json_rpc_debug_logger.o \
+		Temp/HI3521D/json_rpc_endpoint.o \
+		Temp/HI3521D/json_rpc_error.o \
+		Temp/HI3521D/json_rpc_file_logger.o \
+		Temp/HI3521D/json_rpc_logger.o \
+		Temp/HI3521D/json_rpc_request.o \
+		Temp/HI3521D/json_rpc_server.o \
+		Temp/HI3521D/json_rpc_success.o \
+		Temp/HI3521D/json_rpc_client.o \
+		Temp/HI3521D/json_rpc_tcp_client.o \
+		Temp/HI3521D/json_rpc_tcp_server.o \
+		Temp/HI3521D/json_rpc_tcp_socket.o \
+		Temp/HI3521D/Record.o \
+		Temp/HI3521D/Push.o \
+		Temp/HI3521D/UART.o \
+		Temp/HI3521D/ChannelNDI.o \
+		Temp/HI3521D/ChannelAlsa.o \
+		Temp/HI3521D/moc_RPC.o \
+		Temp/HI3521D/moc_Group.o \
+		Temp/HI3521D/moc_Channel.o \
+		Temp/HI3521D/moc_ChannelNet.o \
+		Temp/HI3521D/moc_ChannelVI.o \
+		Temp/HI3521D/moc_Config.o \
+		Temp/HI3521D/moc_GroupRPC.o \
+		Temp/HI3521D/moc_ChannelMix.o \
+		Temp/HI3521D/moc_ChannelUSB.o \
+		Temp/HI3521D/moc_ChannelFile.o \
+		Temp/HI3521D/moc_json_rpc_endpoint.o \
+		Temp/HI3521D/moc_json_rpc_request.o \
+		Temp/HI3521D/moc_json_rpc_server.o \
+		Temp/HI3521D/moc_json_rpc_socket.o \
+		Temp/HI3521D/moc_json_rpc_client.o \
+		Temp/HI3521D/moc_json_rpc_tcp_client.o \
+		Temp/HI3521D/moc_json_rpc_tcp_server.o \
+		Temp/HI3521D/moc_json_rpc_tcp_socket.o \
+		Temp/HI3521D/moc_Record.o \
+		Temp/HI3521D/moc_Push.o \
+		Temp/HI3521D/moc_UART.o \
+		Temp/HI3521D/moc_ChannelNDI.o \
+		Temp/HI3521D/moc_ChannelAlsa.o
 DIST          = ../../../zc/cross/v500/qt5/mkspecs/features/spec_pre.prf \
 		../cross/v500/qt5/mkspecs/common/unix.conf \
 		../cross/v500/qt5/mkspecs/common/linux.conf \
@@ -272,7 +276,8 @@ DIST          = ../../../zc/cross/v500/qt5/mkspecs/features/spec_pre.prf \
 		Record.h \
 		Push.h \
 		UART.h \
-		ChannelNDI.h main.cpp \
+		ChannelNDI.h \
+		ChannelAlsa.h main.cpp \
 		RPC.cpp \
 		Group.cpp \
 		Channel.cpp \
@@ -299,7 +304,8 @@ DIST          = ../../../zc/cross/v500/qt5/mkspecs/features/spec_pre.prf \
 		Record.cpp \
 		Push.cpp \
 		UART.cpp \
-		ChannelNDI.cpp
+		ChannelNDI.cpp \
+		ChannelAlsa.cpp
 QMAKE_TARGET  = Encoder
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Encoder
@@ -543,8 +549,8 @@ dist: distdir FORCE
 distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
-	$(COPY_FILE) --parents RPC.h Group.h Channel.h ChannelNet.h ChannelVI.h Config.h GroupRPC.h ChannelMix.h ChannelUSB.h ChannelFile.h jcon/string_util.h jcon/json_rpc_debug_logger.h jcon/json_rpc_endpoint.h jcon/json_rpc_error.h jcon/json_rpc_file_logger.h jcon/json_rpc_logger.h jcon/json_rpc_request.h jcon/json_rpc_result.h jcon/json_rpc_server.h jcon/json_rpc_socket.h jcon/json_rpc_success.h jcon/jcon_assert.h jcon/jcon.h jcon/json_rpc_client.h jcon/json_rpc_tcp_client.h jcon/json_rpc_tcp_server.h jcon/json_rpc_tcp_socket.h Version.h Record.h Push.h UART.h ChannelNDI.h $(DISTDIR)/
-	$(COPY_FILE) --parents main.cpp RPC.cpp Group.cpp Channel.cpp ChannelNet.cpp ChannelVI.cpp Config.cpp GroupRPC.cpp ChannelMix.cpp ChannelUSB.cpp ChannelFile.cpp jcon/string_util.cpp jcon/json_rpc_debug_logger.cpp jcon/json_rpc_endpoint.cpp jcon/json_rpc_error.cpp jcon/json_rpc_file_logger.cpp jcon/json_rpc_logger.cpp jcon/json_rpc_request.cpp jcon/json_rpc_server.cpp jcon/json_rpc_success.cpp jcon/json_rpc_client.cpp jcon/json_rpc_tcp_client.cpp jcon/json_rpc_tcp_server.cpp jcon/json_rpc_tcp_socket.cpp Record.cpp Push.cpp UART.cpp ChannelNDI.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents RPC.h Group.h Channel.h ChannelNet.h ChannelVI.h Config.h GroupRPC.h ChannelMix.h ChannelUSB.h ChannelFile.h jcon/string_util.h jcon/json_rpc_debug_logger.h jcon/json_rpc_endpoint.h jcon/json_rpc_error.h jcon/json_rpc_file_logger.h jcon/json_rpc_logger.h jcon/json_rpc_request.h jcon/json_rpc_result.h jcon/json_rpc_server.h jcon/json_rpc_socket.h jcon/json_rpc_success.h jcon/jcon_assert.h jcon/jcon.h jcon/json_rpc_client.h jcon/json_rpc_tcp_client.h jcon/json_rpc_tcp_server.h jcon/json_rpc_tcp_socket.h Version.h Record.h Push.h UART.h ChannelNDI.h ChannelAlsa.h $(DISTDIR)/
+	$(COPY_FILE) --parents main.cpp RPC.cpp Group.cpp Channel.cpp ChannelNet.cpp ChannelVI.cpp Config.cpp GroupRPC.cpp ChannelMix.cpp ChannelUSB.cpp ChannelFile.cpp jcon/string_util.cpp jcon/json_rpc_debug_logger.cpp jcon/json_rpc_endpoint.cpp jcon/json_rpc_error.cpp jcon/json_rpc_file_logger.cpp jcon/json_rpc_logger.cpp jcon/json_rpc_request.cpp jcon/json_rpc_server.cpp jcon/json_rpc_success.cpp jcon/json_rpc_client.cpp jcon/json_rpc_tcp_client.cpp jcon/json_rpc_tcp_server.cpp jcon/json_rpc_tcp_socket.cpp Record.cpp Push.cpp UART.cpp ChannelNDI.cpp ChannelAlsa.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -567,10 +573,10 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: Temp/HI3531D/moc_RPC.cpp Temp/HI3531D/moc_Group.cpp Temp/HI3531D/moc_Channel.cpp Temp/HI3531D/moc_ChannelNet.cpp Temp/HI3531D/moc_ChannelVI.cpp Temp/HI3531D/moc_Config.cpp Temp/HI3531D/moc_GroupRPC.cpp Temp/HI3531D/moc_ChannelMix.cpp Temp/HI3531D/moc_ChannelUSB.cpp Temp/HI3531D/moc_ChannelFile.cpp Temp/HI3531D/moc_json_rpc_endpoint.cpp Temp/HI3531D/moc_json_rpc_request.cpp Temp/HI3531D/moc_json_rpc_server.cpp Temp/HI3531D/moc_json_rpc_socket.cpp Temp/HI3531D/moc_json_rpc_client.cpp Temp/HI3531D/moc_json_rpc_tcp_client.cpp Temp/HI3531D/moc_json_rpc_tcp_server.cpp Temp/HI3531D/moc_json_rpc_tcp_socket.cpp Temp/HI3531D/moc_Record.cpp Temp/HI3531D/moc_Push.cpp Temp/HI3531D/moc_UART.cpp Temp/HI3531D/moc_ChannelNDI.cpp
+compiler_moc_header_make_all: Temp/HI3521D/moc_RPC.cpp Temp/HI3521D/moc_Group.cpp Temp/HI3521D/moc_Channel.cpp Temp/HI3521D/moc_ChannelNet.cpp Temp/HI3521D/moc_ChannelVI.cpp Temp/HI3521D/moc_Config.cpp Temp/HI3521D/moc_GroupRPC.cpp Temp/HI3521D/moc_ChannelMix.cpp Temp/HI3521D/moc_ChannelUSB.cpp Temp/HI3521D/moc_ChannelFile.cpp Temp/HI3521D/moc_json_rpc_endpoint.cpp Temp/HI3521D/moc_json_rpc_request.cpp Temp/HI3521D/moc_json_rpc_server.cpp Temp/HI3521D/moc_json_rpc_socket.cpp Temp/HI3521D/moc_json_rpc_client.cpp Temp/HI3521D/moc_json_rpc_tcp_client.cpp Temp/HI3521D/moc_json_rpc_tcp_server.cpp Temp/HI3521D/moc_json_rpc_tcp_socket.cpp Temp/HI3521D/moc_Record.cpp Temp/HI3521D/moc_Push.cpp Temp/HI3521D/moc_UART.cpp Temp/HI3521D/moc_ChannelNDI.cpp Temp/HI3521D/moc_ChannelAlsa.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) Temp/HI3531D/moc_RPC.cpp Temp/HI3531D/moc_Group.cpp Temp/HI3531D/moc_Channel.cpp Temp/HI3531D/moc_ChannelNet.cpp Temp/HI3531D/moc_ChannelVI.cpp Temp/HI3531D/moc_Config.cpp Temp/HI3531D/moc_GroupRPC.cpp Temp/HI3531D/moc_ChannelMix.cpp Temp/HI3531D/moc_ChannelUSB.cpp Temp/HI3531D/moc_ChannelFile.cpp Temp/HI3531D/moc_json_rpc_endpoint.cpp Temp/HI3531D/moc_json_rpc_request.cpp Temp/HI3531D/moc_json_rpc_server.cpp Temp/HI3531D/moc_json_rpc_socket.cpp Temp/HI3531D/moc_json_rpc_client.cpp Temp/HI3531D/moc_json_rpc_tcp_client.cpp Temp/HI3531D/moc_json_rpc_tcp_server.cpp Temp/HI3531D/moc_json_rpc_tcp_socket.cpp Temp/HI3531D/moc_Record.cpp Temp/HI3531D/moc_Push.cpp Temp/HI3531D/moc_UART.cpp Temp/HI3531D/moc_ChannelNDI.cpp
-Temp/HI3531D/moc_RPC.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+	-$(DEL_FILE) Temp/HI3521D/moc_RPC.cpp Temp/HI3521D/moc_Group.cpp Temp/HI3521D/moc_Channel.cpp Temp/HI3521D/moc_ChannelNet.cpp Temp/HI3521D/moc_ChannelVI.cpp Temp/HI3521D/moc_Config.cpp Temp/HI3521D/moc_GroupRPC.cpp Temp/HI3521D/moc_ChannelMix.cpp Temp/HI3521D/moc_ChannelUSB.cpp Temp/HI3521D/moc_ChannelFile.cpp Temp/HI3521D/moc_json_rpc_endpoint.cpp Temp/HI3521D/moc_json_rpc_request.cpp Temp/HI3521D/moc_json_rpc_server.cpp Temp/HI3521D/moc_json_rpc_socket.cpp Temp/HI3521D/moc_json_rpc_client.cpp Temp/HI3521D/moc_json_rpc_tcp_client.cpp Temp/HI3521D/moc_json_rpc_tcp_server.cpp Temp/HI3521D/moc_json_rpc_tcp_socket.cpp Temp/HI3521D/moc_Record.cpp Temp/HI3521D/moc_Push.cpp Temp/HI3521D/moc_UART.cpp Temp/HI3521D/moc_ChannelNDI.cpp Temp/HI3521D/moc_ChannelAlsa.cpp
+Temp/HI3521D/moc_RPC.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -675,10 +681,12 @@ Temp/HI3531D/moc_RPC.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/QTimer \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QProcess \
+		../../../zc/cross/v500/qt5/include/QtCore/qprocess.h \
 		RPC.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include RPC.h -o Temp/HI3531D/moc_RPC.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include RPC.h -o Temp/HI3521D/moc_RPC.cpp
 
-Temp/HI3531D/moc_Group.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_Group.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -759,9 +767,9 @@ Temp/HI3531D/moc_Group.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QVariantMap \
 		Group.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Group.h -o Temp/HI3531D/moc_Group.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Group.h -o Temp/HI3521D/moc_Group.cpp
 
-Temp/HI3531D/moc_Channel.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_Channel.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -847,9 +855,9 @@ Temp/HI3531D/moc_Channel.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject 
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		Channel.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Channel.h -o Temp/HI3531D/moc_Channel.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Channel.h -o Temp/HI3521D/moc_Channel.cpp
 
-Temp/HI3531D/moc_ChannelNet.cpp: Channel.h \
+Temp/HI3521D/moc_ChannelNet.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -936,9 +944,9 @@ Temp/HI3531D/moc_ChannelNet.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		ChannelNet.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelNet.h -o Temp/HI3531D/moc_ChannelNet.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelNet.h -o Temp/HI3521D/moc_ChannelNet.cpp
 
-Temp/HI3531D/moc_ChannelVI.cpp: Channel.h \
+Temp/HI3521D/moc_ChannelVI.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -1025,9 +1033,9 @@ Temp/HI3531D/moc_ChannelVI.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		ChannelVI.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelVI.h -o Temp/HI3531D/moc_ChannelVI.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelVI.h -o Temp/HI3521D/moc_ChannelVI.cpp
 
-Temp/HI3531D/moc_Config.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_Config.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -1114,9 +1122,9 @@ Temp/HI3531D/moc_Config.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		Config.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Config.h -o Temp/HI3531D/moc_Config.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Config.h -o Temp/HI3521D/moc_Config.cpp
 
-Temp/HI3531D/moc_GroupRPC.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_GroupRPC.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -1192,9 +1200,9 @@ Temp/HI3531D/moc_GroupRPC.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject
 		../../../zc/cross/v500/qt5/include/QtCore/QMap \
 		../../../zc/cross/v500/qt5/include/QtCore/QList \
 		GroupRPC.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include GroupRPC.h -o Temp/HI3531D/moc_GroupRPC.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include GroupRPC.h -o Temp/HI3521D/moc_GroupRPC.cpp
 
-Temp/HI3531D/moc_ChannelMix.cpp: Channel.h \
+Temp/HI3521D/moc_ChannelMix.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -1281,9 +1289,9 @@ Temp/HI3531D/moc_ChannelMix.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		ChannelMix.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelMix.h -o Temp/HI3531D/moc_ChannelMix.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelMix.h -o Temp/HI3521D/moc_ChannelMix.cpp
 
-Temp/HI3531D/moc_ChannelUSB.cpp: Channel.h \
+Temp/HI3521D/moc_ChannelUSB.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -1370,9 +1378,9 @@ Temp/HI3531D/moc_ChannelUSB.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		ChannelUSB.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelUSB.h -o Temp/HI3531D/moc_ChannelUSB.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelUSB.h -o Temp/HI3521D/moc_ChannelUSB.cpp
 
-Temp/HI3531D/moc_ChannelFile.cpp: Channel.h \
+Temp/HI3521D/moc_ChannelFile.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -1459,9 +1467,9 @@ Temp/HI3531D/moc_ChannelFile.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		ChannelFile.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelFile.h -o Temp/HI3531D/moc_ChannelFile.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelFile.h -o Temp/HI3521D/moc_ChannelFile.cpp
 
-Temp/HI3531D/moc_json_rpc_endpoint.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_endpoint.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -1536,9 +1544,9 @@ Temp/HI3531D/moc_json_rpc_endpoint.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/QByteArray \
 		jcon/json_rpc_endpoint.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_endpoint.h -o Temp/HI3531D/moc_json_rpc_endpoint.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_endpoint.h -o Temp/HI3521D/moc_json_rpc_endpoint.cpp
 
-Temp/HI3531D/moc_json_rpc_request.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_request.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -1599,9 +1607,9 @@ Temp/HI3531D/moc_json_rpc_request.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qisenum.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject_impl.h \
 		jcon/json_rpc_request.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_request.h -o Temp/HI3531D/moc_json_rpc_request.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_request.h -o Temp/HI3521D/moc_json_rpc_request.cpp
 
-Temp/HI3531D/moc_json_rpc_server.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_server.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -1672,9 +1680,9 @@ Temp/HI3531D/moc_json_rpc_server.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
 		jcon/json_rpc_server.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_server.h -o Temp/HI3531D/moc_json_rpc_server.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_server.h -o Temp/HI3521D/moc_json_rpc_server.cpp
 
-Temp/HI3531D/moc_json_rpc_socket.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_socket.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -1746,9 +1754,9 @@ Temp/HI3531D/moc_json_rpc_socket.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		jcon/json_rpc_socket.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_socket.h -o Temp/HI3531D/moc_json_rpc_socket.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_socket.h -o Temp/HI3521D/moc_json_rpc_socket.cpp
 
-Temp/HI3531D/moc_json_rpc_client.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_client.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -1839,9 +1847,9 @@ Temp/HI3531D/moc_json_rpc_client.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qjsondocument.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QMap \
 		jcon/json_rpc_client.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_client.h -o Temp/HI3531D/moc_json_rpc_client.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_client.h -o Temp/HI3521D/moc_json_rpc_client.cpp
 
-Temp/HI3531D/moc_json_rpc_tcp_client.cpp: jcon/json_rpc_client.h \
+Temp/HI3521D/moc_json_rpc_tcp_client.cpp: jcon/json_rpc_client.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -1933,9 +1941,9 @@ Temp/HI3531D/moc_json_rpc_tcp_client.cpp: jcon/json_rpc_client.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qjsondocument.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QMap \
 		jcon/json_rpc_tcp_client.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_tcp_client.h -o Temp/HI3531D/moc_json_rpc_tcp_client.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_tcp_client.h -o Temp/HI3521D/moc_json_rpc_tcp_client.cpp
 
-Temp/HI3531D/moc_json_rpc_tcp_server.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_tcp_server.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -2015,9 +2023,9 @@ Temp/HI3531D/moc_json_rpc_tcp_server.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtNetwork/QTcpServer \
 		../../../zc/cross/v500/qt5/include/QtNetwork/qtcpserver.h \
 		jcon/json_rpc_tcp_server.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_tcp_server.h -o Temp/HI3531D/moc_json_rpc_tcp_server.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_tcp_server.h -o Temp/HI3521D/moc_json_rpc_tcp_server.cpp
 
-Temp/HI3531D/moc_json_rpc_tcp_socket.cpp: jcon/jcon.h \
+Temp/HI3521D/moc_json_rpc_tcp_socket.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -2092,9 +2100,9 @@ Temp/HI3531D/moc_json_rpc_tcp_socket.cpp: jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtNetwork/QTcpSocket \
 		../../../zc/cross/v500/qt5/include/QtNetwork/qtcpsocket.h \
 		jcon/json_rpc_tcp_socket.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_tcp_socket.h -o Temp/HI3531D/moc_json_rpc_tcp_socket.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include jcon/json_rpc_tcp_socket.h -o Temp/HI3521D/moc_json_rpc_tcp_socket.cpp
 
-Temp/HI3531D/moc_Record.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_Record.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -2163,9 +2171,9 @@ Temp/HI3531D/moc_Record.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QDebug \
 		Record.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Record.h -o Temp/HI3531D/moc_Record.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Record.h -o Temp/HI3521D/moc_Record.cpp
 
-Temp/HI3531D/moc_Push.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_Push.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -2253,9 +2261,9 @@ Temp/HI3531D/moc_Push.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		Push.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Push.h -o Temp/HI3531D/moc_Push.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include Push.h -o Temp/HI3521D/moc_Push.cpp
 
-Temp/HI3531D/moc_UART.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
+Temp/HI3521D/moc_UART.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
@@ -2330,9 +2338,9 @@ Temp/HI3531D/moc_UART.cpp: ../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialportglobal.h \
 		../../../zc/cross/v500/qt5/include/QtNetwork/QHostAddress \
 		UART.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include UART.h -o Temp/HI3531D/moc_UART.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include UART.h -o Temp/HI3521D/moc_UART.cpp
 
-Temp/HI3531D/moc_ChannelNDI.cpp: Channel.h \
+Temp/HI3521D/moc_ChannelNDI.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -2419,7 +2427,96 @@ Temp/HI3531D/moc_ChannelNDI.cpp: Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		ChannelNDI.h
-	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3531D/SDK/Hi3531D_SDK_V1.0.3.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelNDI.h -o Temp/HI3531D/moc_ChannelNDI.cpp
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelNDI.h -o Temp/HI3521D/moc_ChannelNDI.cpp
+
+Temp/HI3521D/moc_ChannelAlsa.cpp: Channel.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QObject \
+		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qfeatures.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qsystemdetection.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qprocessordetection.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcompilerdetection.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qtypeinfo.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qtypetraits.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qsysinfo.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qlogging.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qflags.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbasicatomic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_bootstrap.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qgenericatomic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_cxx11.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_gcc.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_msvc.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_armv7.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_armv6.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_armv5.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_ia64.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_mips.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_x86.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_unix.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qglobalstatic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qmutex.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qnumeric.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs_impl.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstring.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qchar.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbytearray.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qrefcount.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qarraydata.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstringbuilder.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qlist.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qalgorithms.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qiterator.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbytearraylist.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstringlist.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qregexp.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstringmatcher.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcoreevent.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qscopedpointer.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qmetatype.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qvarlengtharray.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcontainerfwd.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qisenum.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qobject_impl.h \
+		../LinkLib/include/Link.h \
+		../LinkLib/include/LinkObject.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QMetaType \
+		../../../zc/cross/v500/qt5/include/QtCore/QMutex \
+		../../../zc/cross/v500/qt5/include/QtCore/QList \
+		../../../zc/cross/v500/qt5/include/QtCore/QVariantMap \
+		../../../zc/cross/v500/qt5/include/QtCore/qvariant.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qmap.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qpair.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qdebug.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qhash.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qtextstream.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qiodevice.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qlocale.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qshareddata.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qvector.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qpoint.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QThread \
+		../../../zc/cross/v500/qt5/include/QtCore/qthread.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QReadWriteLock \
+		../../../zc/cross/v500/qt5/include/QtCore/qreadwritelock.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QMap \
+		../../../zc/cross/v500/qt5/include/QtCore/QHash \
+		../../../zc/cross/v500/qt5/include/QtCore/QVariant \
+		../../../zc/cross/v500/qt5/include/QtCore/QByteArray \
+		../../../zc/cross/v500/qt5/include/QtCore/QDebug \
+		../../../zc/cross/v500/qt5/include/QtCore/QMetaObject \
+		../../../zc/cross/v500/qt5/include/QtCore/QTimer \
+		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
+		ChannelAlsa.h
+	/home/zc/cross/v500/qt5/bin/moc $(DEFINES) -I/home/zc/cross/v500/qt5/mkspecs/arm-hisiv500-linux-g++ -I/home/linkpi/work/Encoder -I/home/linkpi/work/LinkLib/include -I/home/zc/3521D/SDK/Hi3521DV100_SDK_V1.0.5.0/mpp/include -I/home/zc/cross/v500/ffmpeg/include -I/home/zc/cross/v500/qt5/include -I/home/zc/cross/v500/qt5/include/QtNetwork -I/home/zc/cross/v500/qt5/include/QtTest -I/home/zc/cross/v500/qt5/include/QtXml -I/home/zc/cross/v500/qt5/include/QtSerialPort -I/home/zc/cross/v500/qt5/include/QtCore -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4 -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/arm-hisiv500-linux-uclibcgnueabi -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include/c++/4.9.4/backward -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/lib/gcc/arm-hisiv500-linux-uclibcgnueabi/4.9.4/include-fixed -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/arm-hisiv500-linux-uclibcgnueabi/include -I/opt/hisi-linux/x86-arm/arm-hisiv500-linux/target/usr/include ChannelAlsa.h -o Temp/HI3521D/moc_ChannelAlsa.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -2433,7 +2530,7 @@ compiler_clean: compiler_moc_header_clean
 
 ####### Compile
 
-Temp/HI3531D/main.o: main.cpp ../../../zc/cross/v500/qt5/include/QtCore/QCoreApplication \
+Temp/HI3521D/main.o: main.cpp ../../../zc/cross/v500/qt5/include/QtCore/QCoreApplication \
 		../../../zc/cross/v500/qt5/include/QtCore/qcoreapplication.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
@@ -2549,6 +2646,8 @@ Temp/HI3531D/main.o: main.cpp ../../../zc/cross/v500/qt5/include/QtCore/QCoreApp
 		../../../zc/cross/v500/qt5/include/QtCore/QJsonDocument \
 		../../../zc/cross/v500/qt5/include/QtCore/qjsondocument.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qjsonvalue.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QProcess \
+		../../../zc/cross/v500/qt5/include/QtCore/qprocess.h \
 		../LinkLib/include/Json.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QString \
 		Version.h \
@@ -2560,9 +2659,9 @@ Temp/HI3531D/main.o: main.cpp ../../../zc/cross/v500/qt5/include/QtCore/QCoreApp
 		../../../zc/cross/v500/qt5/include/QtSerialPort/QSerialPort \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialport.h \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialportglobal.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/main.o main.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/main.o main.cpp
 
-Temp/HI3531D/RPC.o: RPC.cpp RPC.h \
+Temp/HI3521D/RPC.o: RPC.cpp RPC.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -2668,6 +2767,8 @@ Temp/HI3531D/RPC.o: RPC.cpp RPC.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QTimer \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QProcess \
+		../../../zc/cross/v500/qt5/include/QtCore/qprocess.h \
 		Config.h \
 		Channel.h \
 		../LinkLib/include/Json.h \
@@ -2684,12 +2785,10 @@ Temp/HI3531D/RPC.o: RPC.cpp RPC.h \
 		UART.h \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/QSerialPort \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialport.h \
-		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialportglobal.h \
-		../../../zc/cross/v500/qt5/include/QtCore/QProcess \
-		../../../zc/cross/v500/qt5/include/QtCore/qprocess.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/RPC.o RPC.cpp
+		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialportglobal.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/RPC.o RPC.cpp
 
-Temp/HI3531D/Group.o: Group.cpp Group.h \
+Temp/HI3521D/Group.o: Group.cpp Group.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -2793,9 +2892,9 @@ Temp/HI3531D/Group.o: Group.cpp Group.h \
 		../../../zc/cross/v500/qt5/include/QtXml/QDomDocument \
 		../../../zc/cross/v500/qt5/include/QtXml/qdom.h \
 		../../../zc/cross/v500/qt5/include/QtXml/qtxmlglobal.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/Group.o Group.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/Group.o Group.cpp
 
-Temp/HI3531D/Channel.o: Channel.cpp Channel.h \
+Temp/HI3521D/Channel.o: Channel.cpp Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -2891,9 +2990,9 @@ Temp/HI3531D/Channel.o: Channel.cpp Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qdatetime.h \
 		../LinkLib/include/Json.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QString
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/Channel.o Channel.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/Channel.o Channel.cpp
 
-Temp/HI3531D/ChannelNet.o: ChannelNet.cpp ChannelNet.h \
+Temp/HI3521D/ChannelNet.o: ChannelNet.cpp ChannelNet.h \
 		Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
@@ -2983,9 +3082,9 @@ Temp/HI3531D/ChannelNet.o: ChannelNet.cpp ChannelNet.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QFile \
 		../../../zc/cross/v500/qt5/include/QtCore/qfile.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfiledevice.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/ChannelNet.o ChannelNet.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelNet.o ChannelNet.cpp
 
-Temp/HI3531D/ChannelVI.o: ChannelVI.cpp ChannelVI.h \
+Temp/HI3521D/ChannelVI.o: ChannelVI.cpp ChannelVI.h \
 		Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
@@ -3076,9 +3175,9 @@ Temp/HI3531D/ChannelVI.o: ChannelVI.cpp ChannelVI.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfile.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfiledevice.h \
 		Config.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/ChannelVI.o ChannelVI.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelVI.o ChannelVI.cpp
 
-Temp/HI3531D/Config.o: Config.cpp Config.h \
+Temp/HI3521D/Config.o: Config.cpp Config.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -3174,9 +3273,9 @@ Temp/HI3531D/Config.o: Config.cpp Config.h \
 		ChannelUSB.h \
 		ChannelFile.h \
 		ChannelNDI.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/Config.o Config.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/Config.o Config.cpp
 
-Temp/HI3531D/GroupRPC.o: GroupRPC.cpp GroupRPC.h \
+Temp/HI3521D/GroupRPC.o: GroupRPC.cpp GroupRPC.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -3261,9 +3360,9 @@ Temp/HI3531D/GroupRPC.o: GroupRPC.cpp GroupRPC.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QMetaMethod \
 		../../../zc/cross/v500/qt5/include/QtCore/qmetaobject.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/GroupRPC.o GroupRPC.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/GroupRPC.o GroupRPC.cpp
 
-Temp/HI3531D/ChannelMix.o: ChannelMix.cpp ChannelMix.h \
+Temp/HI3521D/ChannelMix.o: ChannelMix.cpp ChannelMix.h \
 		Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
@@ -3357,9 +3456,9 @@ Temp/HI3531D/ChannelMix.o: ChannelMix.cpp ChannelMix.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfiledevice.h \
 		../LinkLib/include/Json.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QString
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/ChannelMix.o ChannelMix.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelMix.o ChannelMix.cpp
 
-Temp/HI3531D/ChannelUSB.o: ChannelUSB.cpp ChannelUSB.h \
+Temp/HI3521D/ChannelUSB.o: ChannelUSB.cpp ChannelUSB.h \
 		Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
@@ -3454,9 +3553,9 @@ Temp/HI3531D/ChannelUSB.o: ChannelUSB.cpp ChannelUSB.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfile.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfiledevice.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QFileInfo
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/ChannelUSB.o ChannelUSB.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelUSB.o ChannelUSB.cpp
 
-Temp/HI3531D/ChannelFile.o: ChannelFile.cpp ChannelFile.h \
+Temp/HI3521D/ChannelFile.o: ChannelFile.cpp ChannelFile.h \
 		Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
@@ -3545,9 +3644,9 @@ Temp/HI3531D/ChannelFile.o: ChannelFile.cpp ChannelFile.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QDateTime \
 		../../../zc/cross/v500/qt5/include/QtCore/qdatetime.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/ChannelFile.o ChannelFile.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelFile.o ChannelFile.cpp
 
-Temp/HI3531D/string_util.o: jcon/string_util.cpp jcon/string_util.h \
+Temp/HI3521D/string_util.o: jcon/string_util.cpp jcon/string_util.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -3617,9 +3716,9 @@ Temp/HI3531D/string_util.o: jcon/string_util.cpp jcon/string_util.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QString
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/string_util.o jcon/string_util.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/string_util.o jcon/string_util.cpp
 
-Temp/HI3531D/json_rpc_debug_logger.o: jcon/json_rpc_debug_logger.cpp jcon/json_rpc_debug_logger.h \
+Temp/HI3521D/json_rpc_debug_logger.o: jcon/json_rpc_debug_logger.cpp jcon/json_rpc_debug_logger.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -3689,9 +3788,9 @@ Temp/HI3531D/json_rpc_debug_logger.o: jcon/json_rpc_debug_logger.cpp jcon/json_r
 		../../../zc/cross/v500/qt5/include/QtCore/qpoint.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_debug_logger.o jcon/json_rpc_debug_logger.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_debug_logger.o jcon/json_rpc_debug_logger.cpp
 
-Temp/HI3531D/json_rpc_endpoint.o: jcon/json_rpc_endpoint.cpp jcon/json_rpc_endpoint.h \
+Temp/HI3521D/json_rpc_endpoint.o: jcon/json_rpc_endpoint.cpp jcon/json_rpc_endpoint.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -3777,9 +3876,9 @@ Temp/HI3531D/json_rpc_endpoint.o: jcon/json_rpc_endpoint.cpp jcon/json_rpc_endpo
 		../../../zc/cross/v500/qt5/include/QtCore/QUrl \
 		../../../zc/cross/v500/qt5/include/QtCore/qurl.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qurlquery.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_endpoint.o jcon/json_rpc_endpoint.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_endpoint.o jcon/json_rpc_endpoint.cpp
 
-Temp/HI3531D/json_rpc_error.o: jcon/json_rpc_error.cpp jcon/json_rpc_error.h \
+Temp/HI3521D/json_rpc_error.o: jcon/json_rpc_error.cpp jcon/json_rpc_error.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -3850,9 +3949,9 @@ Temp/HI3531D/json_rpc_error.o: jcon/json_rpc_error.cpp jcon/json_rpc_error.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qpoint.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_error.o jcon/json_rpc_error.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_error.o jcon/json_rpc_error.cpp
 
-Temp/HI3531D/json_rpc_file_logger.o: jcon/json_rpc_file_logger.cpp jcon/json_rpc_file_logger.h \
+Temp/HI3521D/json_rpc_file_logger.o: jcon/json_rpc_file_logger.cpp jcon/json_rpc_file_logger.h \
 		jcon/json_rpc_logger.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
@@ -3925,9 +4024,9 @@ Temp/HI3531D/json_rpc_file_logger.o: jcon/json_rpc_file_logger.cpp jcon/json_rpc
 		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qshareddata.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_file_logger.o jcon/json_rpc_file_logger.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_file_logger.o jcon/json_rpc_file_logger.cpp
 
-Temp/HI3531D/json_rpc_logger.o: jcon/json_rpc_logger.cpp jcon/json_rpc_logger.h \
+Temp/HI3521D/json_rpc_logger.o: jcon/json_rpc_logger.cpp jcon/json_rpc_logger.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -3958,9 +4057,9 @@ Temp/HI3531D/json_rpc_logger.o: jcon/json_rpc_logger.cpp jcon/json_rpc_logger.h 
 		../../../zc/cross/v500/qt5/include/QtCore/qglobalstatic.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qmutex.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qnumeric.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_logger.o jcon/json_rpc_logger.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_logger.o jcon/json_rpc_logger.cpp
 
-Temp/HI3531D/json_rpc_request.o: jcon/json_rpc_request.cpp jcon/json_rpc_request.h \
+Temp/HI3521D/json_rpc_request.o: jcon/json_rpc_request.cpp jcon/json_rpc_request.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -4021,9 +4120,9 @@ Temp/HI3531D/json_rpc_request.o: jcon/json_rpc_request.cpp jcon/json_rpc_request
 		../../../zc/cross/v500/qt5/include/QtCore/qcontainerfwd.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qisenum.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject_impl.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_request.o jcon/json_rpc_request.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_request.o jcon/json_rpc_request.cpp
 
-Temp/HI3531D/json_rpc_server.o: jcon/json_rpc_server.cpp jcon/json_rpc_server.h \
+Temp/HI3521D/json_rpc_server.o: jcon/json_rpc_server.cpp jcon/json_rpc_server.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -4121,9 +4220,9 @@ Temp/HI3531D/json_rpc_server.o: jcon/json_rpc_server.cpp jcon/json_rpc_server.h 
 		../../../zc/cross/v500/qt5/include/QtCore/qjsonobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QMetaMethod \
 		../../../zc/cross/v500/qt5/include/QtCore/qmetaobject.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_server.o jcon/json_rpc_server.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_server.o jcon/json_rpc_server.cpp
 
-Temp/HI3531D/json_rpc_success.o: jcon/json_rpc_success.cpp jcon/json_rpc_success.h \
+Temp/HI3521D/json_rpc_success.o: jcon/json_rpc_success.cpp jcon/json_rpc_success.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -4194,9 +4293,9 @@ Temp/HI3531D/json_rpc_success.o: jcon/json_rpc_success.cpp jcon/json_rpc_success
 		../../../zc/cross/v500/qt5/include/QtCore/qpoint.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_success.o jcon/json_rpc_success.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_success.o jcon/json_rpc_success.cpp
 
-Temp/HI3531D/json_rpc_client.o: jcon/json_rpc_client.cpp jcon/json_rpc_client.h \
+Temp/HI3521D/json_rpc_client.o: jcon/json_rpc_client.cpp jcon/json_rpc_client.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -4309,9 +4408,9 @@ Temp/HI3531D/json_rpc_client.o: jcon/json_rpc_client.cpp jcon/json_rpc_client.h 
 		../../../zc/cross/v500/qt5/include/QtCore/qthread.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QUuid \
 		../../../zc/cross/v500/qt5/include/QtCore/quuid.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_client.o jcon/json_rpc_client.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_client.o jcon/json_rpc_client.cpp
 
-Temp/HI3531D/json_rpc_tcp_client.o: jcon/json_rpc_tcp_client.cpp jcon/json_rpc_tcp_client.h \
+Temp/HI3521D/json_rpc_tcp_client.o: jcon/json_rpc_tcp_client.cpp jcon/json_rpc_tcp_client.h \
 		jcon/json_rpc_client.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
@@ -4406,9 +4505,9 @@ Temp/HI3531D/json_rpc_tcp_client.o: jcon/json_rpc_tcp_client.cpp jcon/json_rpc_t
 		jcon/json_rpc_tcp_socket.h \
 		../../../zc/cross/v500/qt5/include/QtNetwork/QTcpSocket \
 		../../../zc/cross/v500/qt5/include/QtNetwork/qtcpsocket.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_tcp_client.o jcon/json_rpc_tcp_client.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_tcp_client.o jcon/json_rpc_tcp_client.cpp
 
-Temp/HI3531D/json_rpc_tcp_server.o: jcon/json_rpc_tcp_server.cpp jcon/json_rpc_tcp_server.h \
+Temp/HI3521D/json_rpc_tcp_server.o: jcon/json_rpc_tcp_server.cpp jcon/json_rpc_tcp_server.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -4492,9 +4591,9 @@ Temp/HI3531D/json_rpc_tcp_server.o: jcon/json_rpc_tcp_server.cpp jcon/json_rpc_t
 		../../../zc/cross/v500/qt5/include/QtNetwork/QTcpSocket \
 		../../../zc/cross/v500/qt5/include/QtNetwork/qtcpsocket.h \
 		jcon/jcon_assert.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_tcp_server.o jcon/json_rpc_tcp_server.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_tcp_server.o jcon/json_rpc_tcp_server.cpp
 
-Temp/HI3531D/json_rpc_tcp_socket.o: jcon/json_rpc_tcp_socket.cpp jcon/json_rpc_tcp_socket.h \
+Temp/HI3521D/json_rpc_tcp_socket.o: jcon/json_rpc_tcp_socket.cpp jcon/json_rpc_tcp_socket.h \
 		jcon/jcon.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QtGlobal \
 		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
@@ -4573,9 +4672,9 @@ Temp/HI3531D/json_rpc_tcp_socket.o: jcon/json_rpc_tcp_socket.cpp jcon/json_rpc_t
 		../../../zc/cross/v500/qt5/include/QtCore/QUrl \
 		../../../zc/cross/v500/qt5/include/QtCore/qurl.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qurlquery.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/json_rpc_tcp_socket.o jcon/json_rpc_tcp_socket.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/json_rpc_tcp_socket.o jcon/json_rpc_tcp_socket.cpp
 
-Temp/HI3531D/Record.o: Record.cpp Record.h \
+Temp/HI3521D/Record.o: Record.cpp Record.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -4680,9 +4779,9 @@ Temp/HI3531D/Record.o: Record.cpp Record.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QTimer \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/Record.o Record.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/Record.o Record.cpp
 
-Temp/HI3531D/Push.o: Push.cpp Push.h \
+Temp/HI3521D/Push.o: Push.cpp Push.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -4777,9 +4876,9 @@ Temp/HI3531D/Push.o: Push.cpp Push.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfiledevice.h \
 		../LinkLib/include/Json.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QString
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/Push.o Push.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/Push.o Push.cpp
 
-Temp/HI3531D/UART.o: UART.cpp UART.h \
+Temp/HI3521D/UART.o: UART.cpp UART.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
@@ -4860,9 +4959,9 @@ Temp/HI3531D/UART.o: UART.cpp UART.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QFile \
 		../../../zc/cross/v500/qt5/include/QtCore/qfile.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qfiledevice.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/UART.o UART.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/UART.o UART.cpp
 
-Temp/HI3531D/ChannelNDI.o: ChannelNDI.cpp ChannelNDI.h \
+Temp/HI3521D/ChannelNDI.o: ChannelNDI.cpp ChannelNDI.h \
 		Channel.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QObject \
 		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
@@ -4949,73 +5048,165 @@ Temp/HI3531D/ChannelNDI.o: ChannelNDI.cpp ChannelNDI.h \
 		../../../zc/cross/v500/qt5/include/QtCore/QTimer \
 		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
 		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/ChannelNDI.o ChannelNDI.cpp
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelNDI.o ChannelNDI.cpp
 
-Temp/HI3531D/moc_RPC.o: Temp/HI3531D/moc_RPC.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_RPC.o Temp/HI3531D/moc_RPC.cpp
+Temp/HI3521D/ChannelAlsa.o: ChannelAlsa.cpp ChannelAlsa.h \
+		Channel.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QObject \
+		../../../zc/cross/v500/qt5/include/QtCore/qobject.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qnamespace.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qglobal.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qconfig.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qfeatures.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qsystemdetection.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qprocessordetection.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcompilerdetection.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qtypeinfo.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qtypetraits.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qsysinfo.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qlogging.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qflags.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbasicatomic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_bootstrap.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qgenericatomic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_cxx11.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_gcc.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_msvc.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_armv7.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_armv6.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_armv5.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_ia64.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_mips.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_x86.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qatomic_unix.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qglobalstatic.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qmutex.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qnumeric.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qobjectdefs_impl.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstring.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qchar.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbytearray.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qrefcount.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qarraydata.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstringbuilder.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qlist.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qalgorithms.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qiterator.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbytearraylist.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstringlist.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qregexp.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qstringmatcher.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcoreevent.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qscopedpointer.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qmetatype.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qvarlengtharray.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcontainerfwd.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qisenum.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qobject_impl.h \
+		../LinkLib/include/Link.h \
+		../LinkLib/include/LinkObject.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QMetaType \
+		../../../zc/cross/v500/qt5/include/QtCore/QMutex \
+		../../../zc/cross/v500/qt5/include/QtCore/QList \
+		../../../zc/cross/v500/qt5/include/QtCore/QVariantMap \
+		../../../zc/cross/v500/qt5/include/QtCore/qvariant.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qmap.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qpair.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qdebug.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qhash.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qtextstream.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qiodevice.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qlocale.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qshareddata.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qvector.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qpoint.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qset.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qcontiguouscache.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QThread \
+		../../../zc/cross/v500/qt5/include/QtCore/qthread.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QReadWriteLock \
+		../../../zc/cross/v500/qt5/include/QtCore/qreadwritelock.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QMap \
+		../../../zc/cross/v500/qt5/include/QtCore/QHash \
+		../../../zc/cross/v500/qt5/include/QtCore/QVariant \
+		../../../zc/cross/v500/qt5/include/QtCore/QByteArray \
+		../../../zc/cross/v500/qt5/include/QtCore/QDebug \
+		../../../zc/cross/v500/qt5/include/QtCore/QMetaObject \
+		../../../zc/cross/v500/qt5/include/QtCore/QTimer \
+		../../../zc/cross/v500/qt5/include/QtCore/qtimer.h \
+		../../../zc/cross/v500/qt5/include/QtCore/qbasictimer.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/ChannelAlsa.o ChannelAlsa.cpp
 
-Temp/HI3531D/moc_Group.o: Temp/HI3531D/moc_Group.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_Group.o Temp/HI3531D/moc_Group.cpp
+Temp/HI3521D/moc_RPC.o: Temp/HI3521D/moc_RPC.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_RPC.o Temp/HI3521D/moc_RPC.cpp
 
-Temp/HI3531D/moc_Channel.o: Temp/HI3531D/moc_Channel.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_Channel.o Temp/HI3531D/moc_Channel.cpp
+Temp/HI3521D/moc_Group.o: Temp/HI3521D/moc_Group.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_Group.o Temp/HI3521D/moc_Group.cpp
 
-Temp/HI3531D/moc_ChannelNet.o: Temp/HI3531D/moc_ChannelNet.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_ChannelNet.o Temp/HI3531D/moc_ChannelNet.cpp
+Temp/HI3521D/moc_Channel.o: Temp/HI3521D/moc_Channel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_Channel.o Temp/HI3521D/moc_Channel.cpp
 
-Temp/HI3531D/moc_ChannelVI.o: Temp/HI3531D/moc_ChannelVI.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_ChannelVI.o Temp/HI3531D/moc_ChannelVI.cpp
+Temp/HI3521D/moc_ChannelNet.o: Temp/HI3521D/moc_ChannelNet.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelNet.o Temp/HI3521D/moc_ChannelNet.cpp
 
-Temp/HI3531D/moc_Config.o: Temp/HI3531D/moc_Config.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_Config.o Temp/HI3531D/moc_Config.cpp
+Temp/HI3521D/moc_ChannelVI.o: Temp/HI3521D/moc_ChannelVI.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelVI.o Temp/HI3521D/moc_ChannelVI.cpp
 
-Temp/HI3531D/moc_GroupRPC.o: Temp/HI3531D/moc_GroupRPC.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_GroupRPC.o Temp/HI3531D/moc_GroupRPC.cpp
+Temp/HI3521D/moc_Config.o: Temp/HI3521D/moc_Config.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_Config.o Temp/HI3521D/moc_Config.cpp
 
-Temp/HI3531D/moc_ChannelMix.o: Temp/HI3531D/moc_ChannelMix.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_ChannelMix.o Temp/HI3531D/moc_ChannelMix.cpp
+Temp/HI3521D/moc_GroupRPC.o: Temp/HI3521D/moc_GroupRPC.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_GroupRPC.o Temp/HI3521D/moc_GroupRPC.cpp
 
-Temp/HI3531D/moc_ChannelUSB.o: Temp/HI3531D/moc_ChannelUSB.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_ChannelUSB.o Temp/HI3531D/moc_ChannelUSB.cpp
+Temp/HI3521D/moc_ChannelMix.o: Temp/HI3521D/moc_ChannelMix.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelMix.o Temp/HI3521D/moc_ChannelMix.cpp
 
-Temp/HI3531D/moc_ChannelFile.o: Temp/HI3531D/moc_ChannelFile.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_ChannelFile.o Temp/HI3531D/moc_ChannelFile.cpp
+Temp/HI3521D/moc_ChannelUSB.o: Temp/HI3521D/moc_ChannelUSB.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelUSB.o Temp/HI3521D/moc_ChannelUSB.cpp
 
-Temp/HI3531D/moc_json_rpc_endpoint.o: Temp/HI3531D/moc_json_rpc_endpoint.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_endpoint.o Temp/HI3531D/moc_json_rpc_endpoint.cpp
+Temp/HI3521D/moc_ChannelFile.o: Temp/HI3521D/moc_ChannelFile.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelFile.o Temp/HI3521D/moc_ChannelFile.cpp
 
-Temp/HI3531D/moc_json_rpc_request.o: Temp/HI3531D/moc_json_rpc_request.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_request.o Temp/HI3531D/moc_json_rpc_request.cpp
+Temp/HI3521D/moc_json_rpc_endpoint.o: Temp/HI3521D/moc_json_rpc_endpoint.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_endpoint.o Temp/HI3521D/moc_json_rpc_endpoint.cpp
 
-Temp/HI3531D/moc_json_rpc_server.o: Temp/HI3531D/moc_json_rpc_server.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_server.o Temp/HI3531D/moc_json_rpc_server.cpp
+Temp/HI3521D/moc_json_rpc_request.o: Temp/HI3521D/moc_json_rpc_request.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_request.o Temp/HI3521D/moc_json_rpc_request.cpp
 
-Temp/HI3531D/moc_json_rpc_socket.o: Temp/HI3531D/moc_json_rpc_socket.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_socket.o Temp/HI3531D/moc_json_rpc_socket.cpp
+Temp/HI3521D/moc_json_rpc_server.o: Temp/HI3521D/moc_json_rpc_server.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_server.o Temp/HI3521D/moc_json_rpc_server.cpp
 
-Temp/HI3531D/moc_json_rpc_client.o: Temp/HI3531D/moc_json_rpc_client.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_client.o Temp/HI3531D/moc_json_rpc_client.cpp
+Temp/HI3521D/moc_json_rpc_socket.o: Temp/HI3521D/moc_json_rpc_socket.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_socket.o Temp/HI3521D/moc_json_rpc_socket.cpp
 
-Temp/HI3531D/moc_json_rpc_tcp_client.o: Temp/HI3531D/moc_json_rpc_tcp_client.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_tcp_client.o Temp/HI3531D/moc_json_rpc_tcp_client.cpp
+Temp/HI3521D/moc_json_rpc_client.o: Temp/HI3521D/moc_json_rpc_client.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_client.o Temp/HI3521D/moc_json_rpc_client.cpp
 
-Temp/HI3531D/moc_json_rpc_tcp_server.o: Temp/HI3531D/moc_json_rpc_tcp_server.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_tcp_server.o Temp/HI3531D/moc_json_rpc_tcp_server.cpp
+Temp/HI3521D/moc_json_rpc_tcp_client.o: Temp/HI3521D/moc_json_rpc_tcp_client.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_tcp_client.o Temp/HI3521D/moc_json_rpc_tcp_client.cpp
 
-Temp/HI3531D/moc_json_rpc_tcp_socket.o: Temp/HI3531D/moc_json_rpc_tcp_socket.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_json_rpc_tcp_socket.o Temp/HI3531D/moc_json_rpc_tcp_socket.cpp
+Temp/HI3521D/moc_json_rpc_tcp_server.o: Temp/HI3521D/moc_json_rpc_tcp_server.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_tcp_server.o Temp/HI3521D/moc_json_rpc_tcp_server.cpp
 
-Temp/HI3531D/moc_Record.o: Temp/HI3531D/moc_Record.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_Record.o Temp/HI3531D/moc_Record.cpp
+Temp/HI3521D/moc_json_rpc_tcp_socket.o: Temp/HI3521D/moc_json_rpc_tcp_socket.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_json_rpc_tcp_socket.o Temp/HI3521D/moc_json_rpc_tcp_socket.cpp
 
-Temp/HI3531D/moc_Push.o: Temp/HI3531D/moc_Push.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_Push.o Temp/HI3531D/moc_Push.cpp
+Temp/HI3521D/moc_Record.o: Temp/HI3521D/moc_Record.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_Record.o Temp/HI3521D/moc_Record.cpp
 
-Temp/HI3531D/moc_UART.o: Temp/HI3531D/moc_UART.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_UART.o Temp/HI3531D/moc_UART.cpp
+Temp/HI3521D/moc_Push.o: Temp/HI3521D/moc_Push.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_Push.o Temp/HI3521D/moc_Push.cpp
 
-Temp/HI3531D/moc_ChannelNDI.o: Temp/HI3531D/moc_ChannelNDI.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3531D/moc_ChannelNDI.o Temp/HI3531D/moc_ChannelNDI.cpp
+Temp/HI3521D/moc_UART.o: Temp/HI3521D/moc_UART.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_UART.o Temp/HI3521D/moc_UART.cpp
+
+Temp/HI3521D/moc_ChannelNDI.o: Temp/HI3521D/moc_ChannelNDI.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelNDI.o Temp/HI3521D/moc_ChannelNDI.cpp
+
+Temp/HI3521D/moc_ChannelAlsa.o: Temp/HI3521D/moc_ChannelAlsa.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/moc_ChannelAlsa.o Temp/HI3521D/moc_ChannelAlsa.cpp
 
 ####### Install
 

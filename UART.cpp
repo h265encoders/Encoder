@@ -25,6 +25,8 @@ bool UART::update(QString json)
 
     if(cfg["device"].toString()!=uart.portName() || cfg["baudRate"].toInt()!=uart.baudRate())
     {
+        if(uart.isOpen())
+            uart.close();
         uart.setPortName(cfg["device"].toString());
         if(uart.open(QIODevice::ReadWrite))
         {

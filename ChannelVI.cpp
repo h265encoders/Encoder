@@ -160,6 +160,12 @@ void ChannelVI::updateConfig(QVariantMap cfg)
         else
             encV2->stop();
 
+//        {
+//            QVariantMap dataSnap;
+//            dataSnap["width"]=cfg["encv"].toMap()["width"].toInt();
+//            dataSnap["height"]=cfg["encv"].toMap()["height"].toInt();
+//            snap->setData(dataSnap);
+//        }
 
 
     }

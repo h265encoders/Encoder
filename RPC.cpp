@@ -35,6 +35,9 @@ void RPC::init()
 
     if(Config::chns[0]->muxMap.contains("ndi"))
         Config::chns[0]->muxMap["ndi"]->linkE(device);
+
+    system("pkill trans");
+    startTrans();
 }
 
 
@@ -341,6 +344,20 @@ bool RPC::setNetDhcp(const bool &dhcp)
     return true;
 }
 
+bool RPC::setTrans(QString json)
+{
+    QFile file("/link/config/trans.json");
+    if(!file.open(QFile::ReadWrite))
+        return false;
+    file.resize(0);
+    file.write(json.toUtf8());
+    file.close();
+
+    startTrans();
+
+    return true;
+}
+
 QString RPC::writeCom(const QString &com)
 {
     QProcess proc;
@@ -354,4 +371,32 @@ QString RPC::writeCom(const QString &com)
     QByteArray procOutput = proc.readAll();
     proc.close();
     return QString(procOutput);
+}
+
+void RPC::startTrans()
+{
+    QVariantMap cfg=Json::loadFile("/link/config/trans.json").toMap();
+    static QVariantMap curCfg;
+    if(curCfg==cfg)
+        return;
+
+    curCfg=cfg;
+
+
+    if(procTrans.isOpen())
+    {
+        procTrans.terminate();
+        procTrans.waitForFinished(300);
+    }
+
+    if(!cfg["enable"].toBool())
+        return;
+
+    QVariantMap map;
+    map["DevBind"]=cfg["DevBind"];
+    map["Name"]=cfg["Name"];
+    QString json=Json::encode(map,false);
+    QStringList args;
+    args<<"wx.linkpi.cn:5555"<<json;
+    procTrans.start("/link/bin/trans",args);
 }
