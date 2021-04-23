@@ -121,6 +121,7 @@ bool Record::execute(const QString &json)
     QVariantMap any = config["any"].toMap();
     any["fileName"] = fname;
     QVariantList channels = config["channels"].toList();
+    QVariantMap fragment = any["fragment"].toMap();
     hasRec = false;
 
     for(int i=0;i<channels.count();i++)
@@ -143,7 +144,8 @@ bool Record::execute(const QString &json)
                 QString com = "ls "+fileName+"*."+format + " | wc -l";
                 QString result = writeCom(com);
                 QString name = fileName+QString::number(result.toInt());
-                chn->startRecord(name,format);
+
+                chn->startRecord(name,format,fragment);
             }
             else
                 chn->stopRecord(format);
@@ -250,6 +252,7 @@ bool Record::start()
         return false;
 
     QVariantMap anyObj = config["any"].toMap();
+    QVariantList chns = anyObj["chns"].toList();
 
     anyObj["fileName"] = "";
     config["any"] = anyObj;
@@ -259,10 +262,21 @@ bool Record::start()
     for(int i=0;i<channels.count();i++)
     {
         QVariantMap chnMap = channels[i].toMap();
-        for(QString format:formats)
+        if(chns.contains(chnMap["id"]))
         {
-            chnMap[format] = anyObj[format];
+            for(QString format:formats)
+            {
+                chnMap[format] = anyObj[format];
+            }
         }
+        else
+        {
+            for(QString format:formats)
+            {
+                chnMap[format] = false;
+            }
+        }
+
         chnMap["duration"] = "--:--:--";
         list << chnMap;
     }
