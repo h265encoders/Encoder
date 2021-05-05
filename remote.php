@@ -1,8 +1,8 @@
 <?php
 include( "head.php" );
 ?>
-<link href="css/fontawesome-iconpicker.min.css" rel="stylesheet">
-<link href="css/loading.css" rel="stylesheet">
+<link href="/css/fontawesome-iconpicker.min.css" rel="stylesheet">
+<link href="/css/loading.css" rel="stylesheet">
 <div id="alert"></div>
     <div class="row" id="effect">
         <div class="col-md-6 col-md-offset-3">
@@ -197,9 +197,9 @@ include( "head.php" );
             <en>{{en}}</en>
             <span class="caret"></span>
         </button>
-        <div class="dropdown-menu" style="width: 390px;padding:20px 0px 10px 20px">
+        <div class="dropdown-menu" style="width: 550px;padding:20px 0px 10px 20px">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <ul>
                         {{#each mods1}}
                             <li class="dropdown-header">
@@ -217,7 +217,7 @@ include( "head.php" );
                         {{/each}}
                     </ul>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-4">
                     <ul>
                         {{#each mods2}}
                             <li class="dropdown-header">
@@ -235,12 +235,31 @@ include( "head.php" );
                         {{/each}}
                     </ul>
                 </div>
+                <div class="col-md-4">
+                    <ul>
+                        {{#each mods3}}
+                        <li class="dropdown-header">
+                            <cn>{{titleCH}}</cn>
+                            <en>{{titleEN}}</en>
+                        </li>
+                        {{#each func}}
+                        <li><a style="cursor: pointer;font-size: 12px;" onclick="setDropVal('{{../../menuId}}','{{ch}}','{{en}}','{{../../icon}}','{{../../type}}')">
+                                <cn>{{ch}}</cn>
+                                <en>{{en}}</en>
+                            </a>
+                        </li>
+                        {{/each}}
+                        <li class="divider"></li>
+                        {{/each}}
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
 </script>
 
 <script>
+
     var iconMap = {"my-ok":"ok", "my-9":"9", "my-8":"8", "my-7":"7", "my-6":"6", "my-5":"5", "my-4":"4", "my-3":"3", "my-2":"2", "my-1":"1", "my-0":"0",}
     var features = null;
     var feaArray = [];
@@ -342,7 +361,7 @@ include( "head.php" );
             else
                 config["used"] = false;
         }
-        func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 rpc4("remote.updateConfig", [], function (data) {
                     initFeatures();
@@ -362,7 +381,7 @@ include( "head.php" );
     });
 
     $("#saveProject").click(function () {
-        func("saveConfigFile",{path: "config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
+        func("saveConfigFile",{path: "/config/oled/remfea.json",data: JSON.stringify(feaArray,null,2)},function (res) {
             if(res["result"] === "OK"){
                 rpc4("remote.updateConfig", [], function (data) {
                     htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save success!</en>", "", 3000);
@@ -374,9 +393,40 @@ include( "head.php" );
 
 	$( function () {
 		navIndex( 4 );
-        $.ajax({url:"config/oled/remods.json",success:function(data){
+        $.ajax({url:"/config/oled/remods.json",success:function(data){
                 features = data;
-                $.ajax({url:"config/oled/remfea.json",success:function(data){
+                var mods3 = new Array();
+                var func = new Array();
+                var obj = {
+                    titleCH:"布局模块",
+                    titleEN:"Layout",
+                    func:func
+                }
+                mods3.push(obj);
+                features["mods3"] = mods3;
+                //加载自定义布局模块
+                $.ajax({url:"/config/defLays.json",success:function (data) {
+                        //var func = new Array();
+                        for(var i=0;i<data.length;i++){
+                            var mark = false;
+                            var layouts = data[i].layouts;
+                            for(var j=0;j<layouts.length;j++) {
+                                var id = layouts[j].id;
+                                if(parseInt(id) >= 0){
+                                    mark = true;
+                                    break;
+                                }
+                            }
+                            if(mark){
+                                var lay = {
+                                    ch:data[i].layName,
+                                    en:data[i].layNameEn
+                                }
+                                func.push(lay);
+                            }
+                        }
+                    }})
+                $.ajax({url:"/config/oled/remfea.json",success:function(data){
                         feaArray = data;
                         initFeatures();
                         for(var i=0;i<feaArray.length;i++){

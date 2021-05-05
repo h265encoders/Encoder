@@ -318,9 +318,8 @@ echo isset($extraVo)?$extraVo:"VGA";
 			var mixSrcV = mixCfg["srcV"];
 
 			//如果自定义布局中存在指定输入源
-			if(type){
+			if(type)
                 mixCfg["srcV"] = temp;
-            }
 			// for(var i=0;i<mixSrcV.length;i++){
 			//     if( i >= temp.length)
 			//         break;
@@ -379,7 +378,22 @@ echo isset($extraVo)?$extraVo:"VGA";
 	function setChannel( id ) {
 		curChn = id;
 		mixCfg = config[id];
-		var str=JSON.stringify(mixCfg["layout"]);
+		// key值重新排序，为对比做准备
+        var layList = [];
+        for(var i=0;i<mixCfg["layout"].length;i++)
+        {
+            var layout = mixCfg["layout"][i];
+            var layObj = {
+                "a": layout["a"],
+                "x": layout["x"],
+                "y": layout["y"],
+                "w": layout["w"],
+                "h": layout["h"],
+                "index": layout["index"]
+            }
+            layList.push(layObj);
+        }
+		var str=JSON.stringify(layList);
 		curLayIndex=6;
 		for(var i=0;i<SysLayout.length;i++){
 			if(JSON.stringify(SysLayout[i])==str)
