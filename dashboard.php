@@ -225,7 +225,10 @@ include("head.php");
                 var first = true;
                 function getVolume() {
                     rpc( "enc.getVolume", null, function ( data ) {
-                        setTimeout(getVolume,200);
+                        if(window.location.host=="wx.linkpi.cn")
+                            setTimeout(getVolume,1000);
+                        else
+                            setTimeout(getVolume,200);
                         var k = 0;
                         for ( var i = 0; i < config.length; i++ ) {
 
@@ -246,7 +249,10 @@ include("head.php");
                     if ( !$( "#previewSwitch" ).is( ":checked" ) )
                         return;
                     rpc( "enc.snap", null, function ( ret ) {
-                        setTimeout(show,500);
+                        if(window.location.host=="wx.linkpi.cn")
+                            setTimeout(show,2000);
+                        else
+                            setTimeout(show,500);
                         if ( first ) {
                             first = false;
                             return;

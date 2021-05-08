@@ -162,6 +162,10 @@ function setEDID() {
 	exec( 'echo '.$_POST[ 'edid' ].' > /link/config/curEDID' );
 }
 
+function setColor() {
+	exec( 'echo '.$_POST[ 'color' ].' > /link/config/edid/colorMode' );
+}
+
 function addNewTheme() {
 	global  $result;
 	exec( "cp /link/web/css/theme/default.css /link/web/css/theme/".$_POST["name"].".css");

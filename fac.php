@@ -235,6 +235,38 @@ include( "head.php" );
 			</div>
 		</div>
 	</div>
+	<div class="col-md-6 col-md-offset-3">
+		<div class="panel panel-default">
+			<div class="title">
+				<h3 class="panel-title">
+					ColorMode
+				</h3>
+			</div>
+			<div class="panel-body">
+				<form class="form-horizontal" id="color" role="form">
+					<div class="form-group">
+						<label class="col-sm-3 control-label">
+							ColorMode
+						</label>
+						<div class="col-sm-6">
+							<select name="color" id="colorVal" class="form-control">
+								<option value="0">Mode1</option>
+								<option value="1">Mode2</option>
+								<option value="2">Mode3</option>
+							</select>
+						</div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-6 col-sm-offset-3">
+							<button type="button" id="setColor" class=" save btn btn-warning">
+								设定
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-default">
@@ -381,6 +413,16 @@ include( "head.php" );
 
 		$( "#setEDID" ).click( function () {
 			func("setEDID",$( "#edid" ).serialize(), function ( res ) {
+				if ( res.error != "" )
+					htmlAlert( "#alert", "danger", res.error, "", 2000 );
+				else
+					htmlAlert( "#alert", "success", "修改成功", "", 2000 );
+			} );
+
+		} );
+
+		$( "#setColor" ).click( function () {
+			func("setColor",$( "#color" ).serialize(), function ( res ) {
 				if ( res.error != "" )
 					htmlAlert( "#alert", "danger", res.error, "", 2000 );
 				else
