@@ -10,9 +10,9 @@ include( "head.php" );
                         <cn>录制参数</cn>
                         <en>Record config</en>
                     </h3>
-                    <div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">
+                    <!--<div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">
                         <i class="fa fa-cog" aria-hidden="true" onclick="onSetting()"></i>
-                    </div>
+                    </div>-->
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-center" style="margin-top: 30px;margin-left: 10px">
