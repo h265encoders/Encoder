@@ -126,9 +126,9 @@ void Channel::init(QVariantMap)
     path["path"]="srt://:" + QString::number(9000+id)+"?mode=listener&latency=50";
     muxMap["srt"]->setData(path);
 
-//    muxMap["sls"]=Link::create("Mux");
-//    path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
-//    muxMap["sls"]->setData(path);
+    //    muxMap["sls"]=Link::create("Mux");
+    //    path["path"]="srt://127.0.0.1:8080?streamid=push/live/stream" + QString::number(id);
+    //    muxMap["sls"]->setData(path);
 
 
     muxMap["ts"]=Link::create("Mux");
@@ -169,9 +169,9 @@ void Channel::init(QVariantMap)
         path["path"]="srt://:" + QString::number(9100+id)+"?mode=listener&latency=50";
         muxMap_sub["srt"]->setData(path);
 
-//        muxMap_sub["sls"]=Link::create("Mux");
-//        path["path"]="srt://127.0.0.1:8080?streamid=push/live/sub" + QString::number(id);
-//        muxMap_sub["sls"]->setData(path);
+        //        muxMap_sub["sls"]=Link::create("Mux");
+        //        path["path"]="srt://127.0.0.1:8080?streamid=push/live/sub" + QString::number(id);
+        //        muxMap_sub["sls"]->setData(path);
 
         muxMap_sub["ts"]=Link::create("Mux");
         path["format"]="mpegts";
@@ -508,33 +508,29 @@ void Channel::startRecord(const QString &fileName, const QString &format, QVaria
     QVariantMap data;
     LinkObject *mux = formatMap[format];
 
-    if(format == "mp4")
+    if(format == "mp4" && !fragment.isEmpty())
     {
-        if(!fragment.isEmpty())
+        bool duraEnable = fragment["segmentDuraEnable"].toBool();
+        bool sizeEnable = fragment["segmentSizeEnable"].toBool();
+        if(duraEnable)
         {
-            bool duraEnable = fragment["segmentDuraEnable"].toBool();
-            bool sizeEnable = fragment["segmentSizeEnable"].toBool();
-            if(duraEnable)
-            {
-                data["segmentDuration"] = fragment["segmentDura"].toInt()*1000;
-                data["segmentSize"] = 0;
-                data["path"] = fileName+"_%d."+format;
-            }
-            if(sizeEnable)
-            {
-                data["segmentDuration"] = 0;
-                data["segmentSize"] = fragment["segmentSize"].toInt()*1024*1024;
-                data["path"] = fileName+"_%d."+format;
-            }
-            if(!duraEnable && !sizeEnable)
-            {
-                data["segmentDuration"] = 0;
-                data["segmentSize"] = 0;
-                data["path"] = fileName+"_0."+format;
-            }
-            data["startNum"] = 0;
+            data["segmentDuration"] = fragment["segmentDura"].toInt()*1000;
+            data["segmentSize"] = 0;
+            data["path"] = fileName+"_%d."+format;
         }
-
+        if(sizeEnable)
+        {
+            data["segmentDuration"] = 0;
+            data["segmentSize"] = fragment["segmentSize"].toInt()*1024*1024;
+            data["path"] = fileName+"_%d."+format;
+        }
+        if(!duraEnable && !sizeEnable)
+        {
+            data["segmentDuration"] = 0;
+            data["segmentSize"] = 0;
+            data["path"] = fileName+"_0."+format;
+        }
+        data["startNum"] = 0;
     }
     else
     {
@@ -631,8 +627,8 @@ void Channel::cdTimeout()
 
     for(int i=0;i<modList.count();i++)
     {
-         CdType mod = modList[i];
-         QVariantMap layObj = layList[mod.layListIndex].toMap();
+        CdType mod = modList[i];
+        QVariantMap layObj = layList[mod.layListIndex].toMap();
         if(mod.type == "countdown")
         {
             layObj["content"] = content;
@@ -688,8 +684,8 @@ void Channel::cdTimeout()
         cd_timer->stop();
         for(int i=0;i<modList.count();i++)
         {
-             CdType mod = modList[i];
-             QVariantMap layObj = layList[mod.layListIndex].toMap();
+            CdType mod = modList[i];
+            QVariantMap layObj = layList[mod.layListIndex].toMap();
             if(mod.type == "countdown")
             {
                 layObj["content"] = "00:00:00";

@@ -12,6 +12,7 @@ ChannelNet::ChannelNet(QObject *parent) :
     ev=Link::create("EncodeV");
     encV2=Link::create("EncodeV");
     ea=Link::create("EncodeA");
+    queue=Link::create("Queue");
     encV=net;
     encA=net;
 }
@@ -24,6 +25,7 @@ void ChannelNet::init(QVariantMap)
     decA->start();
     audio->start();
 
+    queue->linkV(video);
     net->linkV(video);
     net->linkA(decA)->linkA(audio);
     Channel::init();
@@ -151,7 +153,28 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         {
             nd["lowLatency"]=false;
             nd["buffer"]=true;
-            nd["sync"]=true;
+//            nd["sync"]=true;
+        }
+
+        if(bm==2 && cfg["net"].toMap()["decodeV"].toBool())
+        {
+            QVariantMap data;
+            data["delay"]=cfg["net"].toMap()["minDelay"].toInt();
+            queue->start(data);
+            net->unLinkV(video);
+            data.clear();
+            data["noThread"]=true;
+            video->setData(data);
+            net->linkV(queue);
+        }
+        else
+        {
+            queue->stop();
+            net->unLinkV(queue);
+            QVariantMap data;
+            data["block"]=false;
+            video->setData(data);
+            net->linkV(video);
         }
 
         if(encV!=net)

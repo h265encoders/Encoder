@@ -15,6 +15,7 @@ private:
     LinkObject *decA;
     LinkObject *ev;
     LinkObject *ea;
+    LinkObject *queue;
     QString url;
 signals:
 
