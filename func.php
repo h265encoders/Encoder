@@ -186,7 +186,7 @@ function saveTheme() {
 
 function saveConfigFile() {
 	global  $result;
-	file_put_contents( "/link".$_POST["path"], $_POST['data'] );
+	file_put_contents( "/link/".$_POST["path"], $_POST['data'] );
 	$result->result = "OK";
 }
 
