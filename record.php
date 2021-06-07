@@ -536,7 +536,7 @@ include( "head.php" );
                                 if(name2.indexOf(".jpg")>0)
                                     jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
                                 else{
-                                    if(name2.indexOf(".mp4")>0) {
+                                    if(false && name2.indexOf(".mp4")>0) {
                                         var nList = name2.split("_");
                                         var nn = nList[0].substring(0,7);
                                         var num = nList[1];
