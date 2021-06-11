@@ -15,6 +15,11 @@ html,body{
     background: var(--navbar_background);
 }
 
+.navbar-nav>li.active>a {
+    color: var(--navbar_item_color) !important;
+    background-color: var(--navbar_background) !important;
+}
+
 /* 导航栏 默认 字体图标颜色及背景色                                                             */
 .navc > li.active > a,.navc > li > a {
     color: var(--navbar_item_color) !important;

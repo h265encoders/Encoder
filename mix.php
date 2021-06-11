@@ -509,6 +509,22 @@ echo isset($extraVo)?$extraVo:"VGA";
 	} );
     $.ajaxSettings.async = true;
 
+    setInterval(function () {
+        $.getJSON( "config/defLays.json?rnd=" + Math.random(), function ( result ) {
+            defLays = result;
+            SysLayout = [];
+            for(var i=0;i<defLays.length;i++){
+                var defLay = defLays[i];
+                var las = defLay.layouts;
+                var layout = [];
+                for(var j=0;j<las.length;j++) {
+                    layout.push(las[j].pos);
+                }
+                SysLayout.push(layout);
+            }
+        } );
+    },1000)
+
 </script>
 <?php
 include( "foot.php" );

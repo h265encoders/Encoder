@@ -38,8 +38,7 @@
         margin-top: 15px
     }
 </style>
-
-<div class="modal fade bs-modal-lg"　id="myManager" tabindex="-1">
+<div class="modal fade bs-modal-lg" id="myManager" tabindex="-1">
     <div class="modal-dialog modal-lg" role="document" style="width: 90%">
         <div class="modal-content">
             <div class="modal-header">
@@ -50,6 +49,7 @@
                 </span>
             </div>
             <div class="modal-body">
+                <div id="themeAlert"></div>
                 <div class="row">
                     <div id="themeBox" class="col-md-2 col-sm-2 text-center"></div>
 <!--   第1列        -->
@@ -735,8 +735,8 @@
 </div>
 
 
-<div class="modal fade" id="myModal" tabindex="-1">
-    <div class="modal-dialog" role="document" style="width: 20%">
+<div class="modal fade" id="myModal" tabindex="-1" style="z-index: 10000">
+    <div class="modal-dialog" role="document" style="width: 20%;">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -753,7 +753,7 @@
     </div>
 </div>
 
-<div class="modal fade" id="delModal" tabindex="1">
+<div class="modal fade" id="delModal" tabindex="1" style="z-index: 10000;">
     <div class="modal-dialog" role="document" style="width: 20%">
         <div class="modal-content">
             <div class="modal-header">
@@ -814,6 +814,13 @@
         // 关键代码，如没将modal设置为 block，则$modala_dialog.height() 为零
         $this.css('display', 'block');
         $modal_dialog.css({'margin-top': Math.max(0, ($(window).height() - $modal_dialog.height()) / 2) });
+        if($this.attr("id") == "myManager"){
+            $("body").css("overflow","hidden");
+        }
+    });
+
+    $("#myManager").on('hide.bs.modal', function(){
+        $("body").css("overflow","auto");
     });
 
     function onSetKeyColor(key,data) {
@@ -822,8 +829,13 @@
         var index2 = data.indexOf(";");
         var color = data.substring(index1 + 1, index2);
 
-        $("#"+key).val(color);
+        //$("#"+key).val(color);
         $("#"+key).parent().next().children().css("background-color",color);
+        $("#"+key).colorpicker({format: "hex", color: color});
+        $("#"+key).colorpicker('setValue',color);
+        $("#"+key).colorpicker().on('changeColor', function () {
+            $(this).parent().next().children().css("background-color",$(this).val());
+        });
     }
 
     function onThemeClick(themeName) {
@@ -888,7 +900,7 @@
         $("#delModal").modal("show");
         $(".modal-backdrop").each(function (index,obj) {
             if(index === 1)
-                $(obj).hide();
+                $(obj).css("z-index","9999")
         })
     }
 
@@ -966,24 +978,38 @@
         css = css.replace(/ /g,"");
 
         func("saveTheme",{"css": css,"name":themeName},function (res) {
-            if(res["result"] === "OK") {
-                //htmlAlert("#alert", "success", "<cn>保存成功！</cn><en>Save success!</en>", "", 3000);
-                alert("Save Success");
-            }
+            if(res["result"] === "OK")
+                htmlAlert("#themeAlert", "success", "<cn>保存成功！</cn><en>Save success!</en>", "", 3000);
         })
     }
 
     function onAddTheme() {
+        var themes = themeObj["themes"];
+        if(themes.length >= 15) {
+            htmlAlert("#themeAlert", "danger", "<cn>新建主题失败，最多保存15个主题!</cn><en>New theme failed, save up to 15 themes!</en>", "", 3000);
+            return;
+        }
         $("#myModal").modal("show");
         $(".modal-backdrop").each(function (index,obj) {
             if(index === 1)
-                $(obj).hide();
+                $(obj).css("z-index","9999")
         })
     }
     function onNewThemeOK() {
         var name = $("#newThemeName").val();
         if(name === "" || name === null || name === undefined)
             return;
+
+        var themes = themeObj["themes"];
+        for(var i=0;i<themes.length;i++) {
+            var themeName = themes[i];
+            themeName = themeName.replace(/\s+/g,"");
+            if(themeName == name) {
+                htmlAlert("#themeAlert", "danger", "<cn>主题名重复!</cn><en>The name of theme is duplication!</en>", "", 3000);
+                return;
+            }
+        }
+
         var obj = {"name":name};
         func("addNewTheme",obj,function (res) {
             if(res["result"] === "OK") {
@@ -1020,9 +1046,8 @@
                 var themes = data["themes"];
                 for(var i=0;i<themes.length;i++){
                     var opt = new Option(themes[i],themes[i]);
-                    if(themes[i] === used) {
+                    if(themes[i] === used)
                         opt.selected = true;
-                    }
                     $("#theme")[0].add(opt);
                 }
 
@@ -1030,14 +1055,7 @@
                 var template = Handlebars.compile(theme_tpl);
                 var html = template(themes);
                 $("#themeBox").html(html);
-
-                $( '.colorPicker' ).colorpicker( {
-                    "format": "hex"
-                } );
-                $('.colorPicker').on('change', function () {
-                    $(this).parent().next().children().css("background-color",$(this).val());
-                });
-        }}).responseText;
+        }});
 
         setTimeout(function () {
             onThemeClick("default");
