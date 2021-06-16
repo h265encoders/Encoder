@@ -141,9 +141,13 @@ function　linkHref(path) {
 	$('head')[0].appendChild(link);
 }
 
-linkHref("css/theme/clear.css");
-linkHref("css/theme/"+getUsedTheme()+".css");
-linkHref("css/theme/theme.css");
+var usedTheme=getUsedTheme();
+if(usedTheme!="")
+{
+	linkHref("css/theme/clear.css");
+	linkHref("css/theme/"+getUsedTheme()+".css");
+	linkHref("css/theme/theme.css");
+}
 
 $(function(){
 	$.ajaxSetup({

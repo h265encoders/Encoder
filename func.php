@@ -206,7 +206,7 @@ function delFile() {
 
 function testNet(){
 	global $result;
-	exec('timeout -t 2 ping www.qq.com -c1',$result->result);
+	exec('timeout -t 2 ping www.baidu.com -c1',$result->result);
 }
 
 function setVideoBuffer() {
