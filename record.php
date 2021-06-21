@@ -10,9 +10,9 @@ include( "head.php" );
                         <cn>录制参数</cn>
                         <en>Record config</en>
                     </h3>
-                    <!--<div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">
+                    <div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">
                         <i class="fa fa-cog" aria-hidden="true" onclick="onSetting()"></i>
-                    </div>-->
+                    </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-center" style="margin-top: 30px;margin-left: 10px">
@@ -257,9 +257,9 @@ include( "head.php" );
                                                 <cn>时长分段</cn>
                                                 <en>Time</en>
                                             </div>
-                                            <div class="col-sm-3" style="font-size: 12px;color: #aaaaaa;padding: 0">
-                                                <cn>[单位秒]</cn>
-                                                <en>[unit s]</en>
+                                            <div class="col-sm-4" style="font-size: 12px;color: #aaaaaa;padding: 0">
+                                                <cn>[单位小时]</cn>
+                                                <en>[unit hour]</en>
                                             </div>
                                         </div>
                                     </label>
@@ -277,9 +277,9 @@ include( "head.php" );
                                                 <cn>大小分段</cn>
                                                 <en>Size</en>
                                             </div>
-                                            <div class="col-sm-3" style="font-size: 12px;color: #aaaaaa;padding: 0">
-                                                <cn>[单位M]</cn>
-                                                <en>[unit M]</en>
+                                            <div class="col-sm-4" style="font-size: 12px;color: #aaaaaa;padding: 0">
+                                                <cn>[单位Gb]</cn>
+                                                <en>[unit Gb]</en>
                                             </div>
                                         </div>
                                     </label>
@@ -358,6 +358,7 @@ include( "head.php" );
             playName = name;
             playStart = parseInt(start);
             playCount = parseInt(count);
+
             var host = window.location.host;
             var path = "http://" + host + path + name +"_"+start+".mp4";
             $("#player").attr("src",path);
@@ -377,7 +378,8 @@ include( "head.php" );
         function onPlayFragment(type){
             var curUrl = $("#player").attr("src");
             var list = curUrl.split("_");
-            var curNum = list[2].substring(0,1);
+            var curNum = list[2].substring(0,list[2].indexOf("."));
+
             if(type == "next") {
                 var nextNum = parseInt(curNum)+1;
                 if(nextNum < playStart+playCount){
@@ -499,7 +501,6 @@ include( "head.php" );
                 var path = '/files/' + name + '/';
                 var tmp = "";
                 $.getJSON( path, function ( list1 ) {
-
                     var dirMark = false;
                     for(var i=0;i<list1.length;i++)
                     {
@@ -526,7 +527,7 @@ include( "head.php" );
                             var tmp2="";
                             var jpg="";
                             var mp4="";
-                            var start = 0;
+                            var start = 99999;
                             var count = 0;
                             var mark = "";
 
@@ -536,15 +537,16 @@ include( "head.php" );
                                 if(name2.indexOf(".jpg")>0)
                                     jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
                                 else{
-                                    if(false && name2.indexOf(".mp4")>0) {
+                                    if(name2.indexOf(".mp4")>0) {
                                         var nList = name2.split("_");
                                         var nn = nList[0].substring(0,7);
                                         var num = nList[1];
                                         num = num.substring(0,num.indexOf(".mp4"));
-                                        if(mark == ""){
+                                        if(mark == "")
+
                                             mark = nn;
-                                            start = num;
-                                        }
+                                        if(parseInt(num) < start)
+                                            start = parseInt(num);
 
                                         if(nn != mark){
                                             var mp4Name = mark + ".mp4";
@@ -577,15 +579,17 @@ include( "head.php" );
         }
 
         function onDownloadMp4(path,name,startNum,count) {
-            for(var i=0;i<count;i++){
-                var url = path+name+"_"+(parseInt(startNum)+i)+".mp4";
-                var a = document.createElement('a');
-                var e = document.createEvent('MouseEvents');
-                e.initEvent('click', false, false);
-                a.href = url;
-                a.download = name+"_"+(i+1)+".mp4";
-                a.dispatchEvent(e)
-            }
+            (new Array(parseInt(count)).fill(0)).forEach(function(item, index) {
+                setTimeout(()=>{
+                    var url = path+name+"_"+(parseInt(startNum)+index)+".mp4";
+                    var a = document.createElement('a');
+                    var e = document.createEvent('MouseEvents');
+                    e.initEvent('click', false, false);
+                    a.href = url;
+                    a.download = name+"_"+(index+1)+".mp4";
+                    a.dispatchEvent(e);
+                },200 * index)
+            });
         }
         function onTimer() {
             var channels = config["channels"];
