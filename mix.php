@@ -245,6 +245,7 @@ echo isset($extraVo)?$extraVo:"VGA";
 	var defLays = null;
 	var curLayIndex = 0;
 	var SysLayout = [];
+	var mixV = [];
 
     $("#myModal").on('show.bs.modal', function(){
         var $this = $(this);
@@ -290,7 +291,7 @@ echo isset($extraVo)?$extraVo:"VGA";
 				
 			if ( config[ i ].type != "mix" )
 				continue;
-			
+			mixV = config[i].srcV;
 			$( "#channels" ).append( '<option value="' + config[ i ].id + '">' + config[ i ].name + '</option>' );
 			zcfg("#output",config[ i ]);
 			
@@ -347,7 +348,17 @@ echo isset($extraVo)?$extraVo:"VGA";
 		$("#layout").html('');
 		for(var i=0;i<layout.length;i++){
 			var lay=$("#templeLay").clone();
-			
+            var optlist = lay.find("#laySrc").find("option").toArray();
+            for(var k=optlist.length-1;k>=0;k--){
+                var opt = optlist[k];
+                var id = $(opt).val()+"";
+                for(var n=0;n<mixV.length;n++) {
+                    if(id == mixV[n] && id != mixV[i] && id != "-1"){
+                        lay.find("#laySrc")[0].options.remove(k);
+                    }
+                }
+            }
+
 			lay.css("display","block");
 			lay.css("left",(layout[i].x*100)+"%");
 			lay.css("top",(layout[i].y*100)+"%");
@@ -432,6 +443,20 @@ echo isset($extraVo)?$extraVo:"VGA";
 			}
 				
 		}
+		mixV = srcV;
+        for(var i=0;i<$("#layout #templeLay").length;i++){
+            var lay=$("#layout #templeLay").eq(i);
+            lay.find("#laySrc")[0].options.length = 1;
+            for ( var k = 0; k < config.length; k++ ) {
+                if(config[k].type != "file"){
+                    if($.inArray(config[k].id+"",mixV) < 0 || config[k].id+"" == mixV[i]){
+                        lay.find("#laySrc").append( '<option value="' + config[ k ].id + '">' + config[ k ].name + '</option>' );
+                    }
+                }
+            }
+            lay.find("#laySrc").val(mixV[i]);
+        }
+
 		mixCfg["srcA"]=srcA;
 		mixCfg["srcV"]=srcV;
 		mixCfg["layout"]=SysLayout[curLayIndex];
