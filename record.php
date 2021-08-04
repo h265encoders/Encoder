@@ -236,8 +236,8 @@ include( "head.php" );
                         <div class="row">
                             <div class="col-md-10 col-sm-10">
                                 <h3 class="panel-title">
-                                    <cn>MP4分段设置</cn>
-                                    <en>MP4 Fragment Setting</en>
+                                    <cn>录制分段设置</cn>
+                                    <en>Fragment Setting</en>
                                 </h3>
                             </div>
                             <div class="col-md-2 col-sm-2">
@@ -250,26 +250,26 @@ include( "head.php" );
                     <div class="panel-body">
                         <div class="panel-body">
                             <form class="form-horizontal text-center" role="form" id="segment">
-                                <div class="form-group">
-                                    <label class="col-sm-4 control-label">
-                                        <div class="row">
-                                            <div class="col-sm-4 col-sm-offset-4" style="padding: 0">
-                                                <cn>时长分段</cn>
-                                                <en>Time</en>
-                                            </div>
-                                            <div class="col-sm-4" style="font-size: 12px;color: #aaaaaa;padding: 0">
-                                                <cn>[单位小时]</cn>
-                                                <en>[unit hour]</en>
-                                            </div>
-                                        </div>
-                                    </label>
-                                    <div class="col-sm-4">
-                                        <input zcfg="segmentDura" type="text" class="form-control">
-                                    </div>
-                                    <div class="col-sm-4">
-                                        <input id="segmentDuraEnable" zcfg="segmentDuraEnable" type="checkbox" class="switch form-control">
-                                    </div>
-                                </div>
+<!--                                <div class="form-group">-->
+<!--                                    <label class="col-sm-4 control-label">-->
+<!--                                        <div class="row">-->
+<!--                                            <div class="col-sm-4 col-sm-offset-4" style="padding: 0">-->
+<!--                                                <cn>时长分段</cn>-->
+<!--                                                <en>Time</en>-->
+<!--                                            </div>-->
+<!--                                            <div class="col-sm-4" style="font-size: 12px;color: #aaaaaa;padding: 0">-->
+<!--                                                <cn>[单位小时]</cn>-->
+<!--                                                <en>[unit hour]</en>-->
+<!--                                            </div>-->
+<!--                                        </div>-->
+<!--                                    </label>-->
+<!--                                    <div class="col-sm-4">-->
+<!--                                        <input zcfg="segmentDura" type="text" class="form-control">-->
+<!--                                    </div>-->
+<!--                                    <div class="col-sm-4">-->
+<!--                                        <input id="segmentDuraEnable" zcfg="segmentDuraEnable" type="checkbox" class="switch form-control">-->
+<!--                                    </div>-->
+<!--                                </div>-->
                                 <div class="form-group">
                                     <label class="col-sm-4 control-label">
                                         <div class="row">
@@ -306,7 +306,7 @@ include( "head.php" );
                                                 </button>
                                             </div>
                                             <div class="col-sm-2 col-sm-offset-1">
-                                                <button type="button" class=" save btn btn-warning" onclick="setMp4Segment()">
+                                                <button type="button" class=" save btn btn-warning" onclick="setSegment()">
                                                     <cn>设定</cn>
                                                     <en>Save</en>
                                                 </button>
@@ -354,14 +354,18 @@ include( "head.php" );
         } )
         function play( path,name,start,count) {
             $( '#playerModal' ).modal( 'show' );
-            playPath = path;
-            playName = name;
-            playStart = parseInt(start);
-            playCount = parseInt(count);
-
             var host = window.location.host;
-            var path = "http://" + host + path + name +"_"+start+".mp4";
-            $("#player").attr("src",path);
+            var url = "";
+            if(name.indexOf("mp4")>0) {
+                url = "http://" + host + path + name;
+            } else {
+                playPath = path;
+                playName = name;
+                playStart = parseInt(start);
+                playCount = parseInt(count);
+                url = "http://" + host + path + name +"_"+start+".mp4";
+            }
+            $("#player").attr("src",url);
             $('#player').trigger('play');
             if(count > 1){
                 $("#playTitleCn").html("视频播放(　分段1　)");
@@ -372,7 +376,6 @@ include( "head.php" );
                 $("#playTitleEn").html("Video player");
                 $("#btnBox").hide();
             }
-
         }
 
         function onPlayFragment(type){
@@ -418,18 +421,20 @@ include( "head.php" );
 
         function onSetting() {
             $( '#setModal' ).modal( 'show' );
-            var segmentDura=0,segmentSize=0;
+            var segmentDura=0,segmentSize=1;
             var segmentDuraEnable = false,segmentSizeEnable=false;
             var fragment = config["any"]["fragment"];
             if(config["any"].hasOwnProperty("fragment")){
-                if(fragment.hasOwnProperty("segmentDura"))
-                    segmentDura = fragment["segmentDura"];
-                if(fragment.hasOwnProperty("segmentSize"))
-                    segmentSize = fragment["segmentSize"];
-                if(fragment.hasOwnProperty("segmentDuraEnable"))
-                    segmentDuraEnable = fragment["segmentDuraEnable"];
-                if(fragment.hasOwnProperty("segmentSizeEnable"))
-                    segmentSizeEnable = fragment["segmentSizeEnable"];
+                if(fragment != null){
+                    if(fragment.hasOwnProperty("segmentDura"))
+                        segmentDura = fragment["segmentDura"];
+                    if(fragment.hasOwnProperty("segmentSize"))
+                        segmentSize = fragment["segmentSize"];
+                    if(fragment.hasOwnProperty("segmentDuraEnable"))
+                        segmentDuraEnable = fragment["segmentDuraEnable"];
+                    if(fragment.hasOwnProperty("segmentSizeEnable"))
+                        segmentSizeEnable = fragment["segmentSizeEnable"];
+                }
             }
             fragmentData = {
                 segmentDura: segmentDura,
@@ -440,7 +445,7 @@ include( "head.php" );
             zcfg( "#segment", fragmentData );
         }
         
-        function setMp4Segment() {
+        function setSegment() {
             rpc("rec.isRecordState", [], function (data) {
                 if(data) {
                     $("#info").show();
@@ -527,44 +532,62 @@ include( "head.php" );
                             var tmp2="";
                             var jpg="";
                             var mp4="";
-                            var start = 99999;
-                            var count = 0;
-                            var mark = "";
-
+                            var countMap = {};
                             for(var i=0;i<list2.length;i++){
                                 var name2=list2[i].name;
 
                                 if(name2.indexOf(".jpg")>0)
                                     jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
                                 else{
-                                    if(name2.indexOf(".mp4")>0) {
+                                    var start = 0;
+                                    var mark = "";
+                                    var format = name2.substring(name2.indexOf("."));
+                                    if(name2.indexOf("_")>0){
                                         var nList = name2.split("_");
-                                        var nn = nList[0].substring(0,7);
-                                        var num = nList[1];
-                                        num = num.substring(0,num.indexOf(".mp4"));
-                                        if(mark == "")
-                                            mark = nn;
-
-                                        if(parseInt(num) < start)
-                                            start = parseInt(num);
-
-                                        if(nn != mark){
-                                            var mp4Name = mark + ".mp4";
-                                            //mp4+='<li class="list-group-item" start="'+start+'" count="'+count+'"><a href="'+path2+mp4Name+'" download="' + mp4Name + '"><i class="fa fa-download"></i>'+mp4Name+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+mp4Name+'\');"><i class="fa fa-play"></i></button></li>';
-                                            mp4+='<li class="list-group-item"><a href="javascript:void(0)" onclick="onDownloadMp4(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\')"><i class="fa fa-download"></i>'+mp4Name+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\');"><i class="fa fa-play"></i></button></li>';
-                                            mark = nn;
-                                            count = 0;
-                                            start = num;
-                                        }
-                                        count++;
-                                        if(i == list2.length -1){
-                                            var mp4Name = mark + ".mp4";
-                                            mp4+='<li class="list-group-item"><a href="javascript:void(0)" onclick="onDownloadMp4(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\')"><i class="fa fa-download"></i>'+mp4Name+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path2+'\',\''+mark+'\',\''+start+'\',\''+count+'\');"><i class="fa fa-play"></i></button></li>';
-                                        }
+                                        mark = nList[0].substring(0,7);
+                                        start = nList[1].substring(0,nList[1].indexOf(format));
                                     } else {
-                                        tmp2+='<li class="list-group-item"><a href="'+path2+name2+'" download="' + name2 + '"><i class="fa fa-download"></i>'+name2+'</a></li>';
+                                            mark = name2;
+                                            start = 0;
                                     }
+
+                                    var fileName = "";
+                                    if(mark == name2)
+                                        fileName = mark;
+                                    else
+                                        fileName = mark + format;
+
+                                    var param = {};
+                                    if(countMap.hasOwnProperty(fileName)) {
+                                        param = countMap[fileName];
+                                        var count = param["count"];
+                                        count++;
+                                        param["count"] = count;
+                                    } else {
+                                        param = {
+                                            path: path2,
+                                            start: start,
+                                            mark: mark,
+                                            count: 1,
+                                            format: format
+                                        }
+                                    }
+                                    countMap[fileName] = param;
                                 }
+                            }
+                            for(var key in countMap){
+                                var fileName = key;
+                                var param = countMap[key];
+                                var path = param["path"];
+                                var mark = param["mark"];
+                                var start = param["start"];
+                                var count = param["count"];
+                                var format = param["format"];
+                                if(key.indexOf("mp4") > 0)
+                                    mp4+='<li class="list-group-item"><a href="javascript:void(0)" onclick="onDownload(\''+path+'\',\''+mark+'\',\''+start+'\',\''+count+'\',\''+format+'\')"><i class="fa fa-download"></i>'+fileName+'</a><button type="button" class="btn btn-default btn-xs pull-right" onClick="play(\''+path+'\',\''+mark+'\',\''+start+'\',\''+count+'\');"><i class="fa fa-play"></i></button></li>';
+                                else
+                                    tmp2+='<li class="list-group-item"><a href="javascript:void(0)" onclick="onDownload(\''+path+'\',\''+mark+'\',\''+start+'\',\''+count+'\',\''+format+'\')"><i class="fa fa-download"></i>'+fileName+'</a></li>';
+
                             }
                             tmp+=jpg+mp4+tmp2+'</ul></div>';
                         });
@@ -578,15 +601,23 @@ include( "head.php" );
             $( "#fileList" ).html( html );
         }
 
-        function onDownloadMp4(path,name,startNum,count) {
+        function onDownload(path,name,startNum,count,format) {
             (new Array(parseInt(count)).fill(0)).forEach(function(item, index) {
                 setTimeout(()=>{
-                    var url = path+name+"_"+(parseInt(startNum)+index)+".mp4";
+                    var url = "",downName="";
+                    if(name.indexOf(format) < 0) {
+                        url = path + name + "_" + (parseInt(startNum) + index) + format;
+                        //downName =　name+"_"+(index+1)+format;
+                        downName = "";
+                    } else {
+                        url = path + name;
+                        downName = "";
+                    }
                     var a = document.createElement('a');
                     var e = document.createEvent('MouseEvents');
                     e.initEvent('click', false, false);
                     a.href = url;
-                    a.download = name+"_"+(index+1)+".mp4";
+                    a.download = downName;
                     a.dispatchEvent(e);
                 },200 * index)
             });
