@@ -284,7 +284,7 @@ include( "head.php" );
                                         </div>
                                     </label>
                                     <div class="col-sm-4">
-                                        <input zcfg="segmentSize" type="text" class="form-control">
+                                        <input zcfg="segmentSize" disabled type="text" class="form-control">
                                     </div>
                                     <div class="col-sm-4">
                                         <input id="segmentSizeEnable" zcfg="segmentSizeEnable" type="checkbox" class="switch form-control">
@@ -539,23 +539,24 @@ include( "head.php" );
                                 if(name2.indexOf(".jpg")>0)
                                     jpg='<li class="list-group-item img"><img src="'+path2+name2+'" alt="..."></li>';
                                 else{
-                                    var start = 0;
+                                    var start = 99999;
                                     var mark = "";
                                     var format = name2.substring(name2.indexOf("."));
+                                    var fileName = "";
                                     if(name2.indexOf("_")>0){
                                         var nList = name2.split("_");
                                         mark = nList[0].substring(0,7);
-                                        start = nList[1].substring(0,nList[1].indexOf(format));
+                                        fileName = mark + format;
+                                        if(countMap.hasOwnProperty(fileName))
+                                            start = countMap[fileName].start;
+                                        var num = parseInt(nList[1].substring(0,nList[1].indexOf(format)));
+                                        if(num < start)
+                                            start = num;
                                     } else {
                                             mark = name2;
                                             start = 0;
+                                            fileName = mark;
                                     }
-
-                                    var fileName = "";
-                                    if(mark == name2)
-                                        fileName = mark;
-                                    else
-                                        fileName = mark + format;
 
                                     var param = {};
                                     if(countMap.hasOwnProperty(fileName)) {
@@ -563,6 +564,7 @@ include( "head.php" );
                                         var count = param["count"];
                                         count++;
                                         param["count"] = count;
+                                        param["start"] = start;
                                     } else {
                                         param = {
                                             path: path2,
