@@ -508,20 +508,20 @@ void Channel::startRecord(const QString &fileName, const QString &format, QVaria
     QVariantMap data;
     LinkObject *mux = formatMap[format];
 
-    if(format == "mp4" && !fragment.isEmpty())
+    if(!fragment.isEmpty())
     {
         bool duraEnable = fragment["segmentDuraEnable"].toBool();
         bool sizeEnable = fragment["segmentSizeEnable"].toBool();
         if(duraEnable)
         {
-            data["segmentDuration"] = fragment["segmentDura"].toInt()*1000;
+            data["segmentDuration"] = fragment["segmentDura"].toFloat()*1000*3600;
             data["segmentSize"] = 0;
             data["path"] = fileName+"_%d."+format;
         }
         if(sizeEnable)
         {
             data["segmentDuration"] = 0;
-            data["segmentSize"] = fragment["segmentSize"].toInt()*1024*1024;
+            data["segmentSize"] = fragment["segmentSize"].toFloat()*1024*1024*1024;
             data["path"] = fileName+"_%d."+format;
         }
         if(!duraEnable && !sizeEnable)
