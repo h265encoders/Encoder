@@ -26,6 +26,7 @@ void ChannelNet::init(QVariantMap)
     audio->start();
 
     queue->linkV(video);
+    queue->linkA(decA);
     net->linkV(video);
     net->linkA(decA)->linkA(audio);
     Channel::init();
@@ -151,9 +152,9 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         }
         else if(bm==2)
         {
-            nd["lowLatency"]=false;
-            nd["buffer"]=true;
-//            nd["sync"]=true;
+            nd["lowLatency"]=true;
+            nd["buffer"]=false;
+            nd["sync"]=false;
         }
 
         if(bm==2 && cfg["net"].toMap()["decodeV"].toBool())
@@ -162,19 +163,23 @@ void ChannelNet::updateConfig(QVariantMap cfg)
             data["delay"]=cfg["net"].toMap()["minDelay"].toInt();
             queue->start(data);
             net->unLinkV(video);
+            net->unLinkA(decA);
             data.clear();
             data["noThread"]=true;
             video->setData(data);
             net->linkV(queue);
+            net->linkA(queue);
         }
         else
         {
             queue->stop();
             net->unLinkV(queue);
+            net->unLinkA(queue);
             QVariantMap data;
             data["block"]=false;
             video->setData(data);
             net->linkV(video);
+            net->linkA(decA);
         }
 
         if(encV!=net)
@@ -213,6 +218,7 @@ void ChannelNet::updateConfig(QVariantMap cfg)
         if(encV!=net)
             encV->stop();
         net->stop();
+        decA->stop();
     }
     Channel::updateConfig(cfg);
 }

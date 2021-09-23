@@ -11,7 +11,7 @@
 #include <QProcess>
 
 RPC::RPC(QObject *parent) :
-    QObject(parent)
+    QObject(parent),timerSyncRTC(this)
 {
 }
 
@@ -36,8 +36,16 @@ void RPC::init()
     if(Config::chns[0]->muxMap.contains("ndi"))
         Config::chns[0]->muxMap["ndi"]->linkE(device);
 
-    system("pkill trans");
-    startTrans();
+
+    QVariantMap ntp=Json::loadFile("/link/config/ntp.json").toMap();
+    if(ntp["enable"].toBool())
+    {
+        device->invoke("syncRTC");
+        connect(&timerSyncRTC,SIGNAL(timeout()),this,SLOT(onTimerSyncRTC()));
+
+        timerSyncRTC.start(60000);
+    }
+
 }
 
 
@@ -353,9 +361,14 @@ bool RPC::setTrans(QString json)
     file.write(json.toUtf8());
     file.close();
 
-    startTrans();
+//    startTrans();
 
     return true;
+}
+
+void RPC::onTimerSyncRTC()
+{
+    device->invoke("syncRTC");
 }
 
 QString RPC::writeCom(const QString &com)
@@ -398,5 +411,5 @@ void RPC::startTrans()
     QString json=Json::encode(map,false);
     QStringList args;
     args<<"wx.linkpi.cn:5555"<<json;
-    procTrans.start("/link/bin/trans",args);
+    procTrans.startDetached("/link/bin/trans",args);
 }

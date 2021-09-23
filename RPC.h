@@ -6,6 +6,7 @@
 #include "Link.h"
 #include "Group.h"
 #include <QProcess>
+#include <QTimer>
 
 class RPC : public QObject
 {
@@ -19,6 +20,7 @@ private:
     jcon::JsonRpcTcpServer *rpcServer;
     LinkObject *device;
     QProcess procTrans;
+    QTimer timerSyncRTC;
 
     void startTrans();
 signals:
@@ -39,6 +41,8 @@ public slots:
     QVariantList getNDIList();
     bool setNetDhcp(const bool &dhcp = true);
     bool setTrans(QString json);
+
+    void onTimerSyncRTC();
 };
 extern RPC *GRPC;
 #endif // RPC_H
