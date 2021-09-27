@@ -74,7 +74,7 @@ body{
 
 
 /*标题栏背景色 及 字体颜色*/
-.panel-default .panel-heading,.panel .title {
+.panel-default .panel-heading {
     background-color: white;
     color: #333;
 }

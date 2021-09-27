@@ -26,6 +26,11 @@ html,body{
     background-color: var(--navbar_item_background) !important;
 }
 
+.panel-default .panel-heading{
+    background-color: var(--navbar_item_background) !important;
+    color: var(--navbar_item_color) !important;
+}
+
 /* 导航栏 划入 字体图标颜色及背景色                                                             */
 .navc > li.active > a,.navc > li > a:hover {
     color: var(--navbar_item_active) !important;

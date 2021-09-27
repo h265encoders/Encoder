@@ -89,6 +89,14 @@ include( "head.php" );
 								<option value="C3519A">C3519A</option>
 								<?php
 									}
+									else if($chip=="3531DV200")
+									{
+								?>
+								<option value="C3531DV200">C3531DV200</option>
+								<option value="ENC2">ENC2</option>
+								<option value="ENC4">ENC4</option>
+								<?php
+									}
 								?>
 							</select>
 						</div>

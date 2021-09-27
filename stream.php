@@ -426,11 +426,18 @@ if(!isset($HLS) || $HLS)
 						<cn>频道名称</cn>
 						<en>channel name</en>
 					</div>
-					<div class="col-md-2 col-xs-4">
-						<cn>模式</cn><en>Mode</en>
-					</div>
-					<div class="col-md-2 col-xs-4">
-						IP
+					<div class="col-md-4 col-xs-8">
+						<div class="row">
+						<div class="col-md-4">
+							<cn>模式</cn><en>Mode</en>
+						</div>
+						<div class="col-md-4">
+							IP
+						</div>
+						<div class="col-md-4">
+							StreamID
+						</div>
+						</div>
 					</div>
 					<div class="col-md-1 col-xs-2">
 						<cn>端口</cn><en>Port</en>
@@ -452,15 +459,22 @@ if(!isset($HLS) || $HLS)
 						<div class="col-md-2 col-xs-4">
 							<input zcfg="[#].name" type="text" class="form-control">
 						</div>
-						<div class="col-md-2 col-xs-4">
-							<select zcfg="[#].stream.srt.mode" class="form-control">
-								<option value="caller">caller</option>
-								<option value="listener">listener</option>
-								<option value="rendezvous">rendezvous</option>
-							</select>
-						</div>
-						<div class="col-md-2 col-xs-4">
-							<input zcfg="[#].stream.srt.ip" type="text" class="form-control">
+						<div class="col-md-4 col-xs-8">
+							<div class="row">
+							<div class="col-md-4">
+								<select zcfg="[#].stream.srt.mode" class="form-control">
+									<option value="caller">caller</option>
+									<option value="listener">listener</option>
+									<option value="rendezvous">rendezvous</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<input zcfg="[#].stream.srt.ip" type="text" class="form-control">
+							</div>
+							<div class="col-md-4">
+								<input zcfg="[#].stream.srt.streamid" type="text" class="form-control">
+							</div>
+							</div>
 						</div>
 						<div class="col-md-1 col-xs-2">
 							<input zcfg="[#].stream.srt.port" type="text" class="form-control">
@@ -478,15 +492,22 @@ if(!isset($HLS) || $HLS)
 					<div class="row" style="margin-top: 5px;">
 						<div class="col-md-2 col-xs-4">
 						</div>
-						<div class="col-md-2 col-xs-4">
-							<select zcfg="[#].stream2.srt.mode" class="form-control">
-								<option value="caller">caller</option>
-								<option value="listener">listener</option>
-								<option value="rendezvous">rendezvous</option>
-							</select>
-						</div>
-						<div class="col-md-2 col-xs-4">
-							<input zcfg="[#].stream2.srt.ip" type="text" class="form-control">
+						<div class="col-md-4 col-xs-8">
+							<div class="row">
+							<div class="col-md-4">
+								<select zcfg="[#].stream2.srt.mode" class="form-control">
+									<option value="caller">caller</option>
+									<option value="listener">listener</option>
+									<option value="rendezvous">rendezvous</option>
+								</select>
+							</div>
+							<div class="col-md-4">
+								<input zcfg="[#].stream2.srt.ip" type="text" class="form-control">
+							</div>
+							<div class="col-md-4">
+								<input zcfg="[#].stream2.srt.streamid" type="text" class="form-control">
+							</div>
+							</div>
 						</div>
 						<div class="col-md-1 col-xs-2">
 							<input zcfg="[#].stream2.srt.port" type="text" class="form-control">

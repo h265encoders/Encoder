@@ -222,6 +222,32 @@ function setVideoBuffer() {
 	$result->result = "OK";
 }
 
+function setNgrok() {
+	global $result;
+
+	if($_POST[ 'enable' ]=="on" || $_POST[ 'enable' ]=="true" || $_POST[ 'enable' ]=="checked")
+		file_put_contents( "/link/config/rproxy/ngrok_enable", "true");
+	else
+		file_put_contents( "/link/config/rproxy/ngrok_enable", "false");
+
+	file_put_contents( "/link/config/rproxy/ngrok.cfg", $_POST[ 'config' ]);
+
+	$result->result="OK";
+}
+
+function setFrp() {
+	global $result;
+
+	if($_POST[ 'enable' ]=="on" || $_POST[ 'enable' ]=="true" || $_POST[ 'enable' ]=="checked")
+		file_put_contents( "/link/config/rproxy/frp_enable", "true");
+	else
+		file_put_contents( "/link/config/rproxy/frp_enable", "false");
+
+	file_put_contents( "/link/config/rproxy/frpc.ini", $_POST[ 'config' ]);
+
+	$result->result="OK";
+}
+
 function showFunc() {
 global $result;
 $str = file_get_contents( '/link/web/config.php' );

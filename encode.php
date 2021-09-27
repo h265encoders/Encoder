@@ -231,7 +231,7 @@ include( "groupList.php" );
 								<select zcfg="audioSrc" class="form-control">
 									<option value="hdmi">HDMI</option>
 									<?php
-									if($type=="C3531D" || $type=="DSH" || $type=="C3531DV200")
+									if($type=="C3531D" || $type=="DSH" || $type=="C3531DV200" || $type=="ENCSH")
 									{
 									?>
 									<option value="sdi">SDI</option>
@@ -792,7 +792,7 @@ include( "groupList.php" );
 									<select zcfg="[#].enca.audioSrc" class="form-control">
 										<option value="hdmi">HDMI</option>
 										<?php
-										if($type=="C3531D" || $type=="DSH" || $type=="C3531DV200")
+										if($type=="C3531D" || $type=="DSH" || $type=="C3531DV200" || $type=="ENCSH")
 										{
 										?>
 										<option value="sdi">SDI</option>
