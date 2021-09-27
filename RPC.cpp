@@ -9,10 +9,36 @@
 #include "Push.h"
 #include "UART.h"
 #include <QProcess>
+#include <QDate>
 
 RPC::RPC(QObject *parent) :
     QObject(parent),timerSyncRTC(this)
 {
+    device=Link::create("Device");
+    device->start();
+}
+
+void RPC::startNTP()
+{
+    QVariantMap ntp=Json::loadFile("/link/config/ntp.json").toMap();
+    if(ntp["enable"].toBool())
+    {
+        QDate date=QDate::currentDate();
+        if(date.year()<2000)
+        {
+            QString cmd="ntpd -p " + ntp["server"].toString()+" -qNn";
+            system(cmd.toLatin1().data());
+        }
+
+        date=QDate::currentDate();
+        if(date.year()<2000)
+            return;
+
+        device->invoke("syncRTC");
+        connect(&timerSyncRTC,SIGNAL(timeout()),this,SLOT(onTimerSyncRTC()));
+
+        timerSyncRTC.start(60000);
+    }
 }
 
 void RPC::init()
@@ -29,23 +55,8 @@ void RPC::init()
     rpcServer->registerServices(map, ".");
     rpcServer->listen(6001);
 
-
-    device=Link::create("Device");
-    device->start();
-
     if(Config::chns[0]->muxMap.contains("ndi"))
         Config::chns[0]->muxMap["ndi"]->linkE(device);
-
-
-    QVariantMap ntp=Json::loadFile("/link/config/ntp.json").toMap();
-    if(ntp["enable"].toBool())
-    {
-        device->invoke("syncRTC");
-        connect(&timerSyncRTC,SIGNAL(timeout()),this,SLOT(onTimerSyncRTC()));
-
-        timerSyncRTC.start(60000);
-    }
-
 }
 
 
@@ -384,32 +395,4 @@ QString RPC::writeCom(const QString &com)
     QByteArray procOutput = proc.readAll();
     proc.close();
     return QString(procOutput);
-}
-
-void RPC::startTrans()
-{
-    QVariantMap cfg=Json::loadFile("/link/config/trans.json").toMap();
-    static QVariantMap curCfg;
-    if(curCfg==cfg)
-        return;
-
-    curCfg=cfg;
-
-
-    if(procTrans.isOpen())
-    {
-        procTrans.terminate();
-        procTrans.waitForFinished(300);
-    }
-
-    if(!cfg["enable"].toBool())
-        return;
-
-    QVariantMap map;
-    map["DevBind"]=cfg["DevBind"];
-    map["Name"]=cfg["Name"];
-    QString json=Json::encode(map,false);
-    QStringList args;
-    args<<"wx.linkpi.cn:5555"<<json;
-    procTrans.startDetached("/link/bin/trans",args);
 }

@@ -34,6 +34,10 @@ int main(int argc, char *argv[])
                 +"_"+Link::getVersion()["build"].toString();
     Json::saveFile(version,"/link/config/version.json");
 
+
+    GRPC=new RPC();
+    GRPC->startNTP();
+
     Config::loadConfig(CFGPATH);
 
     GRecord=new Record();
@@ -45,7 +49,6 @@ int main(int argc, char *argv[])
     GUart=new UART();
     GUart->init();
 
-    GRPC=new RPC();
     GRPC->init();
 
 

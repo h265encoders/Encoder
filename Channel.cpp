@@ -299,6 +299,8 @@ void Channel::updateConfig(QVariantMap cfg)
 
         if(!cfg["passwd"].toString().isEmpty())
             url+="&passphrase="+cfg["passwd"].toString();
+        if(!cfg["streamid"].toString().isEmpty())
+            url="srt://"+cfg["ip"].toString()+":" + QString::number(cfg["port"].toInt())+"?streamid="+cfg["streamid"].toString();
         data["path"]=url;
         muxMap["srt"]->start(data);
     }
@@ -376,7 +378,13 @@ void Channel::updateConfig(QVariantMap cfg)
             QString mode=cfg["mode"].toString();
             if(mode=="listener")
                 ip="0.0.0.0";
-            data["path"]="srt://"+ip+":" + QString::number(cfg["port"].toInt())+"?mode="+mode+"&latency="+ QString::number(cfg["latency"].toInt());
+            QString url="srt://"+ip+":" + QString::number(cfg["port"].toInt())+"?mode="+mode+"&latency="+ QString::number(cfg["latency"].toInt());
+
+            if(!cfg["passwd"].toString().isEmpty())
+                url+="&passphrase="+cfg["passwd"].toString();
+            if(!cfg["streamid"].toString().isEmpty())
+                url="srt://"+cfg["ip"].toString()+":" + QString::number(cfg["port"].toInt())+"?streamid="+cfg["streamid"].toString();
+            data["path"]=url;
             muxMap_sub["srt"]->start(data);
         }
         else

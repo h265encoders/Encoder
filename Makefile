@@ -2785,7 +2785,8 @@ Temp/HI3521D/RPC.o: RPC.cpp RPC.h \
 		UART.h \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/QSerialPort \
 		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialport.h \
-		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialportglobal.h
+		../../../zc/cross/v500/qt5/include/QtSerialPort/qserialportglobal.h \
+		../../../zc/cross/v500/qt5/include/QtCore/QDate
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o Temp/HI3521D/RPC.o RPC.cpp
 
 Temp/HI3521D/Group.o: Group.cpp Group.h \

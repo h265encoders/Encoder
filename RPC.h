@@ -13,16 +13,14 @@ class RPC : public QObject
     Q_OBJECT
 public:
     explicit RPC(QObject *parent = 0);
+    void startNTP();
     void init();
     QString writeCom(const QString &com);
 private:
     Group *group;
     jcon::JsonRpcTcpServer *rpcServer;
     LinkObject *device;
-    QProcess procTrans;
     QTimer timerSyncRTC;
-
-    void startTrans();
 signals:
 
 public slots:
