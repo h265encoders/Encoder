@@ -893,25 +893,44 @@ if(isset($PortCtrl) && $PortCtrl==true)
 			} );
 		} );
 
+		function isValidIP(ip) {
+		    var reg = /^(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
+		    return reg.test(ip);
+		} 
+
+		function isValidNet(cfg) {
+		    return isValidIP(cfg.ip) && isValidIP(cfg.mask) && isValidIP(cfg.gateway) && isValidIP(cfg.dns);
+		}
+
 		$( "#saveNet" ).click( function ( e ) {
-			func( "setNetwork", netConfig, function ( res ) {
-				if ( res.error != "" ) {
-					htmlAlert( "#alertnet", "danger", "<cn>保存设置失败</cn><en>Save config failed</en>！", "", 2000 );
-				} else {
-					htmlAlert( "#alertnet", "success", "<cn>保存设置成功</cn><en>Save config success</en>！", "", 2000 );
-				}
-			} );
-			setTimeout( 'window.location.href="http://' + netConfig.ip + '/sys.php";', 1000 );
+			if(isValidNet(netConfig))
+			{
+				func( "setNetwork", netConfig, function ( res ) {
+					if ( res.error != "" ) {
+						htmlAlert( "#alertnet", "danger", "<cn>保存设置失败</cn><en>Save config failed</en>！", "", 2000 );
+					} else {
+						htmlAlert( "#alertnet", "success", "<cn>保存设置成功</cn><en>Save config success</en>！", "", 2000 );
+					}
+				} );
+				setTimeout( 'window.location.href="http://' + netConfig.ip + '/sys.php";', 1000 );
+			}
+			else
+				htmlAlert( "#alertnet", "danger", "<cn>不正确的输入格式</cn><en>Invalid ip address</en>！", "", 2000 );
 		} );
 		
 		$( "#saveNet2" ).click( function ( e ) {
-			func( "setNetwork2", netConfig2, function ( res ) {
-				if ( res.error != "" ) {
-					htmlAlert( "#alertnet", "danger", "<cn>保存设置失败</cn><en>Save config failed</en>！", "", 2000 );
-				} else {
-					htmlAlert( "#alertnet", "success", "<cn>保存设置成功</cn><en>Save config success</en>！", "", 2000 );
-				}
-			} );
+			if(isValidNet(netConfig2))
+			{
+				func( "setNetwork2", netConfig2, function ( res ) {
+					if ( res.error != "" ) {
+						htmlAlert( "#alertnet", "danger", "<cn>保存设置失败</cn><en>Save config failed</en>！", "", 2000 );
+					} else {
+						htmlAlert( "#alertnet", "success", "<cn>保存设置成功</cn><en>Save config success</en>！", "", 2000 );
+					}
+				} );
+			}
+			else
+				htmlAlert( "#alertnet", "danger", "<cn>不正确的输入格式</cn><en>Invalid ip address</en>！", "", 2000 );
 		} );
 
 		$( "#saveWifi" ).click( function ( e ) {
