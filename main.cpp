@@ -9,11 +9,13 @@
 #include "Record.h"
 #include "Push.h"
 #include "UART.h"
+#include "Intercom.h"
 
 RPC *GRPC;
 Record *GRecord;
 Push *GPush;
 UART *GUart;
+Intercom *GIntercom;
 
 int main(int argc, char *argv[])
 {
@@ -49,7 +51,12 @@ int main(int argc, char *argv[])
     GUart=new UART();
     GUart->init();
 
+    GIntercom=new Intercom();
+    GIntercom->init();
+
     GRPC->init();
+
+
 
 
     return a.exec();

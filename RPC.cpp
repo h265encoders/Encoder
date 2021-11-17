@@ -8,6 +8,7 @@
 #include "Record.h"
 #include "Push.h"
 #include "UART.h"
+#include "Intercom.h"
 #include <QProcess>
 #include <QDate>
 
@@ -52,6 +53,7 @@ void RPC::init()
     map[GRecord]="rec";
     map[GPush]="push";
     map[GUart]="uart";
+    map[GIntercom]="intercom";
     rpcServer->registerServices(map, ".");
     rpcServer->listen(6001);
 
