@@ -10,9 +10,9 @@ include( "head.php" );
                         <cn>录制参数</cn>
                         <en>Record config</en>
                     </h3>
-<!--                    <div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">-->
-<!--                        <i class="fa fa-cog" aria-hidden="true" onclick="onSetting()"></i>-->
-<!--                    </div>-->
+                   <div style="position: absolute;right: 35px;top: 6px;font-size: 20px;cursor:pointer;">
+                       <i class="fa fa-cog" aria-hidden="true" onclick="onSetting()"></i>
+                   </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2 text-center" style="margin-top: 30px;margin-left: 10px">
@@ -20,7 +20,7 @@ include( "head.php" );
                             <en>Channel select</en></strong>
                     </div>
                     <div class="col-sm-9 " style="margin-top: 20px">
-                        <div class= row" id="channels"></div>
+                        <div class="row" id="channels"></div>
                     </div>
                 </div>
                 <div style="margin-top:5px; margin-bottom: 10px;color: red;width: 100%;height: 1px;background: #cccccc"></div>

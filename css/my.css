@@ -671,6 +671,7 @@ color: #fb0;
 	font-weight: bolder;
 	border: 4px solid #999;
 	border-radius: 8px;
+	background-color: #fff;
 }
 
 .intercomBtn.alive{
@@ -678,4 +679,26 @@ color: #fb0;
 }
 .intercomBtn.talking{
 	border: 4px solid #009900 ;
+}
+
+.intercomBtn.green{
+	background-color: #33cc33;
+}
+
+.intercomBtn.red{
+	background-color: #cc3333;
+}
+
+.intercomBtn.red{
+	background-color: #cc3333;
+}
+
+.intercomBtn i{
+	font-size: 12px;
+	padding-top:4px;
+	margin-bottom: -16px;
+	display: block;
+}
+.intercomBtn i.hide{
+	display: none;
 }

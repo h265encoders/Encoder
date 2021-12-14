@@ -665,6 +665,31 @@ if(isset($help) && $help!="")
 			</div>
 		</div>
 	</div>
+	<div class="col-md-6">
+		<div class="panel panel-default" style="margin-top: 15px;">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					<cn>配置文件</cn>
+					<en>Config file</en>
+				</h3>
+			</div>
+			<div class="panel-body">
+				<div class="text-center">
+					<div id="alertUpcfg"></div>
+					<input type="file" accept=".json" name="cfg_file" id="cfg_file" style="display:none;" />
+					<a href="config/config.json" download="config.json" type="button" class="btn btn-warning ">
+						<cn>导出</cn>
+						<en>Export</en>
+					</a>
+
+					<button id="import_cfg" type="button" class="btn btn-warning ">
+						<cn>导入</cn>
+						<en>Import</en>
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
 <?php
 }
@@ -1150,6 +1175,36 @@ if(isset($PortCtrl) && $PortCtrl==true)
 			} );
 
 		} );
+
+		$( "#import_cfg" ).click( function ( e ) {
+			$("#cfg_file").trigger("click");
+			$("#cfg_file").change(function(){
+				var data = new FormData();
+				var file=$(this)[0].files[0];
+				var name=file.name;
+				data.append("file",file);
+				data.append("name",name);
+				$.ajax({
+				url: 'upcfg.php',
+				type: 'POST',
+				data: data,
+				dataType: 'JSON',
+				cache: false,
+				processData: false, 
+				contentType: false  
+				}).done(function(ret){
+					if(ret['isSuccess']){
+						htmlAlert( "#alertUpcfg", "success", "<cn>导入成功</cn><en>Import success</en>！", "", 2000 );
+					}else{
+						htmlAlert( "#alertUpcfg", "danger", "<cn>导入失败</cn><en>Import faild</en>！", "", 2000 );
+					}
+				});
+
+			});
+			
+		} );
+
+		
 
 		var $list = $( "#thelist" ); //这几个初始化全局的百度文档上没说明，好蛋疼。  
 		var $btn = $( "#ctlBtn" ); //开始上传  
